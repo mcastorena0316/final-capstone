@@ -39,7 +39,7 @@ class Login extends React.Component {
       password,
     };
 
-    axios.post('http://localhost:3001/api/v1/login', { user }, { withCredentials: true })
+    axios.post('https://illnest-api.herokuapp.com/api/v1/login', { user }, { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data);

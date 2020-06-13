@@ -2,10 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
-const Header = ({ loggedInStatus, history, handleLogout}) => {
+const Header = ({ loggedInStatus, history, handleLogout }) => {
   const handleClick = () => {
-    axios.delete('http://localhost:3001/api/v1logout', { withCredentials: true })
+    axios.delete('https://illnest-api.herokuapp.com/api/v1/logout', { withCredentials: true })
       // eslint-disable-next-line no-unused-vars
       .then(response => {
         handleLogout();
@@ -38,4 +39,4 @@ Header.propTypes = {
 Header.defaultProps = {
   history: {},
 };
-export default Header;
+export default withRouter(Header);

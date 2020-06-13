@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   logInStatus() {
-    axios.get('http://localhost:3001/api/v1/logged_in',
+    axios.get('https://illnest-api.herokuapp.com/api/v1/logged_in',
       { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {

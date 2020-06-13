@@ -46,7 +46,7 @@ class Signup extends React.Component {
       password_confirmation,
     };
 
-    axios.post('http://localhost:3001/api/v1/users', { user }, { withCredentials: true })
+    axios.post('https://illnest-api.herokuapp.com/api/v1/users', { user }, { withCredentials: true })
       .then(response => {
         if (response.status === 200) {
           handleLogin(response.data);
