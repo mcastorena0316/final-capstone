@@ -8,6 +8,7 @@ import axios from 'axios';
 import Header from './Header';
 import Login from './Login';
 import Signup from './Signup';
+import Main from './Main';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,25 +17,13 @@ class App extends React.Component {
       isLoggedIn: false,
       user: {},
     };
+    this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   componentDidMount() {
     // eslint-disable-next-line no-unused-expressions
     this.logInStatus;
-  }
-
-  handleLogIn(data) {
-    this.setState({
-      isLoggedIn: true,
-      user: data.user,
-    });
-  }
-
-  handleLogOut() {
-    this.setState({
-      isLoggedIn: false,
-      user: {},
-    });
   }
 
   logInStatus() {
@@ -50,16 +39,57 @@ class App extends React.Component {
       .catch(error => console.log('api errors:', error));
   }
 
+  handleLogIn(data) {
+    console.log(data);
+    this.setState({
+      isLoggedIn: true,
+      user: data.user,
+    });
+  }
+
+  handleLogOut() {
+    this.setState({
+      isLoggedIn: false,
+      user: {},
+    });
+  }
+
   render() {
+    const { isLoggedIn, user } = this.state;
     return (
       <Router>
         <div className="App">
-          <Header />
           <p>Holii</p>
           <Switch>
-            {/* <Route exact path="/" component={Header} /> */}
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Header loggedInStatus={isLoggedIn} />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                <Login handleLogin={this.handleLogIn} loggedInStatus={isLoggedIn} user={user} />
+              )}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={() => (
+                <Signup handleLogin={this.handleLogIn} loggedInStatus={isLoggedIn} />
+              )}
+            />
+            <Route
+              exact
+              path="/main"
+              render={() => (
+                <Main />
+              )}
+            />
+
           </Switch>
         </div>
       </Router>
