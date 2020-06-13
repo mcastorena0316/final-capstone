@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -50,7 +51,9 @@ class Login extends React.Component {
           });
         }
       })
-      .catch(error => console.log('api errors:', error));
+      .catch((error => {
+        throw (error);
+      }));
   }
 
   redirect() {
@@ -72,7 +75,7 @@ class Login extends React.Component {
   render() {
     const { username, password, errors } = this.state;
     return (
-      <div>
+      <div className="login">
         <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
           <input

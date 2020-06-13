@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import './Signup.css';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       password: '',
-      password_confirmation: '',
+      passwordConfirmation: '',
       errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -32,18 +33,18 @@ class Signup extends React.Component {
 
   handleChangePasswordConfirm(e) {
     this.setState({
-      password_confirmation: e.target.value,
+      passwordConfirmation: e.target.value,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { username, password, password_confirmation } = this.state;
+    const { username, password, passwordConfirmation } = this.state;
     const { handleLogin } = this.props;
     const user = {
       username,
       password,
-      password_confirmation,
+      passwordConfirmation,
     };
 
     axios.post('https://illnest-api.herokuapp.com/api/v1/users', { user }, { withCredentials: true })
@@ -57,7 +58,9 @@ class Signup extends React.Component {
           });
         }
       })
-      .catch(error => console.log('api errors:', error));
+      .catch((error => {
+        throw (error);
+      }));
   }
 
   redirect() {
@@ -78,10 +81,10 @@ class Signup extends React.Component {
 
   render() {
     const {
-      username, password, password_confirmation, errors,
+      username, password, passwordConfirmation, errors,
     } = this.state;
     return (
-      <div>
+      <div className="signup">
         <h1>Signup</h1>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -101,9 +104,9 @@ class Signup extends React.Component {
           <input
             placeholder="password confirmation"
             type="password"
-            name="password_confirmation"
+            name="passwordConfirmation"
             // eslint-disable-next-line camelcase
-            value={password_confirmation}
+            value={passwordConfirmation}
             onChange={this.handleChangePasswordConfirm}
           />
           <button placeholder="submit" type="submit">

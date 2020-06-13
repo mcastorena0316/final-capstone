@@ -37,11 +37,12 @@ class App extends React.Component {
           this.handleLogOut();
         }
       })
-      .catch(error => console.log('api errors:', error));
+      .catch((error => {
+        throw (error);
+      }));
   }
 
   handleLogIn(data) {
-    console.log(data);
     this.setState({
       isLoggedIn: true,
       user: data.user,

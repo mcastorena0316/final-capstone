@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import './Header.css';
 
 const Header = ({ loggedInStatus, history, handleLogout }) => {
   const handleClick = () => {
@@ -12,16 +13,20 @@ const Header = ({ loggedInStatus, history, handleLogout }) => {
         handleLogout();
         history.push('/');
       })
-      .catch(error => console.log(error));
+      .catch((error => {
+        throw (error);
+      }));
   };
 
   return (
     <header>
+      <Link to="/"><p>Home</p></Link>
+      <Link to="/main"><p>Private Pate</p></Link>
       <Link to="/login"><p>Log In</p></Link>
       <Link to="/signup"><p>Sign Up</p></Link>
       {
         loggedInStatus
-          ? <Link to="/logout" onClick={handleClick}>Log Out</Link>
+          ? <Link to="/logout" onClick={handleClick}><p>Log Out</p></Link>
           : null
       }
     </header>
