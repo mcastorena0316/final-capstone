@@ -1,17 +1,17 @@
-import React from 'react';
-import axios from 'axios';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import './Signup.css';
+import createUser from '../actions/index';
 
-class Signup extends React.Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
       passwordConfirmation: '',
-      errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -19,116 +19,96 @@ class Signup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeName(e) {
+  handleChangeName = e => {
     this.setState({
       username: e.target.value,
     });
   }
 
-  handleChangePassword(e) {
+  handleChangePassword = e => {
     this.setState({
       password: e.target.value,
     });
   }
 
-  handleChangePasswordConfirm(e) {
+  handleChangePasswordConfirm = e => {
     this.setState({
       passwordConfirmation: e.target.value,
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { username, password, passwordConfirmation } = this.state;
-    const { handleLogin } = this.props;
-    const user = {
-      username,
-      password,
-      passwordConfirmation,
-    };
+   handleSubmit= async e => {
+     e.preventDefault();
+     const {
+       username, password, passwordConfirmation,
+     } = this.state;
+     const { createUser } = this.props;
 
-    axios.post('https://illnest-api.herokuapp.com/api/v1/users', { user }, { withCredentials: true })
-      .then(response => {
-        if (response.status === 200) {
-          handleLogin(response.data);
-          this.redirect();
-        } else {
-          this.setState({
-            errors: response.data.errors,
-          });
-        }
-      })
-      .catch((error => {
-        throw (error);
-      }));
-  }
+     const response = await createUser({ username, password, passwordConfirmation });
+     if (response.status === 200) {
+       const { history } = this.props;
+       history.push('/');
+     }
+   }
 
-  redirect() {
-    const { history } = this.props;
-    if (history) history.push('/main');
-  }
-
-  handleErrors() {
-    const { errors } = this.state;
-    return (
-      <div>
-        <ul>
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
-      </div>
-    );
-  }
-
-  render() {
-    const {
-      username, password, passwordConfirmation, errors,
-    } = this.state;
-    return (
-      <div className="signup">
-        <h1>Signup</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChangeName}
-          />
-          <input
-            placeholder="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChangePassword}
-          />
-          <input
-            placeholder="password confirmation"
-            type="password"
-            name="passwordConfirmation"
-            // eslint-disable-next-line camelcase
-            value={passwordConfirmation}
-            onChange={this.handleChangePasswordConfirm}
-          />
-          <button placeholder="submit" type="submit">
-            Sign In
-          </button>
-        </form>
-        <div>
+   render() {
+     const {
+       username, password, passwordConfirmation,
+     } = this.state;
+     return (
+       <div className="signup">
+         <h1>Signup</h1>
+         <form onSubmit={this.handleSubmit}>
+           <input
+             placeholder="username"
+             type="text"
+             name="username"
+             value={username}
+             onChange={this.handleChangeName}
+           />
+           <input
+             placeholder="password"
+             type="password"
+             name="password"
+             value={password}
+             onChange={this.handleChangePassword}
+           />
+           <input
+             placeholder="password confirmation"
+             type="password"
+             name="passwordConfirmation"
+             value={passwordConfirmation}
+             onChange={this.handleChangePasswordConfirm}
+           />
+           <button placeholder="submit" type="submit">
+             Sign In
+           </button>
+         </form>
+         {/* <div>
           { errors ? this.handleErrors() : null }
-        </div>
-      </div>
-    );
-  }
+        </div> */}
+       </div>
+     );
+   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user,
+  isLogin: state.user.isLogin,
+});
+
+const mapDispatchToProps = dispatch => ({
+  createUser: data => dispatch(createUser(data)),
+});
 
 Signup.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
-  handleLogin: PropTypes.func.isRequired,
+  createUser: PropTypes.func.isRequired,
 };
 
 Signup.defaultProps = {
   history: {},
 };
-export default withRouter(Signup);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signup));
