@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Signup extends React.Component {
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeName(e) {
@@ -46,7 +48,7 @@ class Signup extends React.Component {
 
     axios.post('http://localhost:3001/api/v1/users', { user }, { withCredentials: true })
       .then(response => {
-        if (response.data.status === 'created') {
+        if (response.status === 200) {
           handleLogin(response.data);
           this.redirect();
         } else {
@@ -60,7 +62,7 @@ class Signup extends React.Component {
 
   redirect() {
     const { history } = this.props;
-    if (history) history.push('/');
+    if (history) history.push('/main');
   }
 
   handleErrors() {
@@ -126,4 +128,4 @@ Signup.propTypes = {
 Signup.defaultProps = {
   history: {},
 };
-export default Signup;
+export default withRouter(Signup);

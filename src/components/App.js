@@ -9,6 +9,7 @@ import Header from './Header';
 import Login from './Login';
 import Signup from './Signup';
 import Main from './Main';
+import Welcome from './Welcome';
 
 class App extends React.Component {
   constructor(props) {
@@ -59,13 +60,13 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <p>Holii</p>
+          <Header loggedInStatus={isLoggedIn} handleLogout={this.handleLogOut} />
           <Switch>
             <Route
               exact
               path="/"
               render={() => (
-                <Header loggedInStatus={isLoggedIn} />
+                <Welcome />
               )}
             />
             <Route
@@ -86,8 +87,7 @@ class App extends React.Component {
               exact
               path="/main"
               render={() => (
-                <Main />
-              )}
+                isLoggedIn ? <Main /> : <p>You need to login</p>)}
             />
 
           </Switch>

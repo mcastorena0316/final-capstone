@@ -55,7 +55,7 @@ class Login extends React.Component {
 
   redirect() {
     const { history } = this.props;
-    if (history) history.push('/');
+    if (history) history.push('/main');
   }
 
   handleErrors() {
