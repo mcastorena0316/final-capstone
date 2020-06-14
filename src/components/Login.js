@@ -1,9 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './Login.css';
+import { loginUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,69 +13,50 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeName(e) {
+  componentDidMount() {
+    this.loginStatus();
+  }
+
+  loginStatus = () => {
+    axios.get('https://illnest-api.herokuapp.com/api/v1/logged_in', { withCredentials: true })
+      .then(response => response)
+      .catch(error => error);
+  }
+
+  handleChangeName = e => {
     this.setState({
       username: e.target.value,
     });
   }
 
-  handleChangePassword(e) {
+  handleChangePassword = e => {
     this.setState({
       password: e.target.value,
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit= async e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { handleLogin } = this.props;
+    const { loginUser } = this.props;
 
-    const user = {
-      username,
-      password,
-    };
-
-    axios.post('https://illnest-api.herokuapp.com/api/v1/login', { user }, { withCredentials: true })
-      .then(response => {
-        if (response.data.logged_in) {
-          handleLogin(response.data);
-          this.redirect();
-        } else {
-          this.setState({
-            errors: response.data.errors,
-          });
-        }
-      })
-      .catch((error => {
-        throw (error);
-      }));
-  }
-
-  redirect() {
-    const { history } = this.props;
-    if (history) history.push('/main');
-  }
-
-  handleErrors() {
-    const { errors } = this.state;
-    return (
-      <div>
-        <ul>
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
-      </div>
-    );
+    const response = await loginUser({ username, password });
+    if (response.data.logged_in) {
+      const { history } = this.props;
+      history.push('/');
+    } else {
+      alert('Wrong password or username');
+    }
   }
 
   render() {
-    const { username, password, errors } = this.state;
+    const { username, password } = this.state;
     return (
       <div className="login">
         <h1>Log In</h1>
@@ -102,23 +85,33 @@ class Login extends React.Component {
           </div>
 
         </form>
-        <div>
+        {/* <div>
           { errors ? this.handleErrors() : null }
-        </div>
+        </div> */}
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user,
+  isLogin: state.user.isLogin,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: data => dispatch(loginUser(data)),
+});
+
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
-  handleLogin: PropTypes.func.isRequired,
+  loginUser: PropTypes.func,
 };
 
 Login.defaultProps = {
   history: {},
+  loginUser: () => {},
 };
 
-export default withRouter(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

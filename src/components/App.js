@@ -23,26 +23,6 @@ import Welcome from './Welcome';
 //     this.handleLogOut = this.handleLogOut.bind(this);
 //   }
 
-//   componentDidMount() {
-//     // eslint-disable-next-line no-unused-expressions
-//     this.logInStatus;
-//   }
-
-//   logInStatus() {
-//     axios.get('https://illnest-api.herokuapp.com/api/v1/logged_in',
-//       { withCredentials: true })
-//       .then(response => {
-//         if (response.data.logged_in) {
-//           this.handleLogIn(response);
-//         } else {
-//           this.handleLogOut();
-//         }
-//       })
-//       .catch((error => {
-//         throw (error);
-//       }));
-//   }
-
 //   handleLogIn(data) {
 //     this.setState({
 //       isLoggedIn: true,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import './Signup.css';
-import createUser from '../actions/index';
+import { createUser } from '../actions/index';
 
 class Signup extends Component {
   constructor(props) {
@@ -45,9 +45,11 @@ class Signup extends Component {
      const { createUser } = this.props;
 
      const response = await createUser({ username, password, passwordConfirmation });
-     if (response.status === 200) {
+     if (response && response.status === 200) {
        const { history } = this.props;
        history.push('/');
+     } else {
+       alert('Something is wrong')
      }
    }
 
