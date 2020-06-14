@@ -11,6 +11,7 @@ import Login from './Login';
 import Signup from './Signup';
 import Main from './Main';
 import Welcome from './Welcome';
+import Illness from './Illness';
 
 const App = props => {
   const { isLogin } = props;
@@ -45,6 +46,13 @@ const App = props => {
             path="/main"
             render={() => (
               isLogin ? <Main /> : <p>You need to login</p>)}
+          />
+          <Route
+            path="/illness/:id"
+            render={props => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <Illness {...props} />
+            )}
           />
 
         </Switch>

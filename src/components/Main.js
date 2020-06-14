@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchUserIllness } from '../actions/illness';
+import './Main.css';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -14,15 +17,25 @@ class Main extends React.Component {
     const { illness } = this.props;
 
     return (
-      <div>
+      <div className="main">
         <p>Hi, here is a list of your latest sicknes</p>
 
         <ul>
           {illness.map(ill => (
             <li key={ill.id}>
-              <p>{ill.name}</p>
-              <p>{ill.description}</p>
+              <Link to={`illness/${ill.id}`}>
+                <button key={ill.id} id={ill.id} type="button">
+                  <p>
+                    {ill.name}
+                  </p>
+                  <p>
+                    Description:
+                    {ill.description}
+                  </p>
+                </button>
+              </Link>
             </li>
+
           ))}
 
         </ul>

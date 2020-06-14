@@ -1,0 +1,8 @@
+.main ul {
+    list-style: none
+}
+
+.main ul li {
+    border: 1px solid black;
+    margin:5px;
+}
