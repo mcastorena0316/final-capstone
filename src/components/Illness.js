@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchIllnessDays } from '../actions/illness';
+import './Illness.css';
 
 class Illness extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Illness extends React.Component {
     this.state = {
       ID: props.match.params.id,
     };
+    this.createDate = this.createDate.bind(this);
   }
 
   componentDidMount() {
@@ -21,15 +23,21 @@ class Illness extends React.Component {
     fetchIllnessDays(userID, ID);
   }
 
+  createDate = date => {
+    const dateFormat = new Date(date);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return dateFormat.toLocaleDateString(undefined, options);
+  }
+
   render() {
     const { trackings } = this.props;
-    console.log(trackings);
     return (
-      <div>
+      <div className="trackings">
+        <h1>Information Illness</h1>
         <ul>
           {trackings.map(day => (
             <li key={day.id}>
-
+              <p>{this.createDate(day.date)}</p>
               <p>
                 Mood:
                 {' '}

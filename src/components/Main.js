@@ -15,7 +15,6 @@ class Main extends React.Component {
 
   render() {
     const { illness } = this.props;
-
     return (
       <div className="main">
         <p>Hi, here is a list of your latest sicknes</p>
