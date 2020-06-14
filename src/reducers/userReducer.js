@@ -8,6 +8,7 @@ const initialState = {
     username: '',
     password: '',
     passwordConfirmation: '',
+    id: 0,
   },
 };
 
@@ -18,6 +19,7 @@ const userReducer = (state = initialState, action) => {
         ...state.user,
         isLogin: true,
         user: {
+          id: action.id,
           username: action.username,
           password: action.password,
           passwordConfirmation: action.passwordConfirmation,
@@ -28,12 +30,13 @@ const userReducer = (state = initialState, action) => {
         isLogin: false,
       };
     case LOGIN_USER:
+
       return {
-        ...state.user,
         isLogin: true,
         user: {
-          username: action.username,
-          password: action.password,
+          username: action.payload.username,
+          password: action.payload.password,
+          id: action.payload.id,
         },
       };
     case LOGIN_USER_ERROR:

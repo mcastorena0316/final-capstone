@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import axios from 'axios';
 
 export const CREATE_USER = 'CREATE_USER';
@@ -24,13 +25,20 @@ export const createUser = newUser => async dispatch => {
 
 export const loginUser = newUser => async dispatch => {
   try {
-    dispatch({ type: LOGIN_USER, ...newUser });
     const response = await axios({
       method: 'POST',
       url: 'https://illnest-api.herokuapp.com/api/v1/login',
       data: { user: newUser },
       crossdomain: true,
     });
+    dispatch({
+      type: LOGIN_USER,
+      payload: {
+        ...newUser,
+        id: response.data.user.id,
+      },
+    });
+    console.log(response);
     return response;
   } catch (error) {
     dispatch({ type: CREATE_USER_ERROR });

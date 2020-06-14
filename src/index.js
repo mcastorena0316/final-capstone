@@ -7,17 +7,7 @@ import rootReducer from './reducers';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-const initialState = {
-  user: {
-    isLogin: false,
-    newuser: {
-      username: '',
-      password: '',
-      passwordConfirmation: '',
-    },
-  },
-};
-const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
