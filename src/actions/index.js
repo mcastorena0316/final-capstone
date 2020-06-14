@@ -10,16 +10,22 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 // eslint-disable-next-line consistent-return
 export const createUser = newUser => async dispatch => {
   try {
-    dispatch({ type: CREATE_USER, ...newUser });
     const response = await axios({
       method: 'POST',
       url: 'https://illnest-api.herokuapp.com/api/v1/users',
       data: { user: newUser },
       crossdomain: true,
     });
+    dispatch({
+      type: CREATE_USER,
+      payload: {
+        ...newUser,
+        id: response.data.id ? response.data.id : null,
+      },
+    });
     return response;
   } catch (error) {
-    dispatch({ type: CREATE_USER_ERROR });
+    dispatch({ type: CREATE_USER_ERROR, payload: error });
   }
 };
 
@@ -35,13 +41,12 @@ export const loginUser = newUser => async dispatch => {
       type: LOGIN_USER,
       payload: {
         ...newUser,
-        id: response.data.user.id,
+        id: response.data.user ? response.data.user.id : null,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
-    dispatch({ type: CREATE_USER_ERROR });
+    dispatch({ type: CREATE_USER_ERROR, payload: error });
   }
 };
 
@@ -55,5 +60,5 @@ export const logOutUser = () => async dispatch => {
       crossdomain: true,
     });
     return response;
-  } catch (error) { console.log(error); }
+  } catch (error) { return (error); }
 };

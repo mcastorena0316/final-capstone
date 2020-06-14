@@ -16,13 +16,13 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER:
       return {
-        ...state.user,
+        // ...state.user,
         isLogin: true,
         user: {
-          id: action.id,
-          username: action.username,
-          password: action.password,
-          passwordConfirmation: action.passwordConfirmation,
+          id: action.payload.id,
+          username: action.payload.username,
+          password: action.payload.password,
+          passwordConfirmation: action.payload.passwordConfirmation,
         },
       };
     case CREATE_USER_ERROR:

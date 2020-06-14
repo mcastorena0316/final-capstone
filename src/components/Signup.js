@@ -12,6 +12,7 @@ class Signup extends Component {
       username: '',
       password: '',
       passwordConfirmation: '',
+      errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -49,13 +50,25 @@ class Signup extends Component {
        const { history } = this.props;
        history.push('/');
      } else {
-       alert('Something is wrong')
+       this.setState({
+         errors: 'Information is wrong, please try again',
+       });
      }
+   }
+
+   handleErrors = () => {
+     const { errors } = this.state;
+     setTimeout(() => this.setState({ errors: '' }), 3000);
+     return (
+       <div>
+         <p>{errors}</p>
+       </div>
+     );
    }
 
    render() {
      const {
-       username, password, passwordConfirmation,
+       username, errors, password, passwordConfirmation,
      } = this.state;
      return (
        <div className="signup">
@@ -86,9 +99,11 @@ class Signup extends Component {
              Sign In
            </button>
          </form>
-         {/* <div>
-          { errors ? this.handleErrors() : null }
-        </div> */}
+         <div>
+           <ul>
+             {errors ? this.handleErrors() : null}
+           </ul>
+         </div>
        </div>
      );
    }

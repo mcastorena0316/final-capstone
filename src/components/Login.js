@@ -13,6 +13,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -45,18 +46,32 @@ class Login extends React.Component {
     e.preventDefault();
     const { username, password } = this.state;
     const { loginUser } = this.props;
-
     const response = await loginUser({ username, password });
-    if (response && response.data.logged_in) {
+
+    if (response.data.logged_in) {
       const { history } = this.props;
       history.push('/');
     } else {
-      alert('Wrong password or username');
+      this.setState({
+        errors: response.data.errors,
+      });
     }
   }
 
+  handleErrors = () => {
+    const { errors } = this.state;
+    setTimeout(() => this.setState({ errors: '' }), 3000);
+    return (
+      <div>
+        <ul>
+          {errors.map(error => <li key={error}>{error}</li>)}
+        </ul>
+      </div>
+    );
+  }
+
   render() {
-    const { username, password } = this.state;
+    const { username, errors, password } = this.state;
     return (
       <div className="login">
         <h1>Log In</h1>
@@ -85,9 +100,11 @@ class Login extends React.Component {
           </div>
 
         </form>
-        {/* <div>
-          { errors ? this.handleErrors() : null }
-        </div> */}
+        <div>
+          <ul>
+            {errors ? this.handleErrors() : null}
+          </ul>
+        </div>
       </div>
     );
   }
