@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchIllnessDays } from '../actions/illness';
+import {loginStatus} from '../actions/index';
 import './Trackings.css';
 
 class Trackings extends React.Component {
@@ -15,6 +16,7 @@ class Trackings extends React.Component {
   }
 
   componentDidMount() {
+  
     console.log('Estoy en Trackings')
     const {
       user, fetchIllnessDays,
@@ -49,10 +51,10 @@ class Trackings extends React.Component {
                 Temperature:
                 {day.temperature}
               </p>
-              {day.medicines.length > 0 && <h4>Medicines:</h4>}
+              {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
               {day.medicines && day.medicines.map((x, i) => (
                 <p key={i}>{x}</p>))}
-              {day.symptons.length > 0 && <h4>Symptons:</h4>}
+              {day.sypmtons && day.symptons.length > 0 && <h4>Symptons:</h4>}
               {day.symptons && day.symptons.map((x, i) => (
                 <p key={i}>{x}</p>))}
 
@@ -73,6 +75,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
+  loginStatus: () => dispatch(loginStatus()),
 });
 
 Trackings.propTypes = {

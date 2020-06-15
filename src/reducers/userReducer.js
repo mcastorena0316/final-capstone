@@ -18,9 +18,9 @@ const userReducer = (state = initialState, action) => {
       return {
         isLogin: true,
         user: {
-          username: action.payload.username,
-          password: action.payload.password,
-          id: action.payload.id,
+          username: action.payload.user.username,
+          password: action.payload.user.password,
+          id: action.payload.user.id,
         },
       };
     case LOGGED_IN_ERROR:

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
@@ -11,7 +12,7 @@ class Signup extends Component {
     this.state = {
       username: '',
       password: '',
-      passwordConfirmation: '',
+      password_confirmation: '',
       errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -34,21 +35,23 @@ class Signup extends Component {
 
   handleChangePasswordConfirm = e => {
     this.setState({
-      passwordConfirmation: e.target.value,
+      password_confirmation: e.target.value,
     });
   }
 
    handleSubmit= async e => {
      e.preventDefault();
      const {
-       username, password, passwordConfirmation,
+       username, password, password_confirmation,
      } = this.state;
      const { createUser } = this.props;
 
-     const response = await createUser({ username, password, passwordConfirmation });
+     const response = await createUser({ username, password, password_confirmation });
+
+     console.log('Response de Signup:', response);
      if (response && response.status === 200) {
        const { history } = this.props;
-       history.push('/');
+       history.push('/main');
      } else {
        this.setState({
          errors: 'Information is wrong, please try again',
@@ -68,7 +71,7 @@ class Signup extends Component {
 
    render() {
      const {
-       username, errors, password, passwordConfirmation,
+       username, errors, password, password_confirmation,
      } = this.state;
      return (
        <div className="signup">
@@ -91,8 +94,8 @@ class Signup extends Component {
            <input
              placeholder="password confirmation"
              type="password"
-             name="passwordConfirmation"
-             value={passwordConfirmation}
+             name="password_confirmation"
+             value={password_confirmation}
              onChange={this.handleChangePasswordConfirm}
            />
            <button placeholder="submit" type="submit">

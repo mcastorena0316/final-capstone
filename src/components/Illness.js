@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchUserIllness } from '../actions/illness';
+import { loginStatus } from '../actions/index';
 import './Illness.css';
 
 class Illness extends React.Component {
   componentDidMount() {
-    const { user, fetchUserIllness } = this.props;
+    // eslint-disable-next-line react/prop-types
+    const { user, fetchUserIllness, loginStatus } = this.props;
+    loginStatus();
+    console.log(loginStatus());
     const ID = user.user.id;
     fetchUserIllness(ID);
   }
@@ -45,7 +49,7 @@ class Illness extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  console.log("state de illness",state);
   return ({
     user: state.user,
     isLogin: state.user.isLogin,
@@ -55,6 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchUserIllness: data => dispatch(fetchUserIllness(data)),
+  loginStatus: () => dispatch(loginStatus()),
 });
 
 Illness.propTypes = {

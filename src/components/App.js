@@ -17,9 +17,9 @@ import { loginStatus } from '../actions/index';
 class App extends React.Component {
   componentDidMount() {
     // eslint-disable-next-line react/prop-types
-    const { loginStatus, user } = this.props;
-    console.log(user);
-    loginStatus(user);
+    const { loginStatus } = this.props;
+    // console.log(user);
+    loginStatus();
   }
 
   render() {
@@ -96,6 +96,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  loginStatus: data => dispatch(loginStatus(data)),
+  loginStatus: () => dispatch(loginStatus()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

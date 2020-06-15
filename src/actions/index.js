@@ -98,6 +98,8 @@ export const loginUser = user => dispatch => {
     });
 };
 
+
+
 export const logOutUser = () => async dispatch => {
   try {
     dispatch({ type: LOGOUT_USER, payload: {} });
