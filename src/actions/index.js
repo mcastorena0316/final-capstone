@@ -8,6 +8,7 @@ export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 // eslint-disable-next-line consistent-return
+
 export const createUser = newUser => async dispatch => {
   try {
     const response = await axios({

@@ -72,7 +72,7 @@ class Signup extends Component {
      } = this.state;
      return (
        <div className="signup">
-         <h1>Signup</h1>
+         <h3>CREATE AN ACCOUNT</h3>
          <form onSubmit={this.handleSubmit}>
            <input
              placeholder="username"

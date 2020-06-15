@@ -16,7 +16,6 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER:
       return {
-        // ...state.user,
         isLogin: true,
         user: {
           id: action.payload.id,

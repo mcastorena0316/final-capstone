@@ -74,7 +74,7 @@ class Login extends React.Component {
     const { username, errors, password } = this.state;
     return (
       <div className="login">
-        <h1>Log In</h1>
+        <h3>Log In</h3>
         <form onSubmit={this.handleSubmit}>
           <input
             placeholder="username"
@@ -91,13 +91,12 @@ class Login extends React.Component {
             onChange={this.handleChangePassword}
           />
           <button placeholder="submit" type="submit">
-            Log In
+            LOG IN 
           </button>
-          <div>
-            or
-            {' '}
-            <Link to="/signup">sign up</Link>
-          </div>
+          <p>OR</p>
+          <button type="button">
+            <Link to="/signup">CREATE AN ACCOUNT</Link>
+          </button>
 
         </form>
         <div>

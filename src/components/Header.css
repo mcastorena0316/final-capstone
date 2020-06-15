@@ -1,8 +1,21 @@
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap";
+
 header {
     display:flex;
     justify-content: center;
+    flex-direction: column;
+    background:#62B5E5;
+    font-family: 'Poppins', sans-serif;
+    color:white;
 }
 
-header a {
-    margin: 0 10px;
+.title {
+    text-align: center;
+    letter-spacing: 0.6px;
+    font-size: 25px
+}
+
+
+.title h4 {
+    margin: 10px
 }

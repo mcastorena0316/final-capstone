@@ -1,7 +1,6 @@
 import { DISPLAY_FETCHED_ILLNESS, DISPLAY_FETCHED_DAYS } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {
-  console.log(action)
   switch (action.type) {
     case DISPLAY_FETCHED_ILLNESS:
       return action.payload;

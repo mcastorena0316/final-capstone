@@ -12,6 +12,7 @@ import Signup from './Signup';
 import Main from './Main';
 import Welcome from './Welcome';
 import Illness from './Illness';
+import Footer from './Footer';
 
 const App = props => {
   const { isLogin } = props;
@@ -19,6 +20,7 @@ const App = props => {
     <Router>
       <div className="App">
         <Header />
+        <Footer />
         <Switch>
           <Route
             exact

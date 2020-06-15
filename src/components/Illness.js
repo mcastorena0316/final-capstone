@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -47,9 +48,14 @@ class Illness extends React.Component {
                 Temperature:
                 {day.temperature}
               </p>
+              {day.medicines.length > 0 && <h4>Medicines:</h4>}
+              {day.medicines && day.medicines.map((x, i) => (
+                <p key={i}>{x}</p>))}
+              {day.symptons.length > 0 && <h4>Symptons:</h4>}
+              {day.symptons && day.symptons.map((x, i) => (
+                <p key={i}>{x}</p>))}
 
             </li>
-
           ))}
 
         </ul>
