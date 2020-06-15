@@ -1,19 +1,70 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
 
-export const CREATE_USER = 'CREATE_USER';
-export const CREATE_USER_ERROR = 'CREATE_USER_ERROR';
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const CREATE_USER = 'CREATE USER';
+export const CREATE_USER_ERROR = 'CREATE USER ERROR';
+export const LOGIN_USER = 'LOGIN USER';
+export const LOGIN_USER_ERROR = 'LOGIN USER ERROR';
+export const LOGOUT_USER = 'LOGOUT USER';
+export const LOGGED_IN = 'LOGGED IN';
+export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
 
-// eslint-disable-next-line consistent-return
+// export const loginStatus = user => async dispatch => {
+//   try {
+//     const response = await axios('https://illnest-api.herokuapp.com/api/v1/logged_in', { withCredentials: true });
+//     console.log(response)
+//     dispatch({
+//       type: LOGGED_IN,
+//       payload: {
+//         ...user,
+//         id: response.data.id ? response.data.id : null,
+//       },
+//     });
+//   } catch (error) {
+//     dispatch({ type: LOGGED_IN_ERROR, payload: error });
+//   }
+// };
+
+// export const fetchData = () => dispatch => axios.get(apiUrl)
+//   .then(response => response.data)
+//   .then(data => {
+//     dispatch({
+//       type: ADD_FETCHED_DATA,
+//       payload: data,
+//     });
+//   })
+//   .catch(error => {
+//     throw (error);
+//   });
+
+export const loginStatus = () => dispatch => {
+  axios.get('http://localhost:3001/logged_in',
+    { withCredentials: true })
+    .then(response => {
+      console.log(response);
+      return (
+        response.data);
+    })
+    .then(data => {
+      dispatch({
+        type: LOGGED_IN,
+        payload: data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: LOGGED_IN_ERROR,
+        payload: error,
+
+      });
+    });
+};
 
 export const createUser = newUser => async dispatch => {
   try {
     const response = await axios({
       method: 'POST',
-      url: 'https://illnest-api.herokuapp.com/api/v1/users',
+      url: 'http://localhost:3001/users',
       data: { user: newUser },
       crossdomain: true,
     });
@@ -30,25 +81,21 @@ export const createUser = newUser => async dispatch => {
   }
 };
 
-export const loginUser = newUser => async dispatch => {
-  try {
-    const response = await axios({
-      method: 'POST',
-      url: 'https://illnest-api.herokuapp.com/api/v1/login',
-      data: { user: newUser },
-      crossdomain: true,
+export const loginUser = user => dispatch => {
+  axios.post('http://localhost:3001/login', { user }, { withCredentials: true })
+    .then(response => response.data)
+    .then(data => {
+      dispatch({
+        type: LOGIN_USER,
+        payload: data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: CREATE_USER_ERROR,
+        payload: error,
+      });
     });
-    dispatch({
-      type: LOGIN_USER,
-      payload: {
-        ...newUser,
-        id: response.data.user ? response.data.user.id : null,
-      },
-    });
-    return response;
-  } catch (error) {
-    dispatch({ type: CREATE_USER_ERROR, payload: error });
-  }
 };
 
 export const logOutUser = () => async dispatch => {
@@ -56,7 +103,7 @@ export const logOutUser = () => async dispatch => {
     dispatch({ type: LOGOUT_USER, payload: {} });
     const response = await axios({
       method: 'DELETE',
-      url: 'https://illnest-api.herokuapp.com/api/v1/logout',
+      url: 'http://localhost:3001/logout',
       data: { user: {} },
       crossdomain: true,
     });

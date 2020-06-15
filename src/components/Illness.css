@@ -1,0 +1,20 @@
+@import "https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap";
+
+.main h3 {
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+}
+
+.main ul {
+    list-style: none;
+    padding:0;
+}
+
+.main ul li {
+    margin:5px;
+}
+
+.main ul li a button {
+    width: 100%;
+    background-color: white;
+}

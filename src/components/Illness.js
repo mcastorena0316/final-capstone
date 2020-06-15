@@ -1,100 +1,79 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchIllnessDays } from '../actions/illness';
+import { Link } from 'react-router-dom';
+import { fetchUserIllness } from '../actions/illness';
 import './Illness.css';
 
 class Illness extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ID: props.match.params.id,
-    };
-    this.createDate = this.createDate.bind(this);
-  }
-
   componentDidMount() {
-    const {
-      user, fetchIllnessDays,
-    } = this.props;
-    const { ID } = this.state;
-    const userID = user.user.id;
-
-    fetchIllnessDays(userID, ID);
-  }
-
-  createDate = date => {
-    const dateFormat = new Date(date);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return dateFormat.toLocaleDateString(undefined, options);
+    const { user, fetchUserIllness } = this.props;
+    const ID = user.user.id;
+    fetchUserIllness(ID);
   }
 
   render() {
-    const { trackings } = this.props;
-    return (
-      <div className="trackings">
-        <h1>Information Illness</h1>
-        <ul>
-          {trackings.map(day => (
-            <li key={day.id}>
-              <p>{this.createDate(day.date)}</p>
-              <p>
-                Mood:
-                {' '}
-                {day.mood}
-              </p>
-              <p>
-                Temperature:
-                {day.temperature}
-              </p>
-              {day.medicines.length > 0 && <h4>Medicines:</h4>}
-              {day.medicines && day.medicines.map((x, i) => (
-                <p key={i}>{x}</p>))}
-              {day.symptons.length > 0 && <h4>Symptons:</h4>}
-              {day.symptons && day.symptons.map((x, i) => (
-                <p key={i}>{x}</p>))}
+    const { illness } = this.props;
 
+    return (
+      <div className="main">
+        <h3>Your Illnesses</h3>
+
+        <ul>
+          {illness.map(ill => (
+            <li key={ill.id}>
+              <Link to={`illness/${ill.id}`}>
+                <button key={ill.id} id={ill.id} type="button">
+                  <p>
+                    {ill.name}
+                  </p>
+                  <p>
+                    Description:
+                    {ill.description}
+                  </p>
+                </button>
+              </Link>
             </li>
+
           ))}
 
         </ul>
       </div>
-
     );
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  trackings: state.illness,
-});
+const mapStateToProps = state => {
+  console.log(state);
+  return ({
+    user: state.user,
+    isLogin: state.user.isLogin,
+    illness: state.illness,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
-  fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
+  fetchUserIllness: data => dispatch(fetchUserIllness(data)),
 });
 
 Illness.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.node,
-    }).isRequired,
-  }).isRequired,
-  fetchIllnessDays: PropTypes.func,
+  fetchUserIllness: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
       id: PropTypes.number,
     }),
   }),
-  trackings: PropTypes.arrayOf(PropTypes.shape({
+  illness: PropTypes.arrayOf(PropTypes.shape({
     description: PropTypes.string,
     name: PropTypes.string,
   })),
 };
 
 Illness.defaultProps = {
-  fetchIllnessDays: () => {},
+  fetchUserIllness: () => {},
+  illness: {},
   user: {},
-  trackings: [],
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Illness);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,14 +20,13 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.loginStatus();
-  }
-
-  loginStatus = () => {
-    axios.get('https://illnest-api.herokuapp.com/api/v1/logged_in', { withCredentials: true })
-      .then(response => response)
-      .catch(error => error);
+  componentDidUpdate(prevProps) {
+    // eslint-disable-next-line react/prop-types
+    const { user , isLogin} = this.props;
+    if (user !== prevProps.user && isLogin) {
+      const { history } = this.props;
+      history.push('/main');
+    }
   }
 
   handleChangeName = e => {
@@ -42,20 +41,19 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit= async e => {
+  handleSubmit= e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginUser } = this.props;
-    const response = await loginUser({ username, password });
+    const { loginUser, user } = this.props;
+    loginUser({ username, password });
+    console.log(user);
+    //  console.log(loginUser({username,password}))
 
-    if (response.data.logged_in) {
-      const { history } = this.props;
-      history.push('/');
-    } else {
-      this.setState({
-        errors: response.data.errors,
-      });
-    }
+    // } else {
+    //   this.setState({
+    //     errors: response.data.errors,
+    //   });
+    // }
   }
 
   handleErrors = () => {
@@ -91,7 +89,7 @@ class Login extends React.Component {
             onChange={this.handleChangePassword}
           />
           <button placeholder="submit" type="submit">
-            LOG IN 
+            LOG IN
           </button>
           <p>OR</p>
           <button type="button">
@@ -109,10 +107,13 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  isLogin: state.user.isLogin,
-});
+const mapStateToProps = state => {
+  console.log('State de Login:', state);
+  return ({
+    user: state.user,
+    isLogin: state.user.isLogin,
+  });
+};
 
 const mapDispatchToProps = dispatch => ({
   loginUser: data => dispatch(loginUser(data)),
@@ -123,11 +124,13 @@ Login.propTypes = {
     push: PropTypes.func,
   }),
   loginUser: PropTypes.func,
+  user: PropTypes.shape({}),
 };
 
 Login.defaultProps = {
   history: {},
   loginUser: () => {},
+  user: {},
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

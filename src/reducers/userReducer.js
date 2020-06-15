@@ -1,19 +1,33 @@
 import {
-  CREATE_USER, CREATE_USER_ERROR, LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER,
+  CREATE_USER, CREATE_USER_ERROR, LOGIN_USER, LOGIN_USER_ERROR,
+  LOGOUT_USER, LOGGED_IN, LOGGED_IN_ERROR,
 } from '../actions/index';
 
 const initialState = {
   isLogin: false,
   user: {
     username: '',
-    password: '',
-    passwordConfirmation: '',
     id: 0,
   },
 };
 
 const userReducer = (state = initialState, action) => {
+  console.log('La accion que estoy ejecutando:', action)
   switch (action.type) {
+    case LOGGED_IN:
+      return {
+        isLogin: true,
+        user: {
+          username: action.payload.username,
+          password: action.payload.password,
+          id: action.payload.id,
+        },
+      };
+    case LOGGED_IN_ERROR:
+      return {
+        isLogin: false,
+        user: {},
+      };
     case CREATE_USER:
       return {
         isLogin: true,
@@ -29,13 +43,11 @@ const userReducer = (state = initialState, action) => {
         isLogin: false,
       };
     case LOGIN_USER:
-
       return {
         isLogin: true,
         user: {
-          username: action.payload.username,
-          password: action.payload.password,
-          id: action.payload.id,
+          username: action.payload.user.username,
+          id: action.payload.user.id,
         },
       };
     case LOGIN_USER_ERROR:
