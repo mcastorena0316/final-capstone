@@ -1,5 +1,9 @@
 @import "https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap";
 
+.trackings {
+    padding-bottom:50px;
+}
+
 .trackings h1 {
     font-family: 'Raleway', sans-serif;
     text-align: center;

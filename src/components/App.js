@@ -32,7 +32,7 @@ class App extends React.Component {
               exact
               path="/"
               render={() => (
-                <Login />
+                isLogin ? <Illness /> : <Login />
               )}
             />
             <Route
@@ -85,14 +85,12 @@ App.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log('State de app:', state);
-  return ({
+  ({
     isLogin: state.user.isLogin,
     user: state.user,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   loginStatus: () => dispatch(loginStatus()),
 });

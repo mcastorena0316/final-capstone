@@ -17,8 +17,15 @@ const Footer = ({ isLogin, logOut, history }) => {
 
   return (
     <div className="menu">
-      <Link to="/"><p>Home</p></Link>
-      <Link to="/main"><p>Illnesses</p></Link>
+      <div className="illnesses">
+        <Link to="/main">
+
+          <i className="fa fa-bar-chart" />
+          <p>Add Illnesses</p>
+
+        </Link>
+      </div>
+      <p>Trackings</p>
       { isLogin ? null
         : <Link to="/login"><p>Log In</p></Link>}
       {isLogin ? null : <Link to="/signup"><p>Sign Up</p></Link>}
