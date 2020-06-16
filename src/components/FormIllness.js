@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -61,5 +62,13 @@ class FormIllness extends React.Component {
     );
   }
 }
+
+FormIllness.propTypes = {
+  addIllness: PropTypes.func,
+};
+
+FormIllness.defaultProps = {
+  addIllness: () => {},
+};
 
 export default FormIllness;

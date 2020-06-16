@@ -1,5 +1,5 @@
 import {
-  CREATE_USER, CREATE_USER_ERROR, LOGIN_USER, LOGIN_USER_ERROR,
+  CREATE_USER, CREATE_USER_ERROR, LOGIN_USER,
   LOGOUT_USER, LOGGED_IN, LOGGED_IN_ERROR,
 } from '../actions/user';
 
@@ -9,10 +9,11 @@ const initialState = {
     username: '',
     id: 0,
   },
+  errors: [],
 };
 
 const userReducer = (state = initialState, action) => {
-  // console.log('La accion que estoy ejecutando:', action)
+  console.log('La accion que estoy ejecutando:', action);
   switch (action.type) {
     case LOGGED_IN:
       return {
@@ -41,18 +42,21 @@ const userReducer = (state = initialState, action) => {
     case CREATE_USER_ERROR:
       return {
         isLogin: false,
+        error: action.payload,
       };
     case LOGIN_USER:
-      return {
-        isLogin: true,
-        user: {
-          username: action.payload.user.username,
-          id: action.payload.user.id,
-        },
-      };
-    case LOGIN_USER_ERROR:
+      if (action.payload.user) {
+        return {
+          isLogin: true,
+          user: {
+            username: action.payload.user.username,
+            id: action.payload.user.id,
+          },
+        };
+      }
       return {
         isLogin: false,
+        errors: action.payload.errors,
       };
     case LOGOUT_USER:
       return {

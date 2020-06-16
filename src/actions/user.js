@@ -12,11 +12,10 @@ export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
 export const loginStatus = () => dispatch => {
   axios.get('http://localhost:3001/logged_in',
     { withCredentials: true })
-    .then(response => {
+    .then(response =>
       // console.log(response);
-      return (
-        response.data);
-    })
+      (
+        response.data))
     .then(data => {
       dispatch({
         type: LOGGED_IN,
@@ -33,8 +32,9 @@ export const loginStatus = () => dispatch => {
 };
 
 export const createUser = newUser => async dispatch => {
+  let response = {};
   try {
-    const response = await axios({
+    response = await axios({
       method: 'POST',
       url: 'http://localhost:3001/users',
       data: { user: newUser },
@@ -50,7 +50,8 @@ export const createUser = newUser => async dispatch => {
     });
     return response;
   } catch (error) {
-    dispatch({ type: CREATE_USER_ERROR, payload: error });
+    console.log(response.data);
+    dispatch({ type: CREATE_USER_ERROR, payload: response.data.errors });
   }
 };
 
@@ -65,7 +66,7 @@ export const loginUser = user => dispatch => {
     })
     .catch(error => {
       dispatch({
-        type: CREATE_USER_ERROR,
+        type: LOGIN_USER_ERROR,
         payload: error,
       });
     });

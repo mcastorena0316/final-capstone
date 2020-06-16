@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -53,8 +55,9 @@ class Signup extends Component {
        const { history } = this.props;
        history.push('/main');
      } else {
+       const { error } = this.props;
        this.setState({
-         errors: 'Information is wrong, please try again',
+         errors: error,
        });
      }
    }
@@ -64,7 +67,7 @@ class Signup extends Component {
      setTimeout(() => this.setState({ errors: '' }), 3000);
      return (
        <div>
-         <p>{errors}</p>
+         {errors.map((error, i) => <p key={i}>{error}</p>)}
        </div>
      );
    }
@@ -83,6 +86,7 @@ class Signup extends Component {
              name="username"
              value={username}
              onChange={this.handleChangeName}
+             required
            />
            <input
              placeholder="password"
@@ -90,6 +94,7 @@ class Signup extends Component {
              name="password"
              value={password}
              onChange={this.handleChangePassword}
+             required
            />
            <input
              placeholder="password confirmation"
@@ -97,6 +102,7 @@ class Signup extends Component {
              name="password_confirmation"
              value={password_confirmation}
              onChange={this.handleChangePasswordConfirm}
+             required
            />
            <button placeholder="submit" type="submit">
              Sign In
@@ -112,11 +118,13 @@ class Signup extends Component {
    }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  isLogin: state.user.isLogin,
-});
-
+const mapStateToProps = state =>
+  // console.log(state);
+  ({
+    user: state.user,
+    isLogin: state.user.isLogin,
+    error: state.user.error,
+  });
 const mapDispatchToProps = dispatch => ({
   createUser: data => dispatch(createUser(data)),
 });
@@ -126,9 +134,11 @@ Signup.propTypes = {
     push: PropTypes.func,
   }),
   createUser: PropTypes.func.isRequired,
+  error: PropTypes.array,
 };
 
 Signup.defaultProps = {
+  error: [],
   history: {},
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signup));

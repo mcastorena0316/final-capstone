@@ -42,12 +42,21 @@ class Login extends React.Component {
   handleSubmit= e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginUser } = this.props;
+    const { loginUser, isLogin } = this.props;
+    const { error } = this.props;
+
     loginUser({ username, password });
+    // console.log('user login', isLogin);
+    if (!isLogin) {
+      this.setState({
+        errors: error,
+      });
+    }
   }
 
   handleErrors = () => {
     const { errors } = this.state;
+    // console.log(errors)
     setTimeout(() => this.setState({ errors: '' }), 3000);
     return (
       <div>
@@ -60,6 +69,7 @@ class Login extends React.Component {
 
   render() {
     const { username, errors, password } = this.state;
+    // console.log(errors)
     return (
       <div className="login">
         <h3>Log In</h3>
@@ -97,14 +107,13 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log('State de Login:', state);
-  return ({
+  ({
     user: state.user,
     isLogin: state.user.isLogin,
+    error: state.user.errors,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   loginUser: data => dispatch(loginUser(data)),
 });
@@ -116,6 +125,8 @@ Login.propTypes = {
   loginUser: PropTypes.func,
   user: PropTypes.shape({}),
   isLogin: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  error: PropTypes.array,
 };
 
 Login.defaultProps = {
@@ -123,6 +134,7 @@ Login.defaultProps = {
   loginUser: () => {},
   user: {},
   isLogin: false,
+  error: [],
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
