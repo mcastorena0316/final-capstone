@@ -42,9 +42,8 @@ class Login extends React.Component {
   handleSubmit= e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginUser, user } = this.props;
+    const { loginUser } = this.props;
     loginUser({ username, password });
-    console.log(user);
   }
 
   handleErrors = () => {
@@ -99,7 +98,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('State de Login:', state);
+  // console.log('State de Login:', state);
   return ({
     user: state.user,
     isLogin: state.user.isLogin,

@@ -39,6 +39,7 @@ export const createUser = newUser => async dispatch => {
       url: 'http://localhost:3001/users',
       data: { user: newUser },
       crossdomain: true,
+      withCredentials:true,
     });
     console.log('soy el response de la action signup', response)
     dispatch({

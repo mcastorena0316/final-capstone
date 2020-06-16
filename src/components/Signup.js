@@ -48,7 +48,7 @@ class Signup extends Component {
 
      const response = await createUser({ username, password, password_confirmation });
 
-     console.log('Response de Signup:', response);
+     //  console.log('Response de Signup:', response);
      if (response && response.status === 200) {
        const { history } = this.props;
        history.push('/main');

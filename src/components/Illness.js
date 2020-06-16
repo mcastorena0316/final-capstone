@@ -53,7 +53,7 @@ class Illness extends React.Component {
     const { name, description } = this.state;
     const { createIll, user } = this.props;
     const user_id = user.user.id;
-    console.log('Im entering submit');
+    // console.log('Im entering submit');
     createIll({ name, description, user_id });
   }
 
@@ -85,6 +85,10 @@ class Illness extends React.Component {
                     {ill.description}
                   </p>
                 </button>
+                <div>
+                  <i className="fa fa-trash-o" ></i>
+                </div>
+                <div><i className="fa fa-pencil-square-o" ></i></div>
               </Link>
             </li>
           ))}
@@ -123,7 +127,7 @@ class Illness extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state de illness', state);
+  // console.log('state de illness', state);
   return ({
     user: state.user,
     isLogin: state.user.isLogin,

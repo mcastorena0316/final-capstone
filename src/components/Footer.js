@@ -12,8 +12,6 @@ const Footer = ({ isLogin, logOut, history }) => {
     const response = await logOut();
     if (response.data.logged_out) {
       history.push('/');
-    } else {
-      alert('could log out');
     }
   };
 
