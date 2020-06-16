@@ -2,8 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchIllnessDays } from '../actions/illness';
+import { fetchIllnessDays, createDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
+import FormDay from '../components/FormDay';
 import './Trackings.css';
 
 class Trackings extends React.Component {
@@ -11,14 +12,18 @@ class Trackings extends React.Component {
     super(props);
     this.state = {
       ID: props.match.params.id,
+      addForm: false,
     };
     this.createDate = this.createDate.bind(this);
+    this.displayForm = this.displayForm.bind(this);
+    this.addTracking = this.addTracking.bind(this);
   }
 
   componentDidMount() {
     const {
       user, fetchIllnessDays,
     } = this.props;
+
     const { ID } = this.state;
     const userID = user.user.id;
 
@@ -31,49 +36,71 @@ class Trackings extends React.Component {
     return dateFormat.toLocaleDateString(undefined, options);
   }
 
+  displayForm = () => {
+    const { addForm } = this.state;
+    this.setState({
+      addForm: !addForm,
+    });
+  }
+
+  addTracking = (mood, temperature, date) => {
+    const { ID } = this.state;
+    const { createDay } = this.props;
+    const illness_id = ID;
+    createDay({
+      illness_id, mood, temperature, date,
+    });
+  }
+
   render() {
+    const { addForm } = this.state;
     const { trackings } = this.props;
     return (
       <div className="trackings">
         <h1>Information Illness</h1>
-        <ul>
-          {trackings.map(day => (
-            <li key={day.id}>
+        <button type="button" onClick={this.displayForm}>+</button>
+        {trackings.map(day => (
+          <div key={day.id} className="day">
+            <div>
               <p>{this.createDate(day.date)}</p>
               <p>
                 Mood:
-                {' '}
                 {day.mood}
               </p>
               <p>
                 Temperature:
                 {day.temperature}
               </p>
+            </div>
+            <ul>
               {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
               {day.medicines && day.medicines.map((x, i) => (
-                <p key={i}>{x}</p>))}
-              {day.sypmtons && day.symptons.length > 0 && <h4>Symptons:</h4>}
+                <li key={i}><p>{x}</p></li>))}
+            </ul>
+            <ul>
+              {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
               {day.symptons && day.symptons.map((x, i) => (
-                <p key={i}>{x}</p>))}
-
-            </li>
-          ))}
-
-        </ul>
+                <li key={i}><p>{x}</p></li>))}
+            </ul>
+          </div>
+        ))}
+        {addForm && <FormDay addTracking={this.addTracking} /> }
       </div>
 
     );
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  trackings: state.illness,
-});
-
+const mapStateToProps = state =>
+  // console.log('State en trackings', state);
+  ({
+    user: state.user,
+    trackings: state.tracking,
+  });
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
+  createDay: data => dispatch(createDay(data)),
 });
 
 Trackings.propTypes = {
@@ -83,6 +110,7 @@ Trackings.propTypes = {
     }).isRequired,
   }).isRequired,
   fetchIllnessDays: PropTypes.func,
+  createDay: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
       id: PropTypes.number,
@@ -92,10 +120,12 @@ Trackings.propTypes = {
     description: PropTypes.string,
     name: PropTypes.string,
   })),
+
 };
 
 Trackings.defaultProps = {
   fetchIllnessDays: () => {},
+  createDay: () => {},
   user: {},
   trackings: [],
 };

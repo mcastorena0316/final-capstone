@@ -19,14 +19,11 @@ const Footer = ({ isLogin, logOut, history }) => {
     <div className="menu">
       <Link to="/"><p>Home</p></Link>
       <Link to="/main"><p>Illnesses</p></Link>
-      <Link to="/login"><p>Log In</p></Link>
-      <Link to="/signup"><p>Sign Up</p></Link>
-
-      {
-        isLogin
-          ? <Link to="/logout" onClick={handleClick}><p>Log Out</p></Link>
-          : null
-      }
+      { isLogin ? null
+        : <Link to="/login"><p>Log In</p></Link>}
+      {isLogin ? null : <Link to="/signup"><p>Sign Up</p></Link>}
+      { isLogin ? <Link to="/logout" onClick={handleClick}><p>Log Out</p></Link>
+        : null}
     </div>
 
   );

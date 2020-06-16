@@ -10,7 +10,7 @@ import Header from './Header';
 import Login from './Login';
 import Signup from './Signup';
 import Illness from './Illness';
-import Trackings from './Trackings';
+import Trackings from '../containers/Trackings';
 import Footer from './Footer';
 import { loginStatus } from '../actions/user';
 
@@ -57,8 +57,9 @@ class App extends React.Component {
             />
             <Route
               path="/illness/:id"
-              render={() => (
-                isLogin ? <Trackings /> : <p>You need to login</p>
+              render={props => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+                isLogin ? <Trackings {...props} /> : <p>You need to login</p>
               )}
             />
 
@@ -84,12 +85,14 @@ App.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state =>
+const mapStateToProps = state => {
   // console.log('State de app:', state);
-  ({
+  return ({
     isLogin: state.user.isLogin,
     user: state.user,
   });
+};
+
 const mapDispatchToProps = dispatch => ({
   loginStatus: () => dispatch(loginStatus()),
 });
