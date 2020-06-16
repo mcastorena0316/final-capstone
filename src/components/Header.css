@@ -2,11 +2,10 @@
 
 header {
     display:flex;
-    justify-content: center;
-    flex-direction: column;
     background:#62B5E5;
     font-family: 'Poppins', sans-serif;
     color:white;
+    align-items: center;
 }
 
 .title {

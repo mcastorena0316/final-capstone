@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import './Signup.css';
-import { createUser } from '../actions/index';
+import { createUser } from '../actions/user';
 
 class Signup extends Component {
   constructor(props) {

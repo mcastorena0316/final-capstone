@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './Login.css';
-import { loginUser } from '../actions/index';
+import { loginUser } from '../actions/user';
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,8 +20,7 @@ class Login extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // eslint-disable-next-line react/prop-types
-    const { user , isLogin} = this.props;
+    const { user, isLogin } = this.props;
     if (user !== prevProps.user && isLogin) {
       const { history } = this.props;
       history.push('/main');
@@ -47,13 +45,6 @@ class Login extends React.Component {
     const { loginUser, user } = this.props;
     loginUser({ username, password });
     console.log(user);
-    //  console.log(loginUser({username,password}))
-
-    // } else {
-    //   this.setState({
-    //     errors: response.data.errors,
-    //   });
-    // }
   }
 
   handleErrors = () => {
@@ -125,12 +116,14 @@ Login.propTypes = {
   }),
   loginUser: PropTypes.func,
   user: PropTypes.shape({}),
+  isLogin: PropTypes.bool,
 };
 
 Login.defaultProps = {
   history: {},
   loginUser: () => {},
   user: {},
+  isLogin: false,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

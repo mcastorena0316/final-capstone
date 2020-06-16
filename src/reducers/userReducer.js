@@ -1,7 +1,7 @@
 import {
   CREATE_USER, CREATE_USER_ERROR, LOGIN_USER, LOGIN_USER_ERROR,
   LOGOUT_USER, LOGGED_IN, LOGGED_IN_ERROR,
-} from '../actions/index';
+} from '../actions/user';
 
 const initialState = {
   isLogin: false,
@@ -58,6 +58,7 @@ const userReducer = (state = initialState, action) => {
       return {
         isLogin: false,
         user: {},
+        illness: {}
       };
 
     default: return state;

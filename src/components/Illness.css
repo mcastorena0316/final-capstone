@@ -18,3 +18,16 @@
     width: 100%;
     background-color: white;
 }
+
+.newill {
+    display:none;
+    border: 2px solid black;
+    align-items: center;
+}
+
+.newill form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchIllnessDays } from '../actions/illness';
-import {loginStatus} from '../actions/index';
+import { loginStatus } from '../actions/user';
 import './Trackings.css';
 
 class Trackings extends React.Component {
@@ -16,8 +16,7 @@ class Trackings extends React.Component {
   }
 
   componentDidMount() {
-  
-    console.log('Estoy en Trackings')
+    console.log('Estoy en Trackings');
     const {
       user, fetchIllnessDays,
     } = this.props;

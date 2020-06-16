@@ -12,13 +12,11 @@ import Signup from './Signup';
 import Illness from './Illness';
 import Trackings from './Trackings';
 import Footer from './Footer';
-import { loginStatus } from '../actions/index';
+import { loginStatus } from '../actions/user';
 
 class App extends React.Component {
   componentDidMount() {
-    // eslint-disable-next-line react/prop-types
     const { loginStatus } = this.props;
-    // console.log(user);
     loginStatus();
   }
 
@@ -61,7 +59,7 @@ class App extends React.Component {
               path="/illness/:id"
               render={props => (
               // eslint-disable-next-line react/jsx-props-no-spreading
-                <Trackings {...props} />
+                isLogin ? <Trackings {...props} /> : <p>You need to login</p>
               )}
             />
 

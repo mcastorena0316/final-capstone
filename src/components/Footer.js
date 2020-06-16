@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import './Footer.css';
-import { logOutUser } from '../actions/index';
+import { logOutUser } from '../actions/user';
 
 const Footer = ({ isLogin, logOut, history }) => {
   const handleClick = async e => {
@@ -20,7 +20,7 @@ const Footer = ({ isLogin, logOut, history }) => {
   return (
     <div className="menu">
       <Link to="/"><p>Home</p></Link>
-      <Link to="/main"><p>Private Page</p></Link>
+      <Link to="/main"><p>Illnesses</p></Link>
       <Link to="/login"><p>Log In</p></Link>
       <Link to="/signup"><p>Sign Up</p></Link>
 

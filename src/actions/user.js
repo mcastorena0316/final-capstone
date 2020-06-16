@@ -9,34 +9,6 @@ export const LOGOUT_USER = 'LOGOUT USER';
 export const LOGGED_IN = 'LOGGED IN';
 export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
 
-// export const loginStatus = user => async dispatch => {
-//   try {
-//     const response = await axios('https://illnest-api.herokuapp.com/api/v1/logged_in', { withCredentials: true });
-//     console.log(response)
-//     dispatch({
-//       type: LOGGED_IN,
-//       payload: {
-//         ...user,
-//         id: response.data.id ? response.data.id : null,
-//       },
-//     });
-//   } catch (error) {
-//     dispatch({ type: LOGGED_IN_ERROR, payload: error });
-//   }
-// };
-
-// export const fetchData = () => dispatch => axios.get(apiUrl)
-//   .then(response => response.data)
-//   .then(data => {
-//     dispatch({
-//       type: ADD_FETCHED_DATA,
-//       payload: data,
-//     });
-//   })
-//   .catch(error => {
-//     throw (error);
-//   });
-
 export const loginStatus = () => dispatch => {
   axios.get('http://localhost:3001/logged_in',
     { withCredentials: true })
@@ -68,11 +40,12 @@ export const createUser = newUser => async dispatch => {
       data: { user: newUser },
       crossdomain: true,
     });
+    console.log('soy el response de la action signup', response)
     dispatch({
       type: CREATE_USER,
       payload: {
         ...newUser,
-        id: response.data.id ? response.data.id : null,
+        id: response.data.user.id ? response.data.user.id : null,
       },
     });
     return response;
@@ -98,8 +71,6 @@ export const loginUser = user => dispatch => {
     });
 };
 
-
-
 export const logOutUser = () => async dispatch => {
   try {
     dispatch({ type: LOGOUT_USER, payload: {} });
@@ -108,6 +79,7 @@ export const logOutUser = () => async dispatch => {
       url: 'http://localhost:3001/logout',
       data: { user: {} },
       crossdomain: true,
+      withCredentials: true,
     });
     return response;
   } catch (error) { return (error); }
