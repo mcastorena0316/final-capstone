@@ -16,7 +16,6 @@ class Trackings extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Estoy en Trackings');
     const {
       user, fetchIllnessDays,
     } = this.props;

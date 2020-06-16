@@ -6,6 +6,7 @@ header {
     font-family: 'Poppins', sans-serif;
     color:white;
     align-items: center;
+    justify-content: center;
 }
 
 .title {

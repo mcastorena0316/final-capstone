@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  console.log('La accion que estoy ejecutando:', action)
+  // console.log('La accion que estoy ejecutando:', action)
   switch (action.type) {
     case LOGGED_IN:
       return {
@@ -58,7 +58,7 @@ const userReducer = (state = initialState, action) => {
       return {
         isLogin: false,
         user: {},
-        illness: {}
+        illness: {},
       };
 
     default: return state;

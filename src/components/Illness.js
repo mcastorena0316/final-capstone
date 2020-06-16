@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchUserIllness, createIll } from '../actions/illness';
+import { fetchUserIllness, createIll, deleteIll } from '../actions/illness';
 import { loginStatus } from '../actions/user';
 import './Illness.css';
 
@@ -17,6 +17,8 @@ class Illness extends React.Component {
     };
 
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.deleteIll = this.deleteIll.bind(this);
+    this.displayForm = this.displayForm.bind(this);
     this.handleChangeDescription = this.handleChangeDescription.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -27,13 +29,13 @@ class Illness extends React.Component {
     fetchUserIllness(ID);
   }
 
-  componentDidUpdate(prevProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     const { illness } = this.props;
-    if (illness !== prevProps.illness ) {
-      const { user, fetchUserIllness } = this.props;
-      const ID = user.user.id;
-      fetchUserIllness(ID);
-    }
+    // console.log(illness);
+    // console.log(nextProps.illness);
+    const { name, description } = this.state;
+    return illness !== nextProps.illness || name !== nextState.name
+     || description !== nextState.description;
   }
 
   handleChangeName = e => {
@@ -53,18 +55,26 @@ class Illness extends React.Component {
     const { name, description } = this.state;
     const { createIll, user } = this.props;
     const user_id = user.user.id;
-    // console.log('Im entering submit');
     createIll({ name, description, user_id });
   }
 
   displayForm = () => {
     const newIll = document.getElementById('newill');
     // eslint-disable-next-line no-unused-expressions
-    newIll.style.display === 'none' ? newIll.style.display = 'flex' : newIll.style.display = 'none';
+    newIll.style.display === 'none'
+      ? newIll.style.display = 'flex' : newIll.style.display = 'none';
+  }
+
+  deleteIll = id => {
+    const { user } = this.props;
+    const { deleteIll } = this.props;
+    const user_id = user.user.id;
+    deleteIll({ user_id, id });
   }
 
   render() {
     const { illness } = this.props;
+    // console.log('soy el nuevo ilness', illness);
     const { name, description } = this.state;
 
     return (
@@ -85,11 +95,12 @@ class Illness extends React.Component {
                     {ill.description}
                   </p>
                 </button>
-                <div>
-                  <i className="fa fa-trash-o" ></i>
-                </div>
-                <div><i className="fa fa-pencil-square-o" ></i></div>
+
               </Link>
+              <button type="button" onClick={() => this.deleteIll(ill.id)}>
+                <i className="fa fa-trash-o" />
+              </button>
+              <button type="button"><i className="fa fa-pencil-square-o" /></button>
             </li>
           ))}
         </ul>
@@ -126,24 +137,24 @@ class Illness extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log('state de illness', state);
-  return ({
+  ({
     user: state.user,
     isLogin: state.user.isLogin,
     illness: state.illness,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   fetchUserIllness: data => dispatch(fetchUserIllness(data)),
   createIll: data => dispatch(createIll(data)),
+  deleteIll: id => dispatch(deleteIll(id)),
   loginStatus: () => dispatch(loginStatus()),
 });
 
 Illness.propTypes = {
   fetchUserIllness: PropTypes.func,
   createIll: PropTypes.func,
+  deleteIll: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
       id: PropTypes.number,
@@ -157,6 +168,7 @@ Illness.propTypes = {
 
 Illness.defaultProps = {
   createIll: () => {},
+  deleteIll: () => {},
   fetchUserIllness: () => {},
   illness: {},
   user: {},

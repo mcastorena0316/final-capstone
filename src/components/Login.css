@@ -15,4 +15,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 20px 0;
+}
+
+.login form input {
+    margin: 10px 0;
+}
+
+.login form button a {
+    text-decoration: none;
 }

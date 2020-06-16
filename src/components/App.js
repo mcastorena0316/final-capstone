@@ -57,9 +57,8 @@ class App extends React.Component {
             />
             <Route
               path="/illness/:id"
-              render={props => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-                isLogin ? <Trackings {...props} /> : <p>You need to login</p>
+              render={() => (
+                isLogin ? <Trackings /> : <p>You need to login</p>
               )}
             />
 
@@ -85,14 +84,12 @@ App.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state => {
-  console.log('State de app:', state);
-  return ({
+const mapStateToProps = state =>
+  // console.log('State de app:', state);
+  ({
     isLogin: state.user.isLogin,
     user: state.user,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   loginStatus: () => dispatch(loginStatus()),
 });

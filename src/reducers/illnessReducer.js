@@ -1,21 +1,21 @@
 import {
   DISPLAY_FETCHED_ILLNESS, DISPLAY_FETCHED_DAYS,
-  CREATE_ILLNESS, CREATE_ILLNESS_ERROR,
+  CREATE_ILLNESS, DELETE_ILLNESS,
 } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {
-  console.log(action);
-  console.log('state de illnes', state);
+  // console.log(action);
+  // console.log('state de illnes', state);
   switch (action.type) {
     case DISPLAY_FETCHED_ILLNESS:
       return action.payload;
     case DISPLAY_FETCHED_DAYS:
       return action.payload;
     case CREATE_ILLNESS:
-      return {
-        ...state,
-        arr: [...state.arr, action.data],
-      };
+      return [...state, action.data];
+    case DELETE_ILLNESS:
+      return state.filter(el => el.id !== action.payload.id);
+
     default:
       return state;
   }

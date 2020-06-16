@@ -13,7 +13,7 @@ export const loginStatus = () => dispatch => {
   axios.get('http://localhost:3001/logged_in',
     { withCredentials: true })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       return (
         response.data);
     })
@@ -39,9 +39,8 @@ export const createUser = newUser => async dispatch => {
       url: 'http://localhost:3001/users',
       data: { user: newUser },
       crossdomain: true,
-      withCredentials:true,
+      withCredentials: true,
     });
-    console.log('soy el response de la action signup', response)
     dispatch({
       type: CREATE_USER,
       payload: {
