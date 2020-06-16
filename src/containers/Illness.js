@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FormIllness from '../components/FormIllness';
 import { fetchUserIllness, createIll, deleteIll } from '../actions/illness';
 import { loginStatus } from '../actions/user';
 import './Illness.css';
@@ -11,16 +12,10 @@ class Illness extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      description: '',
-
+      addForm: false,
     };
-
-    this.handleChangeName = this.handleChangeName.bind(this);
     this.deleteIll = this.deleteIll.bind(this);
     this.displayForm = this.displayForm.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -31,38 +26,22 @@ class Illness extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { illness } = this.props;
-    // console.log(illness);
-    // console.log(nextProps.illness);
-    const { name, description } = this.state;
-    return illness !== nextProps.illness || name !== nextState.name
-     || description !== nextState.description;
+
+    const { addForm } = this.state;
+    return illness !== nextProps.illness || addForm !== nextState.addForm;
   }
 
-  handleChangeName = e => {
-    this.setState({
-      name: e.target.value,
-    });
-  }
-
-  handleChangeDescription = e => {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-  handleSubmit= e => {
-    e.preventDefault();
-    const { name, description } = this.state;
+  addIllness = (name, description) => {
     const { createIll, user } = this.props;
     const user_id = user.user.id;
     createIll({ name, description, user_id });
-  }
+  };
 
   displayForm = () => {
-    const newIll = document.getElementById('newill');
-    // eslint-disable-next-line no-unused-expressions
-    newIll.style.display === 'none'
-      ? newIll.style.display = 'flex' : newIll.style.display = 'none';
+    const { addForm } = this.state;
+    this.setState({
+      addForm: !addForm,
+    });
   }
 
   deleteIll = id => {
@@ -74,9 +53,7 @@ class Illness extends React.Component {
 
   render() {
     const { illness } = this.props;
-    // console.log('soy el nuevo ilness', illness);
-    const { name, description } = this.state;
-
+    const { addForm } = this.state;
     return (
       <div className="main">
         <button type="button" onClick={this.displayForm}>+</button>
@@ -104,33 +81,8 @@ class Illness extends React.Component {
             </li>
           ))}
         </ul>
-        <div className="newill" id="newill">
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <label htmlFor="name">Name:</label>
-              <input
-                id="name"
-                placeholder="name"
-                type="text"
-                name="name"
-                value={name}
-                onChange={this.handleChangeName}
-              />
-            </div>
-            <br />
-            <div>
-              <label htmlFor="description">Description:</label>
-              <input
-                id="description"
-                placeholder="description"
-                type="text"
-                name="description"
-                value={description}
-                onChange={this.handleChangeDescription}
-              />
-            </div>
-            <button type="submit">Add</button>
-          </form>
+        <div className="newill">
+          {addForm && <FormIllness addIllness={this.addIllness} />}
         </div>
       </div>
     );

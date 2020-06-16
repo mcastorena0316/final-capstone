@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Login from './Login';
 import Signup from './Signup';
-import Illness from './Illness';
+import Illness from '../containers/Illness';
 import Trackings from '../containers/Trackings';
 import Footer from './Footer';
 import { loginStatus } from '../actions/user';

@@ -1,5 +1,5 @@
 import {
-  DISPLAY_FETCHED_DAYS, CREATE_DAY,
+  DISPLAY_FETCHED_DAYS, CREATE_DAY, DELETE_DAY,
 
 } from '../actions/trackings';
 
@@ -11,6 +11,8 @@ export default function trackingReducer(state = [], action) {
       return action.payload;
     case CREATE_DAY:
       return [...state, action.data];
+    case DELETE_DAY:
+      return state.filter(el => el.id !== action.payload.id);
     default:
       return state;
   }

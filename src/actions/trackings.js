@@ -27,7 +27,6 @@ export const createDay = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-      console.log('Response de action', response);
     dispatch({
       type: CREATE_DAY,
       data: {
@@ -38,5 +37,22 @@ export const createDay = data => async dispatch => {
     });
   } catch (error) {
     dispatch({ type: CREATE_DAY_ERROR, payload: error });
+  }
+};
+
+export const deleteDay = data => async dispatch => {
+  try {
+    dispatch({ type: DELETE_DAY, payload: data });
+    const response = await axios({
+      method: 'DELETE',
+      url: 'http://localhost:3001/deleteday',
+      data,
+      crossdomain: true,
+      withCredentials: true,
+    });
+    // console.log('Response de action', response);
+    return response;
+  } catch (error) {
+    return (error);
   }
 };

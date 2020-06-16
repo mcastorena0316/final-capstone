@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchIllnessDays, createDay } from '../actions/trackings';
+import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
 import FormDay from '../components/FormDay';
 import './Trackings.css';
@@ -52,6 +53,13 @@ class Trackings extends React.Component {
     });
   }
 
+  deleteTracking = id => {
+    const { ID } = this.state;
+    const { deleteDay } = this.props;
+    const illness_id = ID;
+    deleteDay({ illness_id, id });
+  }
+
   render() {
     const { addForm } = this.state;
     const { trackings } = this.props;
@@ -82,6 +90,10 @@ class Trackings extends React.Component {
               {day.symptons && day.symptons.map((x, i) => (
                 <li key={i}><p>{x}</p></li>))}
             </ul>
+            <button type="button" onClick={() => this.deleteTracking(day.id)}>
+              <i className="fa fa-trash-o" />
+            </button>
+            <button type="button"><i className="fa fa-pencil-square-o" /></button>
           </div>
         ))}
         {addForm && <FormDay addTracking={this.addTracking} /> }
@@ -101,6 +113,8 @@ const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
   createDay: data => dispatch(createDay(data)),
+  deleteDay: (id, id2) => dispatch(deleteDay(id, id2)),
+
 });
 
 Trackings.propTypes = {
@@ -110,6 +124,7 @@ Trackings.propTypes = {
     }).isRequired,
   }).isRequired,
   fetchIllnessDays: PropTypes.func,
+  deleteDay: PropTypes.func,
   createDay: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
@@ -125,6 +140,7 @@ Trackings.propTypes = {
 
 Trackings.defaultProps = {
   fetchIllnessDays: () => {},
+  deleteDay: () => {},
   createDay: () => {},
   user: {},
   trackings: [],
