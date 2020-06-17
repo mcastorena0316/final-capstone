@@ -8,6 +8,16 @@
     font-family: 'Raleway', sans-serif;
 }
 
+.add-ill {
+    font-size: 37px;
+    color: white;
+    position: absolute;
+    right: 11px;
+    top: 7px;
+    background: none;
+    border: none;
+}
+
 .main ul {
     list-style: none;
     padding:0;

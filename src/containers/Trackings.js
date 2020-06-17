@@ -65,35 +65,46 @@ class Trackings extends React.Component {
     const { trackings } = this.props;
     return (
       <div className="trackings">
-        <h1>Information Illness</h1>
-        <button type="button" onClick={this.displayForm}>+</button>
+        <h2>Information Illness</h2>
+        <button type="button" className="add-day" onClick={this.displayForm}>+</button>
         {trackings.map(day => (
           <div key={day.id} className="day">
-            <div>
+            <div className="date">
               <p>{this.createDate(day.date)}</p>
+              <div>
+                <button type="button" onClick={() => this.deleteTracking(day.id)}>
+                  <i className="fa fa-trash-o" />
+                </button>
+                <button type="button"><i className="fa fa-pencil-square-o" /></button>
+              </div>
+            </div>
+            <div className="mood">
               <p>
                 Mood:
                 {day.mood}
               </p>
               <p>
+                <i className="fa fa-thermometer-empty" />
                 Temperature:
                 {day.temperature}
+                ° C
               </p>
             </div>
-            <ul>
+            <ul className="medicines">
               {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
-              {day.medicines && day.medicines.map((x, i) => (
-                <li key={i}><p>{x}</p></li>))}
+              <div>
+                {day.medicines && day.medicines.map((x, i) => (
+                  <li key={i}><p>{x}</p></li>))}
+              </div>
             </ul>
-            <ul>
+            <ul className="symptons">
               {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
-              {day.symptons && day.symptons.map((x, i) => (
-                <li key={i}><p>{x}</p></li>))}
+              <div>
+                {day.symptons && day.symptons.map((x, i) => (
+                  <li key={i}><p>{x}</p></li>))}
+              </div>
             </ul>
-            <button type="button" onClick={() => this.deleteTracking(day.id)}>
-              <i className="fa fa-trash-o" />
-            </button>
-            <button type="button"><i className="fa fa-pencil-square-o" /></button>
+
           </div>
         ))}
         {addForm && <FormDay addTracking={this.addTracking} /> }

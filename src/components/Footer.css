@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+
 body {
   margin:0;
   background-color:#f7f8f9;
@@ -8,33 +10,42 @@ body {
   min-height: 100vh;
   margin:0;
 }
+
 .menu {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    display:flex;
-    justify-content: space-around;
-    background-color: #35434c;
-    color:#f7f8f9;
-    align-items: center
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display:flex;
+  justify-content: space-around;
+  background-color: #35434c;
+  color:#f7f8f9;
+  align-items: center
 }
 
-.illnesses a {
+.menu a {
+  color:white;
+  text-decoration: none;
+}
+
+.icons a {
   display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.illnesses a i {
+.icons a i {
   color: #f7f8f9;
   font-size: 25px
 }
 
-.illnesses a p {
+.icons a p {
   margin: 0;
   color: #f7f8f9;
   text-decoration-line: none;
-  font-size: 10px;
+  font-size: 9px;
   width: 55px;
+  width: 40px;
+  text-align: center;
 }

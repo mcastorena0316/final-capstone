@@ -12,7 +12,9 @@ import Signup from './Signup';
 import Illness from '../containers/Illness';
 import Trackings from '../containers/Trackings';
 import Footer from './Footer';
+import gandalf from './gandalf.png';
 import { loginStatus } from '../actions/user';
+import './App.css';
 
 class App extends React.Component {
   componentDidMount() {
@@ -53,7 +55,15 @@ class App extends React.Component {
               exact
               path="/main"
               render={() => (
-                isLogin ? <Illness /> : <p>You need to login</p>)}
+                isLogin ? <Illness />
+                  : (
+                    <div className="login-access">
+                      <p>You need to login to access here</p>
+                      <img src={gandalf} alt="gandalf" />
+                    </div>
+                  )
+              )}
+
             />
             <Route
               path="/illness/:id"

@@ -17,7 +17,7 @@ const Footer = ({ isLogin, logOut, history }) => {
 
   return (
     <div className="menu">
-      <div className="illnesses">
+      <div className="icons">
         <Link to="/main">
 
           <i className="fa fa-bar-chart" />
@@ -25,11 +25,40 @@ const Footer = ({ isLogin, logOut, history }) => {
 
         </Link>
       </div>
-      <p>Trackings</p>
+      <div className="icons">
+        <a href="#">
+          <i className="fa fa-line-chart" />
+          <p>Trackings</p>
+        </a>
+      </div>
       { isLogin ? null
-        : <Link to="/login"><p>Log In</p></Link>}
-      {isLogin ? null : <Link to="/signup"><p>Sign Up</p></Link>}
-      { isLogin ? <Link to="/logout" onClick={handleClick}><p>Log Out</p></Link>
+        : (
+          <div className="icons">
+            <Link to="/login">
+              <i className="fa fa-sign-in" />
+              <p>Log In</p>
+            </Link>
+          </div>
+        )}
+      {isLogin ? null
+        : (
+          <div className="icons">
+            <Link to="/signup">
+              <i className="fa fa-user-circle" />
+              <p>Sign Up</p>
+            </Link>
+          </div>
+        )}
+      { isLogin ? (
+        <div className="icons">
+          <Link to="/logout" onClick={handleClick}>
+
+            <i className="fa fa-sign-in" />
+            <p>Log Out</p>
+
+          </Link>
+        </div>
+      )
         : null}
     </div>
 

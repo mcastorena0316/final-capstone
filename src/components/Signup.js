@@ -78,10 +78,10 @@ class Signup extends Component {
      } = this.state;
      return (
        <div className="signup">
-         <h3>CREATE AN ACCOUNT</h3>
+         <h2>SIGN UP</h2>
          <form onSubmit={this.handleSubmit}>
            <input
-             placeholder="username"
+             placeholder="Username"
              type="text"
              name="username"
              value={username}
@@ -89,7 +89,7 @@ class Signup extends Component {
              required
            />
            <input
-             placeholder="password"
+             placeholder="Password"
              type="password"
              name="password"
              value={password}
@@ -97,7 +97,7 @@ class Signup extends Component {
              required
            />
            <input
-             placeholder="password confirmation"
+             placeholder="Password confirmation"
              type="password"
              name="password_confirmation"
              value={password_confirmation}

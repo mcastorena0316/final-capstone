@@ -56,8 +56,8 @@ class Illness extends React.Component {
     const { addForm } = this.state;
     return (
       <div className="main">
-        <button type="button" onClick={this.displayForm}>+</button>
-        <h3>Your Illnesses</h3>
+        <button type="button" className="add-ill" onClick={this.displayForm}>+</button>
+        {/* <h3>Your Illnesses</h3> */}
 
         <ul>
           {illness.map(ill => (

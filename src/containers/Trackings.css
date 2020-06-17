@@ -1,17 +1,77 @@
 @import "https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+
 
 .trackings {
     padding-bottom:50px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.trackings h1 {
+.trackings h2 {
     font-family: 'Raleway', sans-serif;
     text-align: center;
 }
 
+.add-day {
+    font-size: 37px;
+    color: white;
+    position: absolute;
+    right: 11px;
+    top: 7px;
+    background: none;
+    border: none;
+}
+
+
 .day {
-    display:flex;
-    justify-content: center;
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid gray;
+    font-size: 11px;
+    background-color: white;
+    margin: 0px 15px 12px 15px;
+    border-radius: 11px;
+    flex-direction: column
+}
+
+.date {
+    display: flex;
     align-items: center;
-    border: 1px solid black;
+    justify-content: space-between
+}
+
+.date p {
+    margin-left: 13px;
+    font-size: 15px;
+}
+
+.date div button {
+    border: none;
+    background: none;
+    font-size: 18px;
+    padding: 0 3px;
+}
+
+.mood {
+    font-size: 13px
+}
+
+.mood p {
+    margin-left: 10px;
+}
+
+.mood p i {
+    padding: 0 5px;
+}
+
+.medicines {
+    display:flex;
+    margin:0;
+    padding: 0 10px;
+}
+
+.symptons {
+    display:flex;
+    margin:0;
+    padding: 0 10px;
 }

@@ -7,7 +7,7 @@
 
 .login {
     margin: 0 auto;  
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
     align-items: center;
     display: flex;
@@ -46,7 +46,7 @@
     width:110px;
 }
 
-.login-form p {
+.login form p {
     margin: 6px 0;
 }
 
