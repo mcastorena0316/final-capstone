@@ -3,8 +3,8 @@ import axios from 'axios';
 export const DISPLAY_FETCHED_ILLNESS = 'DISPLAY FETCHED ILLNESS';
 export const CREATE_ILLNESS = 'CREATE ILLNESS';
 export const DELETE_ILLNESS = 'DELETE ILLNESS';
-export const DELETE_ILLNESS_ERROR = 'DELETE ILLNESS ERROR';
 export const CREATE_ILLNESS_ERROR = 'CREATE ILLNESS ERROR';
+export const UPDATE_ILLNESS = 'UPDATE ILLNESS';
 
 export const fetchUserIllness = id => dispatch => axios.get(`http://localhost:3001/users/${id}/illnesses`)
   .then(response => response.data)
@@ -54,6 +54,25 @@ export const deleteIll = data => async dispatch => {
     // console.log('Response de action', response);
     return response;
   } catch (error) {
+    return (error);
+  }
+};
+
+export const updateIll = data => async dispatch => {
+  console.log(data);
+  try {
+    dispatch({ type: UPDATE_ILLNESS, payload: data });
+    const response = await axios({
+      method: 'PATCH',
+      url: 'http://localhost:3001/updateill',
+      data,
+      crossdomain: true,
+      withCredentials: true,
+    });
+    console.log('Response de action', response);
+    return response;
+  } catch (error) {
+    console.log(error);
     return (error);
   }
 };

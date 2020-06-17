@@ -29,6 +29,18 @@ body {
   text-decoration: none;
 }
 
+.icons {
+  width: 25%;
+  align-items: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.icons:hover {
+  background-color: #62B5E5
+}
+
 .icons a {
   display: flex;
     flex-direction: column;

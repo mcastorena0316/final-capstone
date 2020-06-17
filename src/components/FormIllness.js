@@ -8,7 +8,6 @@ class FormIllness extends React.Component {
     this.state = {
       name: '',
       description: '',
-
     };
   }
 

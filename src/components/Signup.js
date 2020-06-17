@@ -78,7 +78,7 @@ class Signup extends Component {
      } = this.state;
      return (
        <div className="signup">
-         <h2>SIGN UP</h2>
+         <h2>Sign Up</h2>
          <form onSubmit={this.handleSubmit}>
            <input
              placeholder="Username"

@@ -56,8 +56,12 @@
     padding: 3px 0;
     color: black;
     border-radius: 5px;
+    background-color: #62B5E5;
+    border: none;
 }
 
 .login form button a {
     text-decoration: none;
+    color:white;
+    font-size: 14px
 }

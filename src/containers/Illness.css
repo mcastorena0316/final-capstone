@@ -8,6 +8,8 @@
     font-family: 'Raleway', sans-serif;
 }
 
+
+
 .add-ill {
     font-size: 37px;
     color: white;
@@ -18,20 +20,32 @@
     border: none;
 }
 
-.main ul {
-    list-style: none;
-    padding:0;
+.illnesses {
+    margin-top: 12px;
 }
 
-.main ul li {
-    margin:5px;
-}
 
-.main ul li a button {
-    width: 100%;
+.one-ill {
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid gray;
     background-color: white;
+    margin: 0px 15px 12px 15px;
+    border-radius: 11px;
+    flex-direction: column;
+    align-items: center;
 }
 
+.one-ill .buttons {
+    align-self: flex-end
+}
+
+.one-ill .buttons button {
+    border: none;
+    background: none;
+    font-size: 18px;
+    padding: 0 3px;
+}
 
 .newill form {
     display: flex;
