@@ -48,8 +48,12 @@ class Illness extends React.Component {
 
   addIllness = (name, description) => {
     const { createIll, user } = this.props;
+    const { addForm } = this.state;
     const user_id = user.user.id;
     createIll({ name, description, user_id });
+    this.setState({
+      addForm: !addForm,
+    });
   };
 
   displayForm = () => {
@@ -129,42 +133,45 @@ render() {
                 <i className="fa fa-pencil-square-o" />
               </button>
             </div>
-            <div>
-              {/* <Link to={`illness/${ill.id}`}> */}
-              {!editForm && <p>{ill.name}</p> }
-              {editForm && (
-              <input
-                id={`name-${ill.id}`}
-                placeholder="name"
-                type="text"
-                name="name"
-                defaultValue={ill.name}
-                onChange={this.handleChangeName}
-              />
-              )}
-              {!editForm && (
-              <div>
-                <p>Description:</p>
-                <p>{ill.description}</p>
-              </div>
-              ) }
-              {editForm
-                  && (
-                    <div>
-                      <label>Description: </label>
-                      <input
-                        id={`description-${ill.id}`}
-                        placeholder="description"
-                        type="text"
-                        name="description"
-                        defaultValue={ill.description}
-                        onChange={this.handleChangeDescription}
-                      />
-                    </div>
-                  )}
-              {editForm && <button type="button" onClick={() => this.handleSubmit(ill.id)}>Save Changes</button>}
+            <div className="ill-info">
+              <Link to={`illness/${ill.id}`}>
+                {!editForm && (
+                <div>
+                  <div className="ill-name">
+                    <p>Name:</p>
+                    <p>{ill.name}</p>
+                  </div>
+                  <div className="ill-description">
+                    <p>Description:</p>
+                    <p>{ill.description}</p>
+                  </div>
+                </div>
+                )}
+              </Link>
 
-              {/* </Link> */}
+              {editForm && (
+              <form>
+                <label>Name:</label>
+                <input
+                  id={`name-${ill.id}`}
+                  placeholder="name"
+                  type="text"
+                  name="name"
+                  defaultValue={ill.name}
+                  onChange={this.handleChangeName}
+                />
+                <label>Description: </label>
+                <input
+                  id={`description-${ill.id}`}
+                  placeholder="description"
+                  type="text"
+                  name="description"
+                  defaultValue={ill.description}
+                  onChange={this.handleChangeDescription}
+                />
+                <button type="button" onClick={() => this.handleSubmit(ill.id)}>Save Changes</button>
+              </form>
+              )}
             </div>
           </div>
         ))}

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
+import './FormIllness.css';
 
 class FormIllness extends React.Component {
   constructor(props) {
@@ -32,24 +33,23 @@ class FormIllness extends React.Component {
     const { name, description } = this.state;
     return (
 
-      <form>
-        <div>
+      <form className="one-form one-ill">
+        <div className="one-parameter">
           <label htmlFor="name">Name:</label>
           <input
             id="name"
-            placeholder="name"
+            placeholder="Name"
             type="text"
             name="name"
             value={name}
             onChange={this.handleChangeName}
           />
         </div>
-        <br />
-        <div>
+        <div className="one-parameter">
           <label htmlFor="description">Description:</label>
           <input
             id="description"
-            placeholder="description"
+            placeholder="Description"
             type="text"
             name="description"
             value={description}

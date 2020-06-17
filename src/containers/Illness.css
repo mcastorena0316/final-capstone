@@ -1,14 +1,14 @@
 @import "https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 .main {
     padding-bottom:50px;
+    font-family: 'Roboto', sans-serif;
 }
 .main h3 {
     text-align:center;
     font-family: 'Raleway', sans-serif;
 }
-
-
 
 .add-ill {
     font-size: 37px;
@@ -47,10 +47,31 @@
     padding: 0 3px;
 }
 
-.newill form {
+.one-ill .ill-info {
+ width:100%;
+ font-size: 15px;
+}
+
+.one-ill .ill-info a {
+    color:black;
+    text-decoration:none;
+}
+
+.one-ill .ill-info a div {
+    margin-bottom: 12px;
+}
+
+.one-ill .ill-info p {
+    margin: 2px 0;
+}
+
+
+.one-ill .ill-info .ill-name {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid black;
-    align-items: center
+    justify-content: space-around;
+}
+
+.one-ill .ill-info .ill-description {
+    display: flex;
+    justify-content: space-around;
 }

@@ -1,0 +1,40 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+
+.one-form {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+.one-form button {
+    border: none;
+    background-color: rgb(173,220,145);
+    height: 25px;
+    padding: 0 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    width: 65px;
+    margin: 5px;
+}
+
+.one-parameter {
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+}
+
+.one-parameter label {
+    margin-left:10px;
+}
+
+.one-parameter {
+    margin-top: 10px;
+}
+
+.one-parameter input {
+    border: 1px solid gray;
+    height: 20px;
+    width: 150px;
+    border-radius: 5px;
+    margin-right: 10px;
+}

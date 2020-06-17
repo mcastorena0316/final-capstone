@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class FormDay extends React.Component {
   constructor(props) {
@@ -38,15 +40,18 @@ class FormDay extends React.Component {
 
   render() {
     const { mood, temperature, date } = this.state;
+    const { actionToPerform, trackings, buttonId } = this.props;
+    const track = trackings.filter(x => x.id.toString() === buttonId);
+
     return (
-      <form>
+      <form className="day">
         <div>
           <label htmlFor="date">Date </label>
           <input
             id="date"
             type="date"
             name="date"
-            value={date}
+            value={buttonId === '0' ? date : track[0].date.slice(0, 10)}
             onChange={this.handleChangeDate}
           />
           <label htmlFor="mood">Mood </label>
@@ -54,7 +59,7 @@ class FormDay extends React.Component {
             id="mood"
             type="number"
             name="mood"
-            value={mood}
+            value={buttonId === '0' ? mood : track[0].mood}
             onChange={this.handleChangeMood}
           />
           <label htmlFor="temp">Temperature </label>
@@ -62,11 +67,13 @@ class FormDay extends React.Component {
             id="temp"
             type="number"
             name="temp"
-            value={temperature}
+            value={buttonId === '0' ? temperature : track[0].temperature}
             onChange={this.handleChangeTemperature}
           />
 
-          <button type="button" onClick={() => this.handleSubmit(mood, temperature, date)}>Add</button>
+          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(mood, temperature, date)}>{actionToPerform}</button>}
+          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(mood, temperature, date)}>{actionToPerform}</button>}
+
         </div>
       </form>
     );
@@ -75,9 +82,24 @@ class FormDay extends React.Component {
 
 FormDay.propTypes = {
   addTracking: PropTypes.func,
+  buttonId: PropTypes.string,
+  actionToPerform: PropTypes.string,
+  trackings: PropTypes.array,
 };
 
 FormDay.defaultProps = {
   addTracking: () => {},
+  actionToPerform: '',
+  trackings: [],
+  buttonId: '0',
 };
-export default FormDay;
+
+const mapStateToProps = state => {
+  console.log('State en formday', state);
+  return ({
+    user: state.user,
+    trackings: state.tracking,
+  });
+};
+
+export default connect(mapStateToProps, null)(FormDay);
