@@ -41,10 +41,8 @@ class FormIllness extends React.Component {
     const { name, description } = this.state;
 
     const {
-      user, updateIll, changeEditForm, buttonId,illness
+      user, updateIll, changeEditForm,
     } = this.props;
-  
-    const ill = illness.filter(x => x.id.toString() === buttonId);
     const data = {};
     if (name !== '' && description !== '') {
       data.name = name;
@@ -60,8 +58,8 @@ class FormIllness extends React.Component {
       data.id = id;
       data.user_id = user.user.id;
     }
-   await  updateIll(data);
-  console.log(illness)
+    await updateIll(data);
+    // console.log(illness)
     changeEditForm();
   }
 
@@ -124,7 +122,7 @@ FormIllness.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  console.log('State en formday', state);
+  // console.log('State en formday', state);
   return ({
     user: state.user,
     illness: state.illness,

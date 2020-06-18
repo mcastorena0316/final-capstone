@@ -3,15 +3,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './FormDay.css';
 
 class FormDay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       date: '',
-      mood: 0,
+      // mood: 0,
       temperature: 0,
-
+      selectedOption: '🙂',
     };
   }
 
@@ -21,15 +22,21 @@ class FormDay extends React.Component {
     });
   }
 
-  handleChangeMood = e => {
-    this.setState({
-      mood: e.target.value,
-    });
-  }
+  // handleChangeMood = e => {
+  //   this.setState({
+  //     mood: e.target.value,
+  //   });
+  // }
 
   handleChangeTemperature = e => {
     this.setState({
       temperature: e.target.value,
+    });
+  }
+
+  handleOptionChange= e => {
+    this.setState({
+      selectedOption: e.target.value,
     });
   }
 
@@ -39,40 +46,48 @@ class FormDay extends React.Component {
   }
 
   render() {
-    const { mood, temperature, date } = this.state;
+    const {
+      temperature, date, selectedOption,
+    } = this.state;
     const { actionToPerform, trackings, buttonId } = this.props;
     const track = trackings.filter(x => x.id.toString() === buttonId);
 
     return (
       <form className="day">
-        <div>
-          <label htmlFor="date">Date </label>
-          <input
-            id="date"
-            type="date"
-            name="date"
-            value={buttonId === '0' ? date : track[0].date.slice(0, 10)}
-            onChange={this.handleChangeDate}
-          />
-          <label htmlFor="mood">Mood </label>
-          <input
-            id="mood"
-            type="number"
-            name="mood"
-            value={buttonId === '0' ? mood : track[0].mood}
-            onChange={this.handleChangeMood}
-          />
-          <label htmlFor="temp">Temperature </label>
-          <input
-            id="temp"
-            type="number"
-            name="temp"
-            value={buttonId === '0' ? temperature : track[0].temperature}
-            onChange={this.handleChangeTemperature}
-          />
-
-          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(mood, temperature, date)}>{actionToPerform}</button>}
-          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(mood, temperature, date)}>{actionToPerform}</button>}
+        <div className="form-div">
+          <div className="date-div">
+            <label htmlFor="date">Date: </label>
+            <input
+              id="date"
+              type="date"
+              name="date"
+              value={buttonId === '0' ? date : track[0].date.slice(0, 10)}
+              onChange={this.handleChangeDate}
+            />
+          </div>
+          <div>
+            <label>Mood: </label>
+            <input type="radio" id="option1" name="mood" value="🙂" checked={selectedOption === '🙂'} onChange={this.handleOptionChange} />
+            <span role="img" aria-label="happy">🙂</span>
+            <input type="radio" id="option2" name="mood" value="😐" checked={selectedOption === '😐'} onChange={this.handleOptionChange} />
+            <span role="img" aria-label="neutral">😐</span>
+            <input type="radio" id="option3" name="mood" value="🙁" checked={selectedOption === '🙁'} onChange={this.handleOptionChange} />
+            <span role="img" aria-label="sad">🙁</span>
+            <input type="radio" id="option4" name="mood" value="😩" checked={selectedOption === '😩'} onChange={this.handleOptionChange} />
+            <span role="img" aria-label="sad2">😩</span>
+          </div>
+          <div className="temp-div">
+            <label htmlFor="temp">Temperature:  </label>
+            <input
+              id="temp"
+              type="number"
+              name="temp"
+              value={buttonId === '0' ? temperature : track[0].temperature}
+              onChange={this.handleChangeTemperature}
+            />
+          </div>
+          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date)}>{actionToPerform}</button>}
+          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(selectedOption, temperature, date)}>{actionToPerform}</button>}
 
         </div>
       </form>

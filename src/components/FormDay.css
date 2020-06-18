@@ -1,0 +1,23 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+
+.day {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid gray;
+    background-color: white;
+    margin: 0px 15px 12px 15px;
+    border-radius: 11px;
+    flex-direction: column;
+    font-size: 13px
+}
+
+.date-div input {
+    width: 116px;
+    height: 30px;
+    font-size: 11px;
+}
+
+.temp-div input {
+    width: 22px;
+}
