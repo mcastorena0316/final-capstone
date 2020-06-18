@@ -4,6 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
+import { fetchMedicines } from '../actions/medicines';
+
 import { loginStatus } from '../actions/user';
 import FormDay from '../components/FormDay';
 import './Trackings.css';
@@ -15,6 +17,7 @@ class Trackings extends React.Component {
       ID: props.match.params.id,
       addForm: false,
       addEdit: false,
+      addMeds: false,
       buttonId: '0',
     };
     this.createDate = this.createDate.bind(this);
@@ -22,6 +25,7 @@ class Trackings extends React.Component {
     this.displayEdit = this.displayEdit.bind(this);
     this.addTracking = this.addTracking.bind(this);
     this.changeEditForm = this.changeEditForm.bind(this);
+    this.displayMeds = this.displayMeds.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +75,19 @@ class Trackings extends React.Component {
     });
   }
 
+  displayMeds = (e, id) => {
+    const { user, fetchMedicines } = this.props;
+    const { addMeds } = this.state;
+    const { ID } = this.state;
+    const illnessId = ID;
+    const userID = user.user.id;
+    this.setState({
+      addMeds: !addMeds,
+      buttonId: e.target.id,
+    });
+    fetchMedicines(userID, illnessId, id);
+  }
+
   displayEdit = e => {
     const { addEdit } = this.state;
     this.setState({
@@ -80,8 +97,10 @@ class Trackings extends React.Component {
   }
 
   render() {
-    const { addForm, addEdit, buttonId } = this.state;
-    const { trackings } = this.props;
+    const {
+      addForm, addEdit, buttonId, addMeds,
+    } = this.state;
+    const { trackings, medicines } = this.props;
     return (
       <div className="trackings">
         <h2>Information Illness</h2>
@@ -111,20 +130,26 @@ class Trackings extends React.Component {
                   ° C
                 </p>
               </div>
-              <ul className="medicines">
-                {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
-                <div>
-                  {day.medicines && day.medicines.map((x, i) => (
-                    <li key={i}><p>{x}</p></li>))}
-                </div>
-              </ul>
-              <ul className="symptons">
-                {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
-                <div>
-                  {day.symptons && day.symptons.map((x, i) => (
-                    <li key={i}><p>{x}</p></li>))}
-                </div>
-              </ul>
+              <button type="button" onClick={e => this.displayMeds(e, day.id)} id={day.id}>+</button>
+              {addMeds && buttonId === day.id.toString() && medicines.length > 0 && medicines.map(med => (
+                <ul className="medicines" key={med.id}>
+                  <li>
+                    {' '}
+                    <p>Name: </p>
+                    {med.name}
+                  </li>
+
+                  <li>
+                    <p>Quantity: </p>
+                    {med.quantity}
+                  </li>
+                </ul>
+              ))}
+                {addMeds && buttonId === day.id.toString() && medicines.length == 0 && (
+                  <p>No meds!</p>
+                )}
+              {/* <ul className="symptons">
+              </ul>  */}
             </div>
             )}
             {addEdit && buttonId === day.id.toString() && (
@@ -143,17 +168,21 @@ class Trackings extends React.Component {
   }
 }
 
-const mapStateToProps = state =>
+const mapStateToProps = state => {
   // console.log('State en trackings', state);
-  ({
+  return ({
     user: state.user,
     trackings: state.tracking,
+    medicines: state.medicines,
   });
+};
+
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
   createDay: data => dispatch(createDay(data)),
   deleteDay: (id, id2) => dispatch(deleteDay(id, id2)),
+  fetchMedicines: (id1, id2, id3) => dispatch(fetchMedicines(id1, id2, id3)),
 });
 
 Trackings.propTypes = {
@@ -163,6 +192,7 @@ Trackings.propTypes = {
     }).isRequired,
   }).isRequired,
   fetchIllnessDays: PropTypes.func,
+  fetchMedicines: PropTypes.func,
   deleteDay: PropTypes.func,
   createDay: PropTypes.func,
   user: PropTypes.shape({
@@ -174,13 +204,20 @@ Trackings.propTypes = {
     description: PropTypes.string,
     name: PropTypes.string,
   })),
+  medicines: PropTypes.shape({
+    name: PropTypes.string,
+    quantity: PropTypes.number,
+
+  }),
 
 };
 
 Trackings.defaultProps = {
   fetchIllnessDays: () => {},
+  fetchMedicines: () => {},
   deleteDay: () => {},
   createDay: () => {},
+  medicines: {},
   user: {},
   trackings: [],
 };
