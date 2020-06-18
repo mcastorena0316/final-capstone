@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FormIllness from '../components/FormIllness';
 import {
-  fetchUserIllness, createIll, deleteIll, updateIll,
+  fetchUserIllness, createIll, deleteIll,
 } from '../actions/illness';
 import { loginStatus } from '../actions/user';
 import './Illness.css';
@@ -16,16 +16,11 @@ class Illness extends React.Component {
     this.state = {
       addForm: false,
       editForm: false,
-      name: '',
-      description: '',
-      idill: 0,
+      idIll: '0',
     };
     this.deleteIll = this.deleteIll.bind(this);
     this.displayForm = this.displayForm.bind(this);
     this.displayEdit = this.displayEdit.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -38,12 +33,10 @@ class Illness extends React.Component {
     const { illness } = this.props;
     const {
       addForm, editForm,
-      name, description,
     } = this.state;
     return illness !== nextProps.illness
     || addForm !== nextState.addForm
-    || editForm !== nextState.editForm
-    || name !== nextState.name || description !== nextState.description;
+    || editForm !== nextState.editForm;
   }
 
   addIllness = (name, description) => {
@@ -63,10 +56,11 @@ class Illness extends React.Component {
     });
   }
 
-  displayEdit= () => {
+  displayEdit= e => {
     const { editForm } = this.state;
     this.setState({
       editForm: !editForm,
+      idIll: e.target.id,
     });
   }
 
@@ -77,131 +71,84 @@ class Illness extends React.Component {
     deleteIll({ user_id, id });
   }
 
-  handleChangeName = e => {
-    this.setState({
-      name: e.target.value,
-    });
-  }
+   changeEditForm = () => {
+     const { editForm } = this.state;
+     this.setState({
+       editForm: !editForm,
+     });
+   }
 
-  handleChangeDescription = e => {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-handleSubmit = id => {
-  const { name, description, editForm } = this.state;
-  const { updateIll, user } = this.props;
-  const data = {};
-  if (name !== '' && description !== '') {
-    data.name = name;
-    data.description = description;
-    data.user_id = user.user.id;
-    data.id = id;
-  } else if (name === '' && description !== '') {
-    data.description = description;
-    data.user_id = user.user.id;
-    data.id = id;
-  } else if (name !== '' && description === '') {
-    data.name = name;
-    data.id = id;
-    data.user_id = user.user.id;
-  }
-
-  updateIll(data);
-  this.setState({
-    editForm: !editForm,
-  });
+   render() {
+     const { illness } = this.props;
+     const {
+       addForm, editForm, idIll,
+     } = this.state;
+     return (
+       <div className="main">
+         <button type="button" className="add-ill" onClick={this.displayForm}>+</button>
+         {/* <h3>Your Illnesses</h3> */}
+         <div className="illnesses">
+           {illness.map(ill => (
+             <div key={ill.id}>
+               { !editForm && (
+               <div className="one-ill">
+                 <div className="buttons">
+                   <button type="button" onClick={() => this.deleteIll(ill.id)}>
+                     <i className="fa fa-trash-o" />
+                   </button>
+                   <button type="button" onClick={this.displayEdit}>
+                     <i className="fa fa-pencil-square-o" id={ill.id} />
+                   </button>
+                 </div>
+                 <div className="ill-info">
+                   <Link to={`illness/${ill.id}`}>
+                     {!editForm && (
+                     <div>
+                       <div className="ill-name">
+                         <p>Name:</p>
+                         <p>{ill.name}</p>
+                       </div>
+                       <div className="ill-description">
+                         <p>Description:</p>
+                         <p>{ill.description}</p>
+                       </div>
+                     </div>
+                     )}
+                   </Link>
+                 </div>
+               </div>
+               )}
+               { editForm && ill.id.toString() === idIll && <FormIllness actionToPerform="Save Changes" buttonId={idIll} changeEditForm={this.changeEditForm} />}
+             </div>
+           ))}
+         </div>
+         <div className="newill">
+           {addForm && <FormIllness addIllness={this.addIllness} actionToPerform="Add" />}
+         </div>
+       </div>
+     );
+   }
 }
 
-render() {
-  const { illness } = this.props;
-  const { addForm, editForm } = this.state;
-  return (
-    <div className="main">
-      <button type="button" className="add-ill" onClick={this.displayForm}>+</button>
-      {/* <h3>Your Illnesses</h3> */}
-
-      <div className="illnesses">
-        {illness.map(ill => (
-          <div key={ill.id} className="one-ill">
-            <div className="buttons">
-              <button type="button" onClick={() => this.deleteIll(ill.id)}>
-                <i className="fa fa-trash-o" />
-              </button>
-              <button type="button" onClick={this.displayEdit}>
-                <i className="fa fa-pencil-square-o" />
-              </button>
-            </div>
-            <div className="ill-info">
-              <Link to={`illness/${ill.id}`}>
-                {!editForm && (
-                <div>
-                  <div className="ill-name">
-                    <p>Name:</p>
-                    <p>{ill.name}</p>
-                  </div>
-                  <div className="ill-description">
-                    <p>Description:</p>
-                    <p>{ill.description}</p>
-                  </div>
-                </div>
-                )}
-              </Link>
-
-              {editForm && (
-              <form>
-                <label>Name:</label>
-                <input
-                  id={`name-${ill.id}`}
-                  placeholder="name"
-                  type="text"
-                  name="name"
-                  defaultValue={ill.name}
-                  onChange={this.handleChangeName}
-                />
-                <label>Description: </label>
-                <input
-                  id={`description-${ill.id}`}
-                  placeholder="description"
-                  type="text"
-                  name="description"
-                  defaultValue={ill.description}
-                  onChange={this.handleChangeDescription}
-                />
-                <button type="button" onClick={() => this.handleSubmit(ill.id)}>Save Changes</button>
-              </form>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="newill">
-        {addForm && <FormIllness addIllness={this.addIllness} />}
-      </div>
-    </div>
-  );
-}
-}
-
-const mapStateToProps = state =>
+const mapStateToProps = state => {
   // console.log('state de illness', state);
-  ({
-    user: state.user,
-    isLogin: state.user.isLogin,
-    illness: state.illness,
-  });
+  return (
+    {
+      user: state.user,
+      isLogin: state.user.isLogin,
+      illness: state.illness,
+    });
+};
+
 const mapDispatchToProps = dispatch => ({
   fetchUserIllness: data => dispatch(fetchUserIllness(data)),
   createIll: data => dispatch(createIll(data)),
   deleteIll: id => dispatch(deleteIll(id)),
   loginStatus: () => dispatch(loginStatus()),
-  updateIll: data => dispatch(updateIll(data)),
 });
 
 Illness.propTypes = {
   fetchUserIllness: PropTypes.func,
-  updateIll: PropTypes.func,
   createIll: PropTypes.func,
   deleteIll: PropTypes.func,
   user: PropTypes.shape({
@@ -216,7 +163,6 @@ Illness.propTypes = {
 };
 
 Illness.defaultProps = {
-  updateIll: () => {},
   createIll: () => {},
   deleteIll: () => {},
   fetchUserIllness: () => {},

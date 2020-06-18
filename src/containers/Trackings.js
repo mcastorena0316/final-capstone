@@ -119,7 +119,6 @@ class Trackings extends React.Component {
               </ul>
             </div>
             )}
-            {console.log(buttonId, day.id)}
             {addEdit && buttonId === day.id.toString() && <FormDay actionToPerform="Save Changes" buttonId={buttonId} />}
           </div>
         ))}

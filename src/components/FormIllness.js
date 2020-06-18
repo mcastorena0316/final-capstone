@@ -1,7 +1,11 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FormIllness.css';
+import { connect } from 'react-redux';
+import { updateIll } from '../actions/illness';
 
 class FormIllness extends React.Component {
   constructor(props) {
@@ -10,6 +14,10 @@ class FormIllness extends React.Component {
       name: '',
       description: '',
     };
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeDescription = this.handleChangeDescription.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   handleChangeName = e => {
@@ -29,8 +37,38 @@ class FormIllness extends React.Component {
     addIllness(name, description);
   }
 
+  handleUpdate = async id => {
+    const { name, description } = this.state;
+
+    const {
+      user, updateIll, changeEditForm, buttonId,illness
+    } = this.props;
+  
+    const ill = illness.filter(x => x.id.toString() === buttonId);
+    const data = {};
+    if (name !== '' && description !== '') {
+      data.name = name;
+      data.description = description;
+      data.user_id = user.user.id;
+      data.id = id;
+    } else if (name === '' && description !== '') {
+      data.description = description;
+      data.user_id = user.user.id;
+      data.id = id;
+    } else if (name !== '' && description === '') {
+      data.name = name;
+      data.id = id;
+      data.user_id = user.user.id;
+    }
+   await  updateIll(data);
+  console.log(illness)
+    changeEditForm();
+  }
+
   render() {
     const { name, description } = this.state;
+    const { actionToPerform, illness, buttonId } = this.props;
+    const ill = illness.filter(x => x.id.toString() === buttonId);
     return (
 
       <form className="one-form one-ill">
@@ -41,7 +79,7 @@ class FormIllness extends React.Component {
             placeholder="Name"
             type="text"
             name="name"
-            value={name}
+            defaultValue={buttonId === '0' ? name : ill[0].name}
             onChange={this.handleChangeName}
           />
         </div>
@@ -52,11 +90,13 @@ class FormIllness extends React.Component {
             placeholder="Description"
             type="text"
             name="description"
-            value={description}
+            defaultValue={buttonId === '0' ? description : ill[0].description}
             onChange={this.handleChangeDescription}
           />
         </div>
-        <button type="button" onClick={() => this.handleSubmit(name, description)}>Add</button>
+        {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(name, description)}>{actionToPerform}</button>}
+        {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleUpdate(ill[0].id)}>{actionToPerform}</button>}
+
       </form>
     );
   }
@@ -64,10 +104,35 @@ class FormIllness extends React.Component {
 
 FormIllness.propTypes = {
   addIllness: PropTypes.func,
+  actionToPerform: PropTypes.string,
+  illness: PropTypes.array,
+  buttonId: PropTypes.string,
+  updateIll: PropTypes.func,
+  changeEditForm: PropTypes.func,
+  user: PropTypes.shape({}),
+
 };
 
 FormIllness.defaultProps = {
   addIllness: () => {},
+  actionToPerform: '',
+  illness: [],
+  buttonId: '0',
+  updateIll: () => {},
+  changeEditForm: () => {},
+  user: {},
 };
 
-export default FormIllness;
+const mapStateToProps = state => {
+  console.log('State en formday', state);
+  return ({
+    user: state.user,
+    illness: state.illness,
+  });
+};
+
+const mapDispatchToProps = dispatch => ({
+  updateIll: data => dispatch(updateIll(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormIllness);

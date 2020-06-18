@@ -1,9 +1,14 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import {
   DISPLAY_FETCHED_ILLNESS,
-  CREATE_ILLNESS, DELETE_ILLNESS, UPDATE_ILLNESS,
+  CREATE_ILLNESS, DELETE_ILLNESS, UPDATE_ILLNESS, updateIll,
 } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {
+  // console.log('state', state)
+  // console.log('action', action);
   switch (action.type) {
     case DISPLAY_FETCHED_ILLNESS:
       return action.payload;
@@ -12,20 +17,28 @@ export default function illnessReducer(state = [], action) {
     case DELETE_ILLNESS:
       return state.filter(el => el.id !== action.payload.id);
     case UPDATE_ILLNESS:
-      // eslint-disable-next-line array-callback-return
-      state.map(x => {
-        if (x.id === action.payload.id) {
-          if (x.description !== action.payload.description && x.name === action.payload.name) {
-            const y = x;
-            y.description = action.payload.description;
-          } if (x.name !== action.payload.name && x.description !== action.payload.description) {
-            const z = x;
-            z.name = action.payload.name;
-            z.description = action.payload.description;
-          }
-        }
-      });
-      return state;
+      const objIndex = state.findIndex(obj => obj.id === action.payload.id);
+      let updateObj;
+      if (action.payload.name && !action.payload.description) {
+        updateObj = { ...state[objIndex], name: action.payload.name };
+      } else if (!action.payload.name && action.payload.description) {
+        updateObj = { ...state[objIndex], description: action.payload.description };
+      } else {
+        updateObj = {
+          ...state[objIndex],
+          description: action.payload.description,
+          name: action.payload.name,
+        };
+      }
+
+      const updatedProjects = [
+        ...state.slice(0, objIndex),
+        updateObj,
+        ...state.slice(objIndex + 1),
+      ];
+
+      // console.log('update array', updatedProjects);
+      return updatedProjects;
     default:
       return state;
   }
