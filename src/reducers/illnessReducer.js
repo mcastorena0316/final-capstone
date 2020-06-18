@@ -7,8 +7,8 @@ import {
 } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {
-  // console.log('state', state)
-  // console.log('action', action);
+  console.log('state', state)
+  console.log('action', action);
   switch (action.type) {
     case DISPLAY_FETCHED_ILLNESS:
       return action.payload;

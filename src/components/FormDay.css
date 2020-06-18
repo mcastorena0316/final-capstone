@@ -21,3 +21,17 @@
 .temp-div input {
     width: 50px;
 }
+
+
+.medicine div {
+    display:flex;
+}
+
+.quantity {
+    width:25px;
+}
+
+.symptons div {
+    display:flex;
+    flex-direction: column;
+}

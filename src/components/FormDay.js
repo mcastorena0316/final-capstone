@@ -14,14 +14,16 @@ class FormDay extends React.Component {
       date: '',
       temperature: 0,
       selectedOption: '🙂',
-      addMed: false,
+      medicine: ['', '', ''],
+      symptons: [],
     };
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleChangeTemperature = this.handleChangeTemperature.bind(this);
+    this.handleChangeMedicine = this.handleChangeMedicine.bind(this);
+    this.handleChangeSymptons = this.handleChangeSymptons.bind(this);
     this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.displayaddMed = this.displayaddMed.bind(this);
   }
 
   handleChangeDate = e => {
@@ -40,6 +42,18 @@ class FormDay extends React.Component {
     this.setState({
       selectedOption: e.target.value,
     });
+  }
+
+  handleChangeMedicine = (e, index1) => {
+    const { medicine } = this.state;
+    medicine[index1] =e.target.value;
+    this.setState({ medicine });
+  }
+
+  handleChangeSymptons = (e, index) => {
+    const { symptons } = this.state;
+    symptons[index] = e.target.value;
+    this.setState({ symptons });
   }
 
   handleEdit = async (id, illness_id) => {
@@ -68,21 +82,15 @@ class FormDay extends React.Component {
     changeEditForm();
   }
 
-  displayaddMed = () => {
-    const { addMed } = this.state;
-    this.setState({
-      addMed: !addMed,
-    });
-  }
-
-  handleSubmit(mood, temperature, date) {
+  handleSubmit(mood, temperature, date, medicine, symptons) {
     const { addTracking } = this.props;
-    addTracking(mood, temperature, date);
+    const medicines = medicine;
+    addTracking(mood, temperature, date, medicines, symptons);
   }
 
   render() {
     const {
-      temperature, date, selectedOption, addMed,
+      temperature, date, selectedOption, medicine, symptons,
     } = this.state;
     const { actionToPerform, trackings, buttonId } = this.props;
     const track = trackings.filter(x => x.id.toString() === buttonId);
@@ -121,30 +129,72 @@ class FormDay extends React.Component {
               onChange={this.handleChangeTemperature}
             />
           </div>
-          <div>
-            <label>Medicine:</label>
-            <button type="button" onClick={this.displayaddMed}>+</button>
-            {addMed && (
-              <div>
-                <label>Name:</label>
-                <input
-                  id="med"
-                  type="text"
-                  name="med"
-                  defaultValue=""
-                />
-                <label>Quantity:</label>
-                <input
-                  id="numb"
-                  type="number"
-                  name="numb"
-                  defaultValue="0"
-                />
-                <button type="button">+</button>
-              </div>
-            )}
+          <div className="medicine">
+            <p>Medicines:</p>
+
+            <div>
+              <label>Name:</label>
+              <input
+                id="med1"
+                type="text"
+                name="med1"
+                defaultValue={buttonId === '0' ? '' : null}
+                placeholder="Put name and quantity"
+                onChange={e => this.handleChangeMedicine(e, 0, 0)}
+
+              />
+            </div>
+            <div>
+              <label>Name</label>
+              <input
+                id="med2"
+                type="text"
+                name="med2"
+                defaultValue={buttonId === '0' ? '' : null}
+                onChange={e => this.handleChangeMedicine(e, 1)}
+              />
+            </div>
+            <div>
+              <label>Name</label>
+              <input
+                id="med1"
+                type="text"
+                name="med2"
+                defaultValue={buttonId === '0' ? '' : null}
+                onChange={e => this.handleChangeMedicine(e, 2)}
+              />
+
+            </div>
           </div>
-          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date)}>{actionToPerform}</button>}
+          <div className="symptons">
+            <p>Symptons</p>
+            <div>
+              <input
+                id="symp1"
+                type="text"
+                name="symp1"
+                defaultValue={buttonId === '0' ? '' : null}
+                onChange={e => this.handleChangeSymptons(e, 0)}
+              />
+
+              <input
+                id="symp2"
+                type="text"
+                name="symp2"
+                defaultValue={buttonId === '0' ? '' : null}
+                onChange={e => this.handleChangeSymptons(e, 1)}
+              />
+
+              <input
+                id="symp3"
+                type="text"
+                name="symp3"
+                defaultValue={buttonId === '0' ? '' : null}
+                onChange={e => this.handleChangeSymptons(e, 2)}
+              />
+            </div>
+          </div>
+          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date, medicine, symptons)}>{actionToPerform}</button>}
           {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
 
         </div>

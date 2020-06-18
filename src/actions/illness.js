@@ -27,7 +27,7 @@ export const createIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    // console.log('Response de action', response);
+    console.log('Response de action', response);
     dispatch({
       type: CREATE_ILLNESS,
       data: {
