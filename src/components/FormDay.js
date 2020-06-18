@@ -1,19 +1,25 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './FormDay.css';
+import { updateDay } from '../actions/trackings';
 
 class FormDay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       date: '',
-      // mood: 0,
       temperature: 0,
       selectedOption: '🙂',
     };
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleChangeTemperature = this.handleChangeTemperature.bind(this);
+    this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeDate = e => {
@@ -21,12 +27,6 @@ class FormDay extends React.Component {
       date: e.target.value,
     });
   }
-
-  // handleChangeMood = e => {
-  //   this.setState({
-  //     mood: e.target.value,
-  //   });
-  // }
 
   handleChangeTemperature = e => {
     this.setState({
@@ -38,6 +38,32 @@ class FormDay extends React.Component {
     this.setState({
       selectedOption: e.target.value,
     });
+  }
+
+  handleEdit = async (id, illness_id) => {
+    const { date, temperature, selectedOption } = this.state;
+    const {
+      user, updateDay, changeEditForm,
+    } = this.props;
+    const data = {};
+    data.user_id = user.user.id;
+    data.illness_id = illness_id;
+    data.id = id;
+
+    if (date !== '' && temperature !== '') {
+      data.date = date;
+      data.temperature = temperature;
+      data.mood = selectedOption;
+    } else if (date === '' && temperature !== '') {
+      data.temperature = temperature;
+      data.mood = selectedOption;
+    } else if (date !== '' && temperature === '') {
+      data.date = date;
+      data.mood = selectedOption;
+    }
+    console.log(data);
+    await updateDay(data);
+    changeEditForm();
   }
 
   handleSubmit(mood, temperature, date) {
@@ -61,7 +87,7 @@ class FormDay extends React.Component {
               id="date"
               type="date"
               name="date"
-              value={buttonId === '0' ? date : track[0].date.slice(0, 10)}
+              defaultValue={buttonId === '0' ? date : track[0].date.slice(0, 10)}
               onChange={this.handleChangeDate}
             />
           </div>
@@ -82,12 +108,12 @@ class FormDay extends React.Component {
               id="temp"
               type="number"
               name="temp"
-              value={buttonId === '0' ? temperature : track[0].temperature}
+              defaultValue={buttonId === '0' ? temperature : track[0].temperature}
               onChange={this.handleChangeTemperature}
             />
           </div>
           {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date)}>{actionToPerform}</button>}
-          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(selectedOption, temperature, date)}>{actionToPerform}</button>}
+          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
 
         </div>
       </form>
@@ -97,16 +123,24 @@ class FormDay extends React.Component {
 
 FormDay.propTypes = {
   addTracking: PropTypes.func,
+  changeEditForm: PropTypes.func,
+  updateDay: PropTypes.func,
   buttonId: PropTypes.string,
   actionToPerform: PropTypes.string,
   trackings: PropTypes.array,
+  user: PropTypes.shape({}),
+
 };
 
 FormDay.defaultProps = {
   addTracking: () => {},
+  updateDay: () => {},
+  changeEditForm: () => {},
   actionToPerform: '',
   trackings: [],
   buttonId: '0',
+  user: {},
+
 };
 
 const mapStateToProps = state => {
@@ -117,4 +151,8 @@ const mapStateToProps = state => {
   });
 };
 
-export default connect(mapStateToProps, null)(FormDay);
+const mapDispatchToProps = dispatch => ({
+  updateDay: data => dispatch(updateDay(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormDay);

@@ -59,7 +59,7 @@ export const deleteIll = data => async dispatch => {
 };
 
 export const updateIll = data => async dispatch => {
-  console.log(data);
+  // console.log(data);
   try {
     dispatch({ type: UPDATE_ILLNESS, payload: data });
     const response = await axios({
@@ -69,10 +69,10 @@ export const updateIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    console.log('Response de action', response);
+    // console.log('Response de action', response);
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return (error);
   }
 };

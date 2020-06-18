@@ -21,6 +21,7 @@ class Trackings extends React.Component {
     this.displayForm = this.displayForm.bind(this);
     this.displayEdit = this.displayEdit.bind(this);
     this.addTracking = this.addTracking.bind(this);
+    this.changeEditForm = this.changeEditForm.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class Trackings extends React.Component {
   createDate = date => {
     const dateFormat = new Date(date);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return dateFormat.toLocaleDateString(undefined, options);
+    return dateFormat.toUTCString(undefined, options);
   }
 
   displayForm = () => {
@@ -63,6 +64,13 @@ class Trackings extends React.Component {
     deleteDay({ illness_id, id });
   }
 
+  changeEditForm = () => {
+    const { addEdit } = this.state;
+    this.setState({
+      addEdit: !addEdit,
+    });
+  }
+
   displayEdit = e => {
     const { addEdit } = this.state;
     this.setState({
@@ -83,7 +91,7 @@ class Trackings extends React.Component {
             {!addEdit && (
             <div className="day">
               <div className="date">
-                <p>{this.createDate(day.date)}</p>
+                <p>{this.createDate(day.date).slice(0, 16)}</p>
                 <div>
                   <button type="button" onClick={() => this.deleteTracking(day.id)}>
                     <i className="fa fa-trash-o" />
@@ -119,7 +127,13 @@ class Trackings extends React.Component {
               </ul>
             </div>
             )}
-            {addEdit && buttonId === day.id.toString() && <FormDay actionToPerform="Save Changes" buttonId={buttonId} />}
+            {addEdit && buttonId === day.id.toString() && (
+            <FormDay
+              actionToPerform="Save Changes"
+              buttonId={buttonId}
+              changeEditForm={this.changeEditForm}
+            />
+            )}
           </div>
         ))}
         {addForm && <FormDay actionToPerform="Add" addTracking={this.addTracking} /> }

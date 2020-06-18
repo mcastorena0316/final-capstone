@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 import {
   DISPLAY_FETCHED_ILLNESS,
-  CREATE_ILLNESS, DELETE_ILLNESS, UPDATE_ILLNESS, updateIll,
+  CREATE_ILLNESS, DELETE_ILLNESS, UPDATE_ILLNESS,
 } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {

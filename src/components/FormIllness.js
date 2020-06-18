@@ -59,7 +59,6 @@ class FormIllness extends React.Component {
       data.user_id = user.user.id;
     }
     await updateIll(data);
-    // console.log(illness)
     changeEditForm();
   }
 
