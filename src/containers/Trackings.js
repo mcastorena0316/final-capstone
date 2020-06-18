@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable camelcase */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
@@ -204,11 +205,7 @@ Trackings.propTypes = {
     description: PropTypes.string,
     name: PropTypes.string,
   })),
-  medicines: PropTypes.shape({
-    name: PropTypes.string,
-    quantity: PropTypes.number,
-
-  }),
+  medicines: PropTypes.array,
 
 };
 
@@ -217,7 +214,7 @@ Trackings.defaultProps = {
   fetchMedicines: () => {},
   deleteDay: () => {},
   createDay: () => {},
-  medicines: {},
+  medicines: [],
   user: {},
   trackings: [],
 };
