@@ -20,6 +20,18 @@ class FormIllness extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
+  componentDidMount = () => {
+    const { actionToPerform, buttonId, illness } = this.props;
+    if (actionToPerform === 'Save Changes') {
+      const ill = illness.filter(x => x.id.toString() === buttonId);
+      console.log(ill);
+      this.setState({
+        name: ill[0].name,
+        description: ill[0].description,
+      });
+    }
+  }
+
   handleChangeName = e => {
     this.setState({
       name: e.target.value,
@@ -43,21 +55,16 @@ class FormIllness extends React.Component {
     const {
       user, updateIll, changeEditForm,
     } = this.props;
-    const data = {};
-    if (name !== '' && description !== '') {
-      data.name = name;
-      data.description = description;
-      data.user_id = user.user.id;
-      data.id = id;
-    } else if (name === '' && description !== '') {
-      data.description = description;
-      data.user_id = user.user.id;
-      data.id = id;
-    } else if (name !== '' && description === '') {
-      data.name = name;
-      data.id = id;
-      data.user_id = user.user.id;
-    }
+
+    const data = {
+      id,
+      user_id: user.user.id,
+      name,
+      description,
+    };
+
+    console.log(data);
+
     await updateIll(data);
     changeEditForm();
   }
@@ -120,14 +127,12 @@ FormIllness.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log('State en formday', state);
-  return ({
+  ({
     user: state.user,
     illness: state.illness,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   updateIll: data => dispatch(updateIll(data)),
 });

@@ -7,7 +7,7 @@ import {
 } from '../actions/illness';
 
 export default function illnessReducer(state = [], action) {
-  // console.log('state', state)
+  // console.log('state', state);
   // console.log('action', action);
   switch (action.type) {
     case DISPLAY_FETCHED_ILLNESS:
@@ -18,27 +18,21 @@ export default function illnessReducer(state = [], action) {
       return state.filter(el => el.id !== action.payload.id);
     case UPDATE_ILLNESS:
       const objIndex = state.findIndex(obj => obj.id === action.payload.id);
-      let updateObj;
-      if (action.payload.name && !action.payload.description) {
-        updateObj = { ...state[objIndex], name: action.payload.name };
-      } else if (!action.payload.name && action.payload.description) {
-        updateObj = { ...state[objIndex], description: action.payload.description };
-      } else {
-        updateObj = {
-          ...state[objIndex],
-          description: action.payload.description,
-          name: action.payload.name,
-        };
-      }
+      let updateObj = {};
+      updateObj = {
+        ...state[objIndex],
+        description: action.payload.description,
+        name: action.payload.name,
+      };
 
-      const updatedProjects = [
+      const updatedState = [
         ...state.slice(0, objIndex),
         updateObj,
         ...state.slice(objIndex + 1),
       ];
 
       // console.log('update array', updatedProjects);
-      return updatedProjects;
+      return updatedState;
     default:
       return state;
   }
