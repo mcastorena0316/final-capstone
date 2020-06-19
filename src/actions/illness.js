@@ -69,7 +69,7 @@ export const updateIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    // console.log('Response de action', response);
+    console.log('Response de action', response);
     return response;
   } catch (error) {
     // console.log(error);

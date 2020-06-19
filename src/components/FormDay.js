@@ -26,6 +26,22 @@ class FormDay extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount = () => {
+    const { actionToPerform, buttonId, trackings } = this.props;
+    // console.log(actionToPerform);
+    if (actionToPerform === 'Save Changes') {
+      const track = trackings.filter(x => x.id.toString() === buttonId);
+      // console.log(track);
+      this.setState({
+        date: track[0].date,
+        temperature: track[0].temperature,
+        selectedOption: track[0].mood,
+        medicine: track[0].medicines,
+        symptons: track[0].symptons,
+      });
+    }
+  }
+
   handleChangeDate = e => {
     this.setState({
       date: e.target.value,
@@ -46,7 +62,7 @@ class FormDay extends React.Component {
 
   handleChangeMedicine = (e, index1) => {
     const { medicine } = this.state;
-    medicine[index1] =e.target.value;
+    medicine[index1] = e.target.value;
     this.setState({ medicine });
   }
 
@@ -57,27 +73,24 @@ class FormDay extends React.Component {
   }
 
   handleEdit = async (id, illness_id) => {
-    const { date, temperature, selectedOption } = this.state;
+    const {
+      date, temperature, selectedOption, medicine, symptons,
+    } = this.state;
     const {
       user, updateDay, changeEditForm,
     } = this.props;
-    const data = {};
-    data.user_id = user.user.id;
-    data.illness_id = illness_id;
-    data.id = id;
+    const data = {
+      id,
+      user_id: user.user.id,
+      illness_id,
+      date,
+      temperature,
+      mood: selectedOption,
+      medicines: medicine,
+      symptons,
+    };
 
-    if (date !== '' && temperature !== '') {
-      data.date = date;
-      data.temperature = temperature;
-      data.mood = selectedOption;
-    } else if (date === '' && temperature !== '') {
-      data.temperature = temperature;
-      data.mood = selectedOption;
-    } else if (date !== '' && temperature === '') {
-      data.date = date;
-      data.mood = selectedOption;
-    }
-    console.log(data);
+    // console.log(data);
     await updateDay(data);
     changeEditForm();
   }
@@ -138,7 +151,7 @@ class FormDay extends React.Component {
                 id="med1"
                 type="text"
                 name="med1"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].medicines[0]}
                 placeholder="Put name and quantity"
                 onChange={e => this.handleChangeMedicine(e, 0, 0)}
 
@@ -150,7 +163,7 @@ class FormDay extends React.Component {
                 id="med2"
                 type="text"
                 name="med2"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].medicines[1]}
                 onChange={e => this.handleChangeMedicine(e, 1)}
               />
             </div>
@@ -160,7 +173,7 @@ class FormDay extends React.Component {
                 id="med1"
                 type="text"
                 name="med2"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].medicines[2]}
                 onChange={e => this.handleChangeMedicine(e, 2)}
               />
 
@@ -173,7 +186,7 @@ class FormDay extends React.Component {
                 id="symp1"
                 type="text"
                 name="symp1"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].symptons[0]}
                 onChange={e => this.handleChangeSymptons(e, 0)}
               />
 
@@ -181,7 +194,7 @@ class FormDay extends React.Component {
                 id="symp2"
                 type="text"
                 name="symp2"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].symptons[1]}
                 onChange={e => this.handleChangeSymptons(e, 1)}
               />
 
@@ -189,7 +202,7 @@ class FormDay extends React.Component {
                 id="symp3"
                 type="text"
                 name="symp3"
-                defaultValue={buttonId === '0' ? '' : null}
+                defaultValue={buttonId === '0' ? '' : track[0].symptons[2]}
                 onChange={e => this.handleChangeSymptons(e, 2)}
               />
             </div>

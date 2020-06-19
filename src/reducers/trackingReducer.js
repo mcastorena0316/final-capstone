@@ -17,34 +17,23 @@ export default function trackingReducer(state = [], action) {
       return state.filter(el => el.id !== action.payload.id);
     case UPDATE_DAY:
       const objIndex = state.findIndex(obj => obj.id === action.payload.id);
-      let updateObj;
-      if (action.payload.date && !action.payload.temperature) {
-        updateObj = {
-          ...state[objIndex],
-          date: action.payload.date,
-          mood: action.payload.mood,
-        };
-      } else if (!action.payload.date && action.payload.temperature) {
-        updateObj = {
-          ...state[objIndex],
-          temperature: action.payload.temperature,
-          mood: action.payload.mood,
-        };
-      } else {
-        updateObj = {
-          ...state[objIndex],
-          temperature: action.payload.temperature,
-          date: action.payload.date,
-          mood: action.payload.mood,
-        };
-      }
+      let updateElement = {};
+      updateElement = {
+        ...state[objIndex],
+        temperature: action.payload.temperature,
+        date: action.payload.date,
+        mood: action.payload.mood,
+        symptons: action.payload.symptons,
+        medicines: action.payload.medicines,
+      };
 
-      const updatedProjects = [
+      const updatedState = [
         ...state.slice(0, objIndex),
-        updateObj,
+        updateElement,
         ...state.slice(objIndex + 1),
       ];
-      return updatedProjects;
+      // console.log(updatedState);
+      return updatedState;
     default:
       return state;
   }
