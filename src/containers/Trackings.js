@@ -16,10 +16,12 @@ class Trackings extends React.Component {
       addForm: false,
       addEdit: false,
       buttonId: '0',
+      addMore: false,
     };
     this.createDate = this.createDate.bind(this);
     this.displayForm = this.displayForm.bind(this);
     this.displayEdit = this.displayEdit.bind(this);
+    this.displayMore = this.displayMore.bind(this);
     this.addTracking = this.addTracking.bind(this);
     this.changeEditForm = this.changeEditForm.bind(this);
   }
@@ -79,8 +81,18 @@ class Trackings extends React.Component {
     });
   }
 
+  displayMore = e => {
+    const { addMore } = this.state;
+    this.setState({
+      addMore: !addMore,
+      buttonId: e.target.id,
+    });
+  }
+
   render() {
-    const { addForm, addEdit, buttonId } = this.state;
+    const {
+      addForm, addEdit, buttonId, addMore,
+    } = this.state;
     const { trackings } = this.props;
     return (
       <div className="trackings">
@@ -111,20 +123,25 @@ class Trackings extends React.Component {
                   ° C
                 </p>
               </div>
-              <ul className="medicines">
-                {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
-                <div>
-                  {day.medicines && day.medicines.map((x, i) => (
-                    <li key={i}><p>{x}</p></li>))}
-                </div>
-              </ul>
-              <ul className="symptons">
-                {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
-                <div>
-                  {day.symptons && day.symptons.map((x, i) => (
-                    <li key={i}><p>{x}</p></li>))}
-                </div>
-              </ul>
+              <button type="button" onClick={this.displayMore}  id={day.id} className="more">▼</button>
+              {addMore && buttonId === day.id.toString() && (
+              <div className="meds-symp">
+                <ul className="medicines">
+                  {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
+                  <div>
+                    {day.medicines && day.medicines.map((x, i) => (
+                      <li key={i}><p>{x}</p></li>))}
+                  </div>
+                </ul>
+                <ul className="symptons">
+                  {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
+                  <div>
+                    {day.symptons && day.symptons.map((x, i) => (
+                      <li key={i}><p>{x}</p></li>))}
+                  </div>
+                </ul>
+              </div>
+              )}
             </div>
             )}
             {addEdit && buttonId === day.id.toString() && (
@@ -143,13 +160,12 @@ class Trackings extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('State en trackings', state);
-  return ({
+const mapStateToProps = state =>
+  // console.log('State en trackings', state);
+  ({
     user: state.user,
     trackings: state.tracking,
   });
-};
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
@@ -168,7 +184,7 @@ Trackings.propTypes = {
   createDay: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }),
   }),
   trackings: PropTypes.arrayOf(PropTypes.shape({

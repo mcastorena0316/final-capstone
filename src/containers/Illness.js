@@ -18,8 +18,11 @@ class Illness extends React.Component {
       editForm: false,
       idIll: '0',
     };
+    this.addIllness = this.addIllness.bind(this);
     this.deleteIll = this.deleteIll.bind(this);
     this.displayForm = this.displayForm.bind(this);
+    this.changeEditForm = this.changeEditForm.bind(this);
+    this.changeAddForm = this.changeAddForm.bind(this);
     this.displayEdit = this.displayEdit.bind(this);
   }
 
@@ -78,6 +81,13 @@ class Illness extends React.Component {
      });
    }
 
+   changeAddForm = () => {
+     const { addForm } = this.state;
+     this.setState({
+       addForm: !addForm,
+     });
+   }
+
    render() {
      const { illness } = this.props;
      const {
@@ -86,11 +96,13 @@ class Illness extends React.Component {
      return (
        <div className="main">
          <button type="button" className="add-ill" onClick={this.displayForm}>+</button>
-         {/* <h3>Your Illnesses</h3> */}
          <div className="illnesses">
+           { !editForm && !addForm && <h3>Your Illnesses</h3>}
+
+           {illness.length === 0 && <div className="tracking">Start adding a illness you want to track here!</div>}
            {illness.map(ill => (
              <div key={ill.id}>
-               { !editForm && (
+               { !editForm && !addForm && (
                <div className="one-ill">
                  <div className="buttons">
                    <button type="button" onClick={() => this.deleteIll(ill.id)}>
@@ -123,23 +135,21 @@ class Illness extends React.Component {
            ))}
          </div>
          <div className="newill">
-           {addForm && <FormIllness addIllness={this.addIllness} actionToPerform="Add" />}
+           {addForm && <FormIllness addIllness={this.addIllness} actionToPerform="Add" changeAddForm={this.changeAddForm} />}
          </div>
        </div>
      );
    }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state =>
   // console.log('state de illness', state);
-  return (
+  (
     {
       user: state.user,
       isLogin: state.user.isLogin,
       illness: state.illness,
     });
-};
-
 const mapDispatchToProps = dispatch => ({
   fetchUserIllness: data => dispatch(fetchUserIllness(data)),
   createIll: data => dispatch(createIll(data)),

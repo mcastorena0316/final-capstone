@@ -17,6 +17,7 @@
 .login h2 {
     text-align:center;
     font-family: 'Raleway', sans-serif;
+    margin-top: 5px;
 }
 
 .login form {
@@ -64,4 +65,18 @@
     text-decoration: none;
     color:white;
     font-size: 14px
+}
+
+.errors-div {
+    font-size:12px;
+    margin-top:5px;
+    color: #721C24;
+    background-color: #F8D7DA;
+    border-radius: 5px;
+}
+
+.errors-div ul {
+    margin:0;
+    padding: 5px 31px
+
 }

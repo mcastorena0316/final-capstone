@@ -28,7 +28,7 @@
 .one-ill {
     display: flex;
     justify-content: flex-end;
-    border: 1px solid gray;
+    border: 1px solid rgb(218, 213, 213);
     background-color: white;
     margin: 0px 15px 12px 15px;
     border-radius: 11px;
@@ -37,8 +37,10 @@
 }
 
 .one-ill .buttons {
-    align-self: flex-end
+    align-self: flex-end;
+    margin-top: 4px;
 }
+
 
 .one-ill .buttons button {
     border: none;
@@ -47,9 +49,17 @@
     padding: 0 3px;
 }
 
+.fa-trash-o {
+    color:red;
+}
+
+.fa-pencil-square-o {
+    color:darkgreen;
+}
+
 .one-ill .ill-info {
  width:100%;
- font-size: 15px;
+ font-size: 13px;
 }
 
 .one-ill .ill-info a {
@@ -65,13 +75,20 @@
     margin: 2px 0;
 }
 
-
-.one-ill .ill-info .ill-name {
-    display: flex;
-    justify-content: space-around;
+.ill-name p:first-child, .ill-description p:first-child {
+    margin-right: 10px;
+    margin-left: 40px;
+    font-weight:bold
 }
 
-.one-ill .ill-info .ill-description {
+
+.one-ill .ill-info .ill-name,  .one-ill .ill-info .ill-description {
     display: flex;
-    justify-content: space-around;
+}
+
+.tracking{
+    display:flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 150px;
 }

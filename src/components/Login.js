@@ -12,7 +12,6 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      errors: '',
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -42,36 +41,37 @@ class Login extends React.Component {
   handleSubmit= e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginUser, isLogin } = this.props;
-    const { error } = this.props;
-
+    const { loginUser } = this.props;
     loginUser({ username, password });
-    // console.log('user login', isLogin);
-    if (!isLogin) {
-      this.setState({
-        errors: error,
-      });
-    }
   }
 
   handleErrors = () => {
-    const { errors } = this.state;
-    // console.log(errors)
-    setTimeout(() => this.setState({ errors: '' }), 3000);
+    const { error } = this.props;
+    setTimeout(() => {
+      const errors = document.getElementById('errors-div');
+      if (errors !== null) {
+        while (errors.firstChild) {
+          errors.removeChild(errors.firstChild);
+        }
+      }
+    }, 3000);
+
     return (
-      <div>
-        <ul>
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
-      </div>
+      <ul>
+        {error.map(error => <li key={error}>{error}</li>)}
+      </ul>
+
     );
   }
 
   render() {
-    const { username, errors, password } = this.state;
-    // console.log(errors)
+    const { username, password } = this.state;
+    const { error } = this.props;
     return (
       <div className="login">
+        <div id="errors-div" className="errors-div">
+          {error.length > 0 ? this.handleErrors() : null}
+        </div>
         <h2>Log In</h2>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -97,18 +97,14 @@ class Login extends React.Component {
           </button>
 
         </form>
-        <div>
-          <ul>
-            {errors ? this.handleErrors() : null}
-          </ul>
-        </div>
+
       </div>
     );
   }
 }
 
 const mapStateToProps = state =>
-  // console.log('State de Login:', state);
+  // console.log('State de Login:', state.user.errors);
   ({
     user: state.user,
     isLogin: state.user.isLogin,

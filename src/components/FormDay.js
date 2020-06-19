@@ -11,7 +11,7 @@ class FormDay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
+      date: '2020-06-01',
       temperature: 0,
       selectedOption: '🙂',
       medicine: ['', '', ''],
@@ -223,8 +223,11 @@ FormDay.propTypes = {
   buttonId: PropTypes.string,
   actionToPerform: PropTypes.string,
   trackings: PropTypes.array,
-  user: PropTypes.shape({}),
-
+  user: PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
 };
 
 FormDay.defaultProps = {

@@ -69,6 +69,7 @@ export const loginUser = user => dispatch => {
         type: LOGIN_USER_ERROR,
         payload: error,
       });
+      return error
     });
 };
 

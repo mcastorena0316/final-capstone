@@ -1,26 +1,17 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap";
 
 .one-form {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
 }
 
-.one-form button {
-    border: none;
-    background-color: rgb(173,220,145);
-    height: 25px;
-    padding: 0 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    width: 65px;
-    margin: 5px;
-}
 
 .one-parameter {
     display: flex;
     width:100%;
     justify-content: space-between;
+  
 }
 
 .one-parameter label {
@@ -28,13 +19,77 @@
 }
 
 .one-parameter {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 4px;
 }
 
-.one-parameter input {
+.one-parameter input, .one-parameter textarea {
     border: 1px solid gray;
-    height: 20px;
     width: 150px;
     border-radius: 5px;
     margin-right: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.one-parameter input:focus, .one-parameter textarea:focus {
+    background-color: aliceblue;
+}
+
+.one-parameter input {
+    height:20px;
+}
+
+.one-parameter textarea {
+    height: 33px; 
+}
+
+
+.buttons-form {
+    display: flex;
+    align-items: center;
+    margin-top: 14px
+}
+
+.buttons-form button {
+    border: none;
+    height: 25px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    width: 80px;
+    margin: 5px;
+    height: 33px;
+    font-size: 13px;
+    width: 80px;
+}
+
+.buttons-form button:first-child {
+    background-color: rgb(173,220,145);
+}
+
+.buttons-form button:last-child {
+    background-color: red;
+}
+
+.new-ill {
+    justify-content: center;
+    display: flex;
+}
+
+.newill div h3 {
+margin:20px;
+}
+ 
+.one-form {
+
+    border: 0.5px solid rgb(218, 213, 213);
+    background-color: white;
+    margin: 0px 15px 12px 15px;
+    border-radius: 11px;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40vh;
+    margin-top: 50px;
 }

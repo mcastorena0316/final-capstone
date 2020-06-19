@@ -24,7 +24,7 @@ class FormIllness extends React.Component {
     const { actionToPerform, buttonId, illness } = this.props;
     if (actionToPerform === 'Save Changes') {
       const ill = illness.filter(x => x.id.toString() === buttonId);
-      console.log(ill);
+      // console.log(ill);
       this.setState({
         name: ill[0].name,
         description: ill[0].description,
@@ -63,7 +63,7 @@ class FormIllness extends React.Component {
       description,
     };
 
-    console.log(data);
+    // console.log(data);
 
     await updateIll(data);
     changeEditForm();
@@ -71,37 +71,55 @@ class FormIllness extends React.Component {
 
   render() {
     const { name, description } = this.state;
-    const { actionToPerform, illness, buttonId } = this.props;
+    const {
+      actionToPerform, illness, buttonId, changeEditForm, changeAddForm,
+    } = this.props;
     const ill = illness.filter(x => x.id.toString() === buttonId);
     return (
-
-      <form className="one-form one-ill">
-        <div className="one-parameter">
-          <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            placeholder="Name"
-            type="text"
-            name="name"
-            defaultValue={buttonId === '0' ? name : ill[0].name}
-            onChange={this.handleChangeName}
-          />
-        </div>
-        <div className="one-parameter">
-          <label htmlFor="description">Description:</label>
-          <input
-            id="description"
-            placeholder="Description"
-            type="text"
-            name="description"
-            defaultValue={buttonId === '0' ? description : ill[0].description}
-            onChange={this.handleChangeDescription}
-          />
-        </div>
-        {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(name, description)}>{actionToPerform}</button>}
-        {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleUpdate(ill[0].id)}>{actionToPerform}</button>}
-
-      </form>
+      <div>
+        <h3>
+          {actionToPerform}
+          {' '}
+          Illness
+        </h3>
+        <form
+          className="one-form"
+          onSubmit={
+           actionToPerform === 'Add'
+             ? () => this.handleSubmit(name, description) : () => this.handleUpdate(ill[0].id)
+}
+        >
+          <div className="one-parameter">
+            <label htmlFor="name">Name:</label>
+            <input
+              required
+              id="name"
+              placeholder="Name"
+              type="text"
+              name="name"
+              defaultValue={buttonId === '0' ? name : ill[0].name}
+              onChange={this.handleChangeName}
+            />
+          </div>
+          <div className="one-parameter">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              id="description"
+              placeholder="Description"
+            // type="textarea"
+              name="description"
+              defaultValue={buttonId === '0' ? description : ill[0].description}
+              onChange={this.handleChangeDescription}
+            />
+          </div>
+          <div className="buttons-form">
+            {actionToPerform === 'Add' && <button type="submit">{actionToPerform}</button>}
+            {actionToPerform === 'Save Changes' && <button type="submit">{actionToPerform}</button>}
+            {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
+            {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
+          </div>
+        </form>
+      </div>
     );
   }
 }
@@ -113,7 +131,11 @@ FormIllness.propTypes = {
   buttonId: PropTypes.string,
   updateIll: PropTypes.func,
   changeEditForm: PropTypes.func,
-  user: PropTypes.shape({}),
+  user: PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  }),
 
 };
 

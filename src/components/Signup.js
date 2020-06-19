@@ -49,7 +49,6 @@ class Signup extends Component {
      const { createUser } = this.props;
 
      const response = await createUser({ username, password, password_confirmation });
-
      //  console.log('Response de Signup:', response);
      if (response && response.status === 200) {
        const { history } = this.props;
@@ -66,9 +65,9 @@ class Signup extends Component {
      const { errors } = this.state;
      setTimeout(() => this.setState({ errors: '' }), 3000);
      return (
-       <div>
-         {errors.map((error, i) => <p key={i}>{error}</p>)}
-       </div>
+       <ul>
+         {errors.map((error, i) => <li key={i}>{error}</li>)}
+       </ul>
      );
    }
 
@@ -78,6 +77,9 @@ class Signup extends Component {
      } = this.state;
      return (
        <div className="signup">
+         <div className="errors-div">
+           {errors ? this.handleErrors() : null}
+         </div>
          <h2>Sign Up</h2>
          <form onSubmit={this.handleSubmit}>
            <input
@@ -108,11 +110,7 @@ class Signup extends Component {
              Sign In
            </button>
          </form>
-         <div>
-           <ul>
-             {errors ? this.handleErrors() : null}
-           </ul>
-         </div>
+
        </div>
      );
    }
