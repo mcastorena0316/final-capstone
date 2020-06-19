@@ -7,32 +7,37 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.trackings h2 {
+.trackings h3 {
     font-family: 'Raleway', sans-serif;
     text-align: center;
 }
 
-.add-day {
-    font-size: 37px;
+.add-day, .go-back {
     color: white;
-    position: absolute;
-    right: 11px;
-    top: 7px;
+    position: absolute;    
     background: none;
     border: none;
+
 }
 
-/* 
-.day {
-    display: flex;
-    justify-content: flex-end;
-    border: 1px solid gray;
-    font-size: 11px;
-    background-color: white;
-    margin: 0px 15px 12px 15px;
-    border-radius: 11px;
-    flex-direction: column
-} */
+.add-day {
+    right: 11px;    
+    font-size: 37px;
+    top: 7px; 
+}
+
+.go-back {
+  left:11px;
+  font-size: 25px;
+  top:12px;
+}
+
+.more {
+    border-radius: 0 0px 12px 12px;
+    border: none;
+    height: 24px;
+}
+
 
 .date {
     display: flex;
@@ -43,6 +48,11 @@
 .date p {
     margin-left: 13px;
     font-size: 15px;
+    margin: 7px 0 0 13px
+}
+
+.date p i {
+    padding-right: 5px
 }
 
 .date div button {
@@ -52,26 +62,62 @@
     padding: 0 3px;
 }
 
-.mood {
-    font-size: 13px
+.mood, .temp {
+    font-size: 13px;
+    display: flex;
+    align-items: center
 }
 
 .mood p {
-    margin-left: 10px;
+    margin: 8px 0 5px 0px;
+    padding-left: 6px
+}
+
+.mood p:first-child { 
+    padding-left: 29px
 }
 
 .mood p i {
     padding: 0 5px;
 }
 
-.medicines {
-    display:flex;
-    margin:0;
-    padding: 0 10px;
+.temp p {
+    margin-top:5px;
+    padding-right: 8px
 }
 
-.symptons {
-    display:flex;
-    margin:0;
-    padding: 0 10px;
+.temp p i {
+    padding-right:5px;
 }
+
+.temp p:first-child {
+    padding-left: 28px;
+}
+
+.med-list {
+    margin-left: 15px
+}
+
+.symp-list {
+    margin-left: 35px
+}
+
+.med-list li, .symp-list li{
+    margin: 5px 
+}
+
+.med-list li span {
+    padding-right: 8px;
+    color: #62B5E5;  
+}
+
+.symp-list li:before {
+
+    content: '\f0fa';
+    font-family: 'FontAwesome';
+    float: left;
+    margin-left: -1.5em;
+    
+    color: rgb(173,220,145);
+}
+

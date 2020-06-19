@@ -9,29 +9,86 @@
     margin: 0px 15px 12px 15px;
     border-radius: 11px;
     flex-direction: column;
-    font-size: 13px
+    font-size: 4vw;
+}
+
+.day input {
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size:3.2vw;
+}
+
+.date-temp {
+    display:flex;
+    margin: 8px 0 8px 7px;
+    justify-content: center;
+}
+
+
+.date-div, .temp-div {
+    display: flex;
+    align-items: center
+}
+
+.date-div {
+    margin-right:8px;
 }
 
 .date-div input {
-    width: 116px;
-    height: 30px;
-    font-size: 11px;
+    width: 32vw;
+    height: 28px;
+    font-size: 3.2vw;
+    font-family: 'Roboto', sans-serif;
 }
 
 .temp-div input {
-    width: 50px;
+    width: 9vw;
+    height: 26px;
 }
 
-
-.medicine div {
+.mood-div {
     display:flex;
+    justify-content: center;
+    margin-bottom:10px;
 }
 
-.quantity {
-    width:25px;
+.mood-div  span {
+    font-size:5vw;
 }
 
-.symptons div {
+.medicine, .symptons{
+    display:flex;
+    justify-content: center;
+    margin:0;
+    padding: 0 10px;
+    list-style: none;
+}
+
+.medicine p, .symptons p {
+    margin-top: 6px;
+}
+
+.medicine div, .symptons div {
     display:flex;
     flex-direction: column;
+}
+
+.med-div input, .symp-div input {
+    margin: 2px 1px;
+    height:20px;
+    width:40vw;
+}
+
+.med-div input::placeholder, .symp-div input::placeholder {
+    padding-left: 5px;
+}
+
+.day-buttons{
+    justify-content: center;
+}
+
+.day-buttons button {
+    height: 30px;
+    font-size: 3.5vw;
+    width: 23vw;
 }

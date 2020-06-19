@@ -96,122 +96,131 @@ class FormDay extends React.Component {
   }
 
   handleSubmit(mood, temperature, date, medicine, symptons) {
-    const { addTracking } = this.props;
+    const { addTracking, changeAddForm } = this.props;
     const medicines = medicine;
     addTracking(mood, temperature, date, medicines, symptons);
+    changeAddForm();
   }
 
   render() {
     const {
       temperature, date, selectedOption, medicine, symptons,
     } = this.state;
-    const { actionToPerform, trackings, buttonId } = this.props;
+    const {
+      actionToPerform, trackings, buttonId, changeAddForm, changeEditForm,
+    } = this.props;
     const track = trackings.filter(x => x.id.toString() === buttonId);
 
     return (
-      <form className="day">
-        <div className="form-div">
-          <div className="date-div">
-            <label htmlFor="date">Date: </label>
-            <input
-              id="date"
-              type="date"
-              name="date"
-              defaultValue={buttonId === '0' ? date : track[0].date.slice(0, 10)}
-              onChange={this.handleChangeDate}
-            />
-          </div>
-          <div>
-            <label>Mood: </label>
-            <input type="radio" id="option1" name="mood" value="🙂" checked={selectedOption === '🙂'} onChange={this.handleOptionChange} />
-            <span role="img" aria-label="happy">🙂</span>
-            <input type="radio" id="option2" name="mood" value="😐" checked={selectedOption === '😐'} onChange={this.handleOptionChange} />
-            <span role="img" aria-label="neutral">😐</span>
-            <input type="radio" id="option3" name="mood" value="🙁" checked={selectedOption === '🙁'} onChange={this.handleOptionChange} />
-            <span role="img" aria-label="sad">🙁</span>
-            <input type="radio" id="option4" name="mood" value="😩" checked={selectedOption === '😩'} onChange={this.handleOptionChange} />
-            <span role="img" aria-label="sad2">😩</span>
-          </div>
-          <div className="temp-div">
-            <label htmlFor="temp">Temperature:  </label>
-            <input
-              id="temp"
-              type="number"
-              name="temp"
-              defaultValue={buttonId === '0' ? temperature : track[0].temperature}
-              onChange={this.handleChangeTemperature}
-            />
-          </div>
-          <div className="medicine">
-            <p>Medicines:</p>
+      <div>
+        <h3>
+          {actionToPerform}
+          {' '}
+          Tracking for Illness
+        </h3>
+        <form className="day">
 
-            <div>
-              <label>Name:</label>
-              <input
-                id="med1"
-                type="text"
-                name="med1"
-                defaultValue={buttonId === '0' ? '' : track[0].medicines[0]}
-                placeholder="Put name and quantity"
-                onChange={e => this.handleChangeMedicine(e, 0, 0)}
-
-              />
+          <div className="form-div">
+            <div className="date-temp">
+              <div className="date-div">
+                <label htmlFor="date">Date: </label>
+                <input
+                  id="date"
+                  type="date"
+                  name="date"
+                  defaultValue={buttonId === '0' ? date : track[0].date.slice(0, 10)}
+                  onChange={this.handleChangeDate}
+                />
+              </div>
+              <div className="temp-div">
+                <label htmlFor="temp">Temperature:  </label>
+                <input
+                  id="temp"
+                  type="number"
+                  name="temp"
+                  defaultValue={buttonId === '0' ? temperature : track[0].temperature}
+                  onChange={this.handleChangeTemperature}
+                />
+                <span>°C</span>
+              </div>
             </div>
-            <div>
-              <label>Name</label>
-              <input
-                id="med2"
-                type="text"
-                name="med2"
-                defaultValue={buttonId === '0' ? '' : track[0].medicines[1]}
-                onChange={e => this.handleChangeMedicine(e, 1)}
-              />
+            <div className="mood-div">
+              <label>Mood: </label>
+              <input type="radio" id="option1" name="mood" value="🙂" checked={selectedOption === '🙂'} onChange={this.handleOptionChange} />
+              <span role="img" aria-label="happy">🙂</span>
+              <input type="radio" id="option2" name="mood" value="😐" checked={selectedOption === '😐'} onChange={this.handleOptionChange} />
+              <span role="img" aria-label="neutral">😐</span>
+              <input type="radio" id="option3" name="mood" value="🙁" checked={selectedOption === '🙁'} onChange={this.handleOptionChange} />
+              <span role="img" aria-label="sad">🙁</span>
+              <input type="radio" id="option4" name="mood" value="😩" checked={selectedOption === '😩'} onChange={this.handleOptionChange} />
+              <span role="img" aria-label="sad2">😩</span>
             </div>
-            <div>
-              <label>Name</label>
-              <input
-                id="med1"
-                type="text"
-                name="med2"
-                defaultValue={buttonId === '0' ? '' : track[0].medicines[2]}
-                onChange={e => this.handleChangeMedicine(e, 2)}
-              />
 
+            <div className="medicine">
+              <p>Medicines:</p>
+              <div className="med-div">
+                <input
+                  id="med1"
+                  type="text"
+                  name="med1"
+                  defaultValue={buttonId === '0' ? '' : track[0].medicines[0]}
+                  placeholder="Add medicine name"
+                  onChange={e => this.handleChangeMedicine(e, 0, 0)}
+                />
+                <input
+                  id="med2"
+                  type="text"
+                  name="med2"
+                  defaultValue={buttonId === '0' ? '' : track[0].medicines[1]}
+                  onChange={e => this.handleChangeMedicine(e, 1)}
+                />
+                <input
+                  id="med1"
+                  type="text"
+                  name="med2"
+                  defaultValue={buttonId === '0' ? '' : track[0].medicines[2]}
+                  onChange={e => this.handleChangeMedicine(e, 2)}
+                />
+              </div>
+            </div>
+            <div className="symptons">
+              <p>Symptons</p>
+              <div className="symp-div">
+                <input
+                  id="symp1"
+                  type="text"
+                  name="symp1"
+                  placeholder="Add sympton"
+                  defaultValue={buttonId === '0' ? '' : track[0].symptons[0]}
+                  onChange={e => this.handleChangeSymptons(e, 0)}
+                />
+
+                <input
+                  id="symp2"
+                  type="text"
+                  name="symp2"
+                  defaultValue={buttonId === '0' ? '' : track[0].symptons[1]}
+                  onChange={e => this.handleChangeSymptons(e, 1)}
+                />
+
+                <input
+                  id="symp3"
+                  type="text"
+                  name="symp3"
+                  defaultValue={buttonId === '0' ? '' : track[0].symptons[2]}
+                  onChange={e => this.handleChangeSymptons(e, 2)}
+                />
+              </div>
+            </div>
+            <div className="buttons-form day-buttons">
+              {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date, medicine, symptons)}>{actionToPerform}</button>}
+              {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
+              {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
+              {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
             </div>
           </div>
-          <div className="symptons">
-            <p>Symptons</p>
-            <div>
-              <input
-                id="symp1"
-                type="text"
-                name="symp1"
-                defaultValue={buttonId === '0' ? '' : track[0].symptons[0]}
-                onChange={e => this.handleChangeSymptons(e, 0)}
-              />
-
-              <input
-                id="symp2"
-                type="text"
-                name="symp2"
-                defaultValue={buttonId === '0' ? '' : track[0].symptons[1]}
-                onChange={e => this.handleChangeSymptons(e, 1)}
-              />
-
-              <input
-                id="symp3"
-                type="text"
-                name="symp3"
-                defaultValue={buttonId === '0' ? '' : track[0].symptons[2]}
-                onChange={e => this.handleChangeSymptons(e, 2)}
-              />
-            </div>
-          </div>
-          {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date, medicine, symptons)}>{actionToPerform}</button>}
-          {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
-
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }
@@ -225,7 +234,7 @@ FormDay.propTypes = {
   trackings: PropTypes.array,
   user: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
     }),
   }),
 };
@@ -241,14 +250,12 @@ FormDay.defaultProps = {
 
 };
 
-const mapStateToProps = state => {
-  console.log('State en formday', state);
-  return ({
+const mapStateToProps = state =>
+  // console.log('State en formday', state);
+  ({
     user: state.user,
     trackings: state.tracking,
   });
-};
-
 const mapDispatchToProps = dispatch => ({
   updateDay: data => dispatch(updateDay(data)),
 });

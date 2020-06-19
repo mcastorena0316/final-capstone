@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
 import FormDay from '../components/FormDay';
@@ -24,6 +25,7 @@ class Trackings extends React.Component {
     this.displayMore = this.displayMore.bind(this);
     this.addTracking = this.addTracking.bind(this);
     this.changeEditForm = this.changeEditForm.bind(this);
+    this.deleteTracking = this.deleteTracking.bind(this);
   }
 
   componentDidMount() {
@@ -73,6 +75,13 @@ class Trackings extends React.Component {
     });
   }
 
+  changeAddForm = () => {
+    const { addForm } = this.state;
+    this.setState({
+      addForm: !addForm,
+    });
+  }
+
   displayEdit = e => {
     const { addEdit } = this.state;
     this.setState({
@@ -94,55 +103,83 @@ class Trackings extends React.Component {
       addForm, addEdit, buttonId, addMore,
     } = this.state;
     const { trackings } = this.props;
+
     return (
       <div className="trackings">
-        <h2>Information Illness</h2>
         <button type="button" className="add-day" onClick={this.displayForm}>+</button>
+        <Link to="/main">
+
+          <button type="button" className="go-back" onClick={this.displayForm}>
+            <i className="fa fa-arrow-left" aria-hidden="true" />
+
+          </button>
+        </Link>
+
         {trackings.map(day => (
           <div key={day.id}>
-            {!addEdit && (
-            <div className="day">
-              <div className="date">
-                <p>{this.createDate(day.date).slice(0, 16)}</p>
-                <div>
-                  <button type="button" onClick={() => this.deleteTracking(day.id)}>
-                    <i className="fa fa-trash-o" />
-                  </button>
-                  <button type="button" onClick={this.displayEdit}><i className="fa fa-pencil-square-o" id={day.id} /></button>
+            {!addEdit && !addForm && (
+              <div>
+                <h3>Tracking of Illness: </h3>
+
+                <div className="day">
+                  <div className="date">
+
+                    <p>
+                      {' '}
+                      <i className="fa fa-calendar" aria-hidden="true" />
+                      {this.createDate(day.date).slice(0, 16)}
+                    </p>
+                    <div>
+                      <button type="button" onClick={() => this.deleteTracking(day.id)}>
+                        <i className="fa fa-trash-o" />
+                      </button>
+                      <button type="button" onClick={this.displayEdit}><i className="fa fa-pencil-square-o" id={day.id} /></button>
+                    </div>
+                  </div>
+                  <div className="mood">
+                    <p>
+                      Mood:
+                    </p>
+                    <p>{day.mood}</p>
+                  </div>
+                  <div className="temp">
+                    <p>
+                      Temperature:
+                    </p>
+                    <p>
+                      <i className="fa fa-thermometer-empty" />
+                      {day.temperature}
+                      ° C
+                    </p>
+                  </div>
+
+                  <button type="button" onClick={this.displayMore} id={day.id} className="more">▼</button>
+                  {addMore && buttonId === day.id.toString() && (
+                  <div className="meds-symp">
+                    <ul className="medicines">
+                      {day.medicines && <p>Medicines:</p>}
+                      <div className="med-list">
+                        {day.medicines && day.medicines.map((x, i) => (
+                          x !== '' ? (
+                            <li key={i}>
+                              <span role="img" aria-label="pill">💊</span>
+                              {x}
+                            </li>
+                          ) : null
+                        ))}
+                      </div>
+                    </ul>
+                    <ul className="symptons">
+                      {day.symptons && <p>Symptons:</p>}
+                      <div className="symp-list">
+                        {day.symptons && day.symptons.map((x, i) => (
+                          x !== '' ? <li key={i}>{x}</li> : null))}
+                      </div>
+                    </ul>
+                  </div>
+                  )}
                 </div>
               </div>
-              <div className="mood">
-                <p>
-                  Mood:
-                  {day.mood}
-                </p>
-                <p>
-                  <i className="fa fa-thermometer-empty" />
-                  Temperature:
-                  {day.temperature}
-                  ° C
-                </p>
-              </div>
-              <button type="button" onClick={this.displayMore}  id={day.id} className="more">▼</button>
-              {addMore && buttonId === day.id.toString() && (
-              <div className="meds-symp">
-                <ul className="medicines">
-                  {day.medicines && day.medicines.length > 0 && <h4>Medicines:</h4>}
-                  <div>
-                    {day.medicines && day.medicines.map((x, i) => (
-                      <li key={i}><p>{x}</p></li>))}
-                  </div>
-                </ul>
-                <ul className="symptons">
-                  {day.symptons && day.symptons.length > 0 && <h4>Symptons:</h4>}
-                  <div>
-                    {day.symptons && day.symptons.map((x, i) => (
-                      <li key={i}><p>{x}</p></li>))}
-                  </div>
-                </ul>
-              </div>
-              )}
-            </div>
             )}
             {addEdit && buttonId === day.id.toString() && (
             <FormDay
@@ -153,19 +190,20 @@ class Trackings extends React.Component {
             )}
           </div>
         ))}
-        {addForm && <FormDay actionToPerform="Add" addTracking={this.addTracking} /> }
+        {addForm && <FormDay actionToPerform="Add" addTracking={this.addTracking} changeAddForm={this.changeAddForm} /> }
       </div>
 
     );
   }
 }
 
-const mapStateToProps = state =>
-  // console.log('State en trackings', state);
-  ({
+const mapStateToProps = state => {
+  console.log('State en trackings', state);
+  return ({
     user: state.user,
     trackings: state.tracking,
   });
+};
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
@@ -184,7 +222,7 @@ Trackings.propTypes = {
   createDay: PropTypes.func,
   user: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
     }),
   }),
   trackings: PropTypes.arrayOf(PropTypes.shape({

@@ -54,7 +54,11 @@
 }
 
 .fa-pencil-square-o {
-    color:darkgreen;
+   color:black;
+}
+
+.one-ill:hover {
+    background-color: rgb(207, 240, 187,0.7);
 }
 
 .one-ill .ill-info {
