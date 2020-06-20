@@ -10,6 +10,7 @@
 .trackings h3 {
     font-family: 'Raleway', sans-serif;
     text-align: center;
+    font-size: 5.5vw
 }
 
 .add-day, .go-back {
@@ -35,7 +36,7 @@
 .more {
     border-radius: 0 0px 12px 12px;
     border: none;
-    height: 24px;
+    height: 5vh;
 }
 
 
@@ -47,7 +48,7 @@
 
 .date p {
     margin-left: 13px;
-    font-size: 15px;
+    font-size:4vw;
     margin: 7px 0 0 13px
 }
 
@@ -58,12 +59,12 @@
 .date div button {
     border: none;
     background: none;
-    font-size: 18px;
+    font-size: 5.5vw;
     padding: 0 3px;
 }
 
 .mood, .temp {
-    font-size: 13px;
+    font-size: 3.7vw;
     display: flex;
     align-items: center
 }

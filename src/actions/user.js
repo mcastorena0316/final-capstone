@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import axios from 'axios';
 
 export const CREATE_USER = 'CREATE USER';
@@ -12,10 +11,8 @@ export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
 export const loginStatus = () => dispatch => {
   axios.get('http://localhost:3001/logged_in',
     { withCredentials: true })
-    .then(response =>
-      // console.log(response);
-      (
-        response.data))
+    .then(response => (
+      response.data))
     .then(data => {
       dispatch({
         type: LOGGED_IN,
@@ -50,26 +47,27 @@ export const createUser = newUser => async dispatch => {
     });
     return response;
   } catch (error) {
-    console.log(response.data);
     dispatch({ type: CREATE_USER_ERROR, payload: response.data.errors });
+    return error;
   }
 };
 
-export const loginUser = user => dispatch => {
-  axios.post('http://localhost:3001/login', { user }, { withCredentials: true })
-    .then(response => response.data)
-    .then(data => {
-      dispatch({
-        type: LOGIN_USER,
-        payload: data,
-      });
-    })
-    .catch(error => {
-      dispatch({
-        type: LOGIN_USER_ERROR,
-        payload: error,
-      });
+export const loginUser = user => async dispatch => {
+  let response = {};
+  try {
+    response = await axios.post('http://localhost:3001/login', { user }, { withCredentials: true });
+    dispatch({
+      type: LOGIN_USER,
+      payload: response.data,
     });
+    return response;
+  } catch (error) {
+    dispatch({
+      type: LOGIN_USER_ERROR,
+      payload: error,
+    });
+    return error;
+  }
 };
 
 export const logOutUser = () => async dispatch => {

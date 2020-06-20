@@ -3,7 +3,6 @@ import axios from 'axios';
 export const DISPLAY_FETCHED_DAYS = 'DISPLAY FETCHED DAYS';
 export const CREATE_DAY = 'CREATE DAY';
 export const DELETE_DAY = 'DELETE DAY';
-export const DELETE_DAY_ERROR = 'DELETE DAY ERROR';
 export const CREATE_DAY_ERROR = 'CREATE DAY ERROR';
 export const UPDATE_DAY = 'UPDATE DAY';
 
@@ -51,7 +50,6 @@ export const deleteDay = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    // console.log('Response de action', response);
     return response;
   } catch (error) {
     return (error);
@@ -59,7 +57,6 @@ export const deleteDay = data => async dispatch => {
 };
 
 export const updateDay = data => async dispatch => {
-  // console.log(data);
   try {
     dispatch({ type: UPDATE_DAY, payload: data });
     const response = await axios({
@@ -69,10 +66,8 @@ export const updateDay = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    // console.log('Response de action', response);
     return response;
   } catch (error) {
-    // console.log(error);
     return (error);
   }
 };

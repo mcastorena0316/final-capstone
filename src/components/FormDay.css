@@ -9,7 +9,7 @@
     margin: 0px 15px 12px 15px;
     border-radius: 11px;
     flex-direction: column;
-    font-size: 4vw;
+    font-size: 3.5vw;
 }
 
 .day input {
@@ -56,7 +56,7 @@
     font-size:5vw;
 }
 
-.medicine, .symptons{
+.medicines2, .symptons2 {
     display:flex;
     justify-content: center;
     margin:0;
@@ -64,13 +64,17 @@
     list-style: none;
 }
 
-.medicine p, .symptons p {
+.medicine2 p, .symptons2 p {
     margin-top: 6px;
 }
 
-.medicine div, .symptons div {
+.medicine2 div, .symptons2 div {
     display:flex;
     flex-direction: column;
+}
+
+.med-div{
+    width:50%;
 }
 
 .med-div input, .symp-div input {
@@ -88,7 +92,7 @@
 }
 
 .day-buttons button {
-    height: 30px;
+    height: 8vh;
     font-size: 3.5vw;
     width: 23vw;
 }

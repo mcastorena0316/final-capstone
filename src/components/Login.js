@@ -12,6 +12,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      errors: [],
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -38,39 +39,43 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit= e => {
+  handleSubmit= async e => {
     e.preventDefault();
     const { username, password } = this.state;
     const { loginUser } = this.props;
-    loginUser({ username, password });
+    const response = await loginUser({ username, password });
+    const { error } = this.props;
+
+    if (response.data.status === 401) {
+      this.setState({
+        errors: error,
+      });
+    }
   }
 
   handleErrors = () => {
-    const { error } = this.props;
-    setTimeout(() => {
-      const errors = document.getElementById('errors-div');
-      if (errors !== null) {
-        while (errors.firstChild) {
-          errors.removeChild(errors.firstChild);
-        }
-      }
-    }, 3000);
-
-    return (
-      <ul>
-        {error.map(error => <li key={error}>{error}</li>)}
-      </ul>
-
-    );
+    const { errors } = this.state;
+    console.log(errors);
+    setTimeout(() => this.setState({ errors: '' }), 3000);
+    if (errors.length > 0) {
+      return (
+        <div>
+          <ul>
+            {errors.map(error => <li key={error}>{error}</li>)}
+          </ul>
+        </div>
+      );
+    }
   }
 
   render() {
-    const { username, password } = this.state;
-    const { error } = this.props;
+    const { username, password, errors } = this.state;
     return (
       <div className="login">
-        <div id="errors-div" className="errors-div">
-          {error.length > 0 ? this.handleErrors() : null}
+        <div>
+          <ul id="errors-div" className="errors-div">
+            {errors ? this.handleErrors() : null}
+          </ul>
         </div>
         <h2>Log In</h2>
         <form onSubmit={this.handleSubmit}>
@@ -110,6 +115,7 @@ const mapStateToProps = state =>
     isLogin: state.user.isLogin,
     error: state.user.errors,
   });
+
 const mapDispatchToProps = dispatch => ({
   loginUser: data => dispatch(loginUser(data)),
 });

@@ -73,6 +73,8 @@
     color: #721C24;
     background-color: #F8D7DA;
     border-radius: 5px;
+    display:flex;
+justify-content: center;
 }
 
 .errors-div ul {

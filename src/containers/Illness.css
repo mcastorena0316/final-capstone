@@ -45,7 +45,7 @@
 .one-ill .buttons button {
     border: none;
     background: none;
-    font-size: 18px;
+    font-size: 4.5vw;
     padding: 0 3px;
 }
 
@@ -63,7 +63,7 @@
 
 .one-ill .ill-info {
  width:100%;
- font-size: 13px;
+ font-size: 4vw;
 }
 
 .one-ill .ill-info a {

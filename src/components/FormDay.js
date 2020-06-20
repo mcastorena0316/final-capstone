@@ -156,7 +156,7 @@ class FormDay extends React.Component {
               <span role="img" aria-label="sad2">😩</span>
             </div>
 
-            <div className="medicine">
+            <div className="medicines2">
               <p>Medicines:</p>
               <div className="med-div">
                 <input
@@ -175,15 +175,15 @@ class FormDay extends React.Component {
                   onChange={e => this.handleChangeMedicine(e, 1)}
                 />
                 <input
-                  id="med1"
+                  id="med3"
                   type="text"
-                  name="med2"
+                  name="med3"
                   defaultValue={buttonId === '0' ? '' : track[0].medicines[2]}
                   onChange={e => this.handleChangeMedicine(e, 2)}
                 />
               </div>
             </div>
-            <div className="symptons">
+            <div className="symptons2">
               <p>Symptons</p>
               <div className="symp-div">
                 <input

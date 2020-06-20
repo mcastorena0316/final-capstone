@@ -214,7 +214,7 @@ class Trackings extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('State en trackings', state);
+  // console.log('State en trackings', state);
   return ({
     user: state.user,
     trackings: state.tracking,

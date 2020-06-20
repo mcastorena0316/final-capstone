@@ -3,7 +3,7 @@
 
 .one-form {
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+    font-size: 5vw;
 }
 
 .one-parameter {
@@ -24,10 +24,11 @@
 
 .one-parameter input, .one-parameter textarea {
     border: 1px solid gray;
-    width: 150px;
+    width: 50vw;
     border-radius: 5px;
     margin-right: 10px;
     font-family: 'Roboto', sans-serif;
+    font-size:4vw
 }
 
 .one-parameter input:focus, .one-parameter textarea:focus {
@@ -35,7 +36,7 @@
 }
 
 .one-parameter input {
-    height:20px;
+    height:25px;
 }
 
 .one-parameter textarea {
@@ -54,12 +55,11 @@
     height: 25px;
     border-radius: 5px;
     color: white;
-    font-weight: bold;
-    width: 80px;
+    font-weight: bold; 
     margin: 5px;
     height: 33px;
-    font-size: 13px;
-    width: 80px;
+    font-size: 3.5vw;
+    width: 20vw;
 }
 
 .buttons-form button:first-child {
@@ -77,6 +77,7 @@
 
 .newill div h3 {
 margin:20px;
+font-size: 6vw;
 }
  
 .one-form {

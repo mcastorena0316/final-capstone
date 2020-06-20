@@ -27,7 +27,6 @@ export const createIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    console.log('Response de action', response);
     dispatch({
       type: CREATE_ILLNESS,
       data: {
@@ -51,7 +50,6 @@ export const deleteIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    // console.log('Response de action', response);
     return response;
   } catch (error) {
     return (error);
@@ -59,7 +57,6 @@ export const deleteIll = data => async dispatch => {
 };
 
 export const updateIll = data => async dispatch => {
-  // console.log(data);
   try {
     dispatch({ type: UPDATE_ILLNESS, payload: data });
     const response = await axios({
@@ -69,10 +66,8 @@ export const updateIll = data => async dispatch => {
       crossdomain: true,
       withCredentials: true,
     });
-    console.log('Response de action', response);
     return response;
   } catch (error) {
-    // console.log(error);
     return (error);
   }
 };
