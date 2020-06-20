@@ -1,20 +1,20 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 .login-access {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-access p {
-    font-family: 'Roboto', sans-serif;
-    text-align:center;
-    position: relative;
-    top: 15vh;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  position: relative;
+  top: 15vh;
 }
 
-.login-access img{
-    width: 100px;
-    position: relative;
-    top: 15vh;
+.login-access img {
+  width: 100px;
+  position: relative;
+  top: 15vh;
 }

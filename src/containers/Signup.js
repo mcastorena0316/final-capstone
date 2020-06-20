@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -49,7 +47,6 @@ class Signup extends Component {
      const { createUser } = this.props;
 
      const response = await createUser({ username, password, password_confirmation });
-     //  console.log('Response de Signup:', response);
      if (response && response.status === 200) {
        const { history } = this.props;
        history.push('/main');
@@ -66,7 +63,7 @@ class Signup extends Component {
      setTimeout(() => this.setState({ errors: '' }), 3000);
      return (
        <ul>
-         {errors.map((error, i) => <li key={i}>{error}</li>)}
+         {errors.map(error => <li key={error}>{error}</li>)}
        </ul>
      );
    }
@@ -110,19 +107,16 @@ class Signup extends Component {
              Sign In
            </button>
          </form>
-
        </div>
      );
    }
 }
 
-const mapStateToProps = state =>
-  // console.log(state);
-  ({
-    user: state.user,
-    isLogin: state.user.isLogin,
-    error: state.user.error,
-  });
+const mapStateToProps = state => ({
+  user: state.user,
+  isLogin: state.user.isLogin,
+  error: state.user.error,
+});
 const mapDispatchToProps = dispatch => ({
   createUser: data => dispatch(createUser(data)),
 });
@@ -132,7 +126,8 @@ Signup.propTypes = {
     push: PropTypes.func,
   }),
   createUser: PropTypes.func.isRequired,
-  error: PropTypes.array,
+  error: PropTypes.instanceOf(Array),
+
 };
 
 Signup.defaultProps = {

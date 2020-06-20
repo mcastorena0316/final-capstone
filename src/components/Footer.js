@@ -21,10 +21,8 @@ const Footer = ({
     <div className="menu">
       <div className="icons">
         <Link to="/main">
-
           <i className="fa fa-bar-chart" />
           <p>Add Illnesses</p>
-
         </Link>
       </div>
       { isLogin ? null

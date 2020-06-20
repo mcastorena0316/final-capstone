@@ -1,14 +1,13 @@
 /* eslint-disable camelcase */
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
 import FormDay from '../components/FormDay';
 import './Trackings.css';
-import { withRouter } from 'react-router';
 
 class Trackings extends React.Component {
   constructor(props) {
@@ -99,14 +98,16 @@ class Trackings extends React.Component {
     });
   }
 
-  displayTracking = e => {
-    const { state } = this.props.location;
+  displayTracking = () => {
+    const { location } = this.props;
+    const { state } = location;
     if (state) {
       const { nameill } = state;
       return nameill;
     }
     const { history } = this.props;
     history.push('/main');
+    return null;
   }
 
   render() {
@@ -115,16 +116,14 @@ class Trackings extends React.Component {
     } = this.state;
     const { trackings } = this.props;
 
-    const name = this.displayTracking(); 
+    const name = this.displayTracking();
 
     return (
       <div className="trackings">
         <button type="button" className="add-day" onClick={this.displayForm}>+</button>
         <Link to="/main">
-
           <button type="button" className="go-back" onClick={this.displayForm}>
             <i className="fa fa-arrow-left" aria-hidden="true" />
-
           </button>
         </Link>
         {!addEdit && !addForm && (
@@ -149,7 +148,7 @@ class Trackings extends React.Component {
                       <button type="button" onClick={() => this.deleteTracking(day.id)}>
                         <i className="fa fa-trash-o" />
                       </button>
-                      <button type="button" onClick={this.displayEdit}><i className="fa fa-pencil-square-o" id={day.id} /></button>
+                      <button type="button" onClick={this.displayEdit}><i className="fa fa-pencil-square-o" aria-label="pencil" id={day.id} /></button>
                     </div>
                   </div>
                   <div className="mood">
@@ -175,9 +174,9 @@ class Trackings extends React.Component {
                     <ul className="medicines">
                       {day.medicines && <p>Medicines:</p>}
                       <div className="med-list">
-                        {day.medicines && day.medicines.map((x, i) => (
+                        {day.medicines && day.medicines.map(x => (
                           x !== '' ? (
-                            <li key={i}>
+                            <li key={x}>
                               <span role="img" aria-label="pill">💊</span>
                               {x}
                             </li>
@@ -189,7 +188,7 @@ class Trackings extends React.Component {
                       {day.symptons && <p>Symptons:</p>}
                       <div className="symp-list">
                         {day.symptons && day.symptons.map((x, i) => (
-                          x !== '' ? <li key={i}>{x}</li> : null))}
+                          x !== '' ? <li key={x}>{x}</li> : null))}
                       </div>
                     </ul>
                   </div>
@@ -213,13 +212,10 @@ class Trackings extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log('State en trackings', state);
-  return ({
-    user: state.user,
-    trackings: state.tracking,
-  });
-};
+const mapStateToProps = state => ({
+  user: state.user,
+  trackings: state.tracking,
+});
 const mapDispatchToProps = dispatch => ({
   fetchIllnessDays: (datauser, dataillness) => dispatch(fetchIllnessDays(datauser, dataillness)),
   loginStatus: () => dispatch(loginStatus()),
@@ -245,9 +241,11 @@ Trackings.propTypes = {
     description: PropTypes.string,
     name: PropTypes.string,
   })),
-
   location: PropTypes.shape({
-    state: PropTypes.shape({}),
+    state: PropTypes.shape({ nameill: PropTypes.string }),
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }),
 
 };
@@ -259,5 +257,6 @@ Trackings.defaultProps = {
   user: {},
   trackings: [],
   location: {},
+  history: {},
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Trackings));

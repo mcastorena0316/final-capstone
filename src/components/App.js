@@ -6,13 +6,13 @@ import {
   Route,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import gandalf from './img/gandalf.png';
 import Header from './Header';
-import Login from './Login';
-import Signup from './Signup';
+import Login from '../containers/Login';
+import Signup from '../containers/Signup';
 import Illness from '../containers/Illness';
 import Trackings from '../containers/Trackings';
 import Footer from './Footer';
-import gandalf from './gandalf.png';
 import { loginStatus } from '../actions/user';
 import './App.css';
 

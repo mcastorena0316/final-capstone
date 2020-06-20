@@ -1,10 +1,11 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import {
   DISPLAY_FETCHED_ILLNESS,
   CREATE_ILLNESS, DELETE_ILLNESS, UPDATE_ILLNESS,
 } from '../actions/illness';
+
+let updateObj = {};
+let objIndex = {};
+let updatedState = [];
 
 export default function illnessReducer(state = [], action) {
   switch (action.type) {
@@ -15,21 +16,18 @@ export default function illnessReducer(state = [], action) {
     case DELETE_ILLNESS:
       return state.filter(el => el.id !== action.payload.id);
     case UPDATE_ILLNESS:
-      const objIndex = state.findIndex(obj => obj.id === action.payload.id);
-      let updateObj = {};
+      objIndex = state.findIndex(obj => obj.id === action.payload.id);
       updateObj = {
         ...state[objIndex],
         description: action.payload.description,
         name: action.payload.name,
       };
 
-      const updatedState = [
+      updatedState = [
         ...state.slice(0, objIndex),
         updateObj,
         ...state.slice(objIndex + 1),
       ];
-
-      // console.log('update array', updatedProjects);
       return updatedState;
     default:
       return state;

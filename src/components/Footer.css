@@ -1,14 +1,14 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 body {
-  margin:0;
-  background-color:#f7f8f9;
+  margin: 0;
+  background-color: #f7f8f9;
 }
 
 .App {
   position: relative;
   min-height: 100vh;
-  margin:0;
+  margin: 0;
 }
 
 .menu {
@@ -17,15 +17,15 @@ body {
   bottom: 0;
   width: 100%;
   height: 50px;
-  display:flex;
+  display: flex;
   justify-content: space-around;
   background-color: #35434c;
-  color:#f7f8f9;
-  align-items: center
+  color: #f7f8f9;
+  align-items: center;
 }
 
 .menu a {
-  color:white;
+  color: white;
   text-decoration: none;
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 .icons:hover {
-  background-color: #62B5E5
+  background-color: #62b5e5;
 }
 
 .icons a {
@@ -49,7 +49,7 @@ body {
 
 .icons a i {
   color: #f7f8f9;
-  font-size: 25px
+  font-size: 25px;
 }
 
 .icons a p {

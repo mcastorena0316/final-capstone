@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable camelcase */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -89,7 +89,7 @@ class Illness extends React.Component {
    }
 
    render() {
-     const { illness, addIll } = this.props;
+     const { illness } = this.props;
      const {
        addForm, editForm, idIll,
      } = this.state;
@@ -148,14 +148,12 @@ class Illness extends React.Component {
    }
 }
 
-const mapStateToProps = state =>
-  // console.log('state de illness', state);
-  (
-    {
-      user: state.user,
-      isLogin: state.user.isLogin,
-      illness: state.illness,
-    });
+const mapStateToProps = state => (
+  {
+    user: state.user,
+    isLogin: state.user.isLogin,
+    illness: state.illness,
+  });
 const mapDispatchToProps = dispatch => ({
   fetchUserIllness: data => dispatch(fetchUserIllness(data)),
   createIll: data => dispatch(createIll(data)),

@@ -55,7 +55,6 @@ class Login extends React.Component {
 
   handleErrors = () => {
     const { errors } = this.state;
-    console.log(errors);
     setTimeout(() => this.setState({ errors: '' }), 3000);
     if (errors.length > 0) {
       return (
@@ -66,6 +65,7 @@ class Login extends React.Component {
         </div>
       );
     }
+    return null;
   }
 
   render() {
@@ -108,13 +108,11 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state =>
-  // console.log('State de Login:', state.user.errors);
-  ({
-    user: state.user,
-    isLogin: state.user.isLogin,
-    error: state.user.errors,
-  });
+const mapStateToProps = state => ({
+  user: state.user,
+  isLogin: state.user.isLogin,
+  error: state.user.errors,
+});
 
 const mapDispatchToProps = dispatch => ({
   loginUser: data => dispatch(loginUser(data)),
