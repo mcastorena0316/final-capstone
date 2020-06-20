@@ -1,6 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/no-unused-prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FormIllness.css';
@@ -24,7 +21,6 @@ class FormIllness extends React.Component {
     const { actionToPerform, buttonId, illness } = this.props;
     if (actionToPerform === 'Save Changes') {
       const ill = illness.filter(x => x.id.toString() === buttonId);
-      // console.log(ill);
       this.setState({
         name: ill[0].name,
         description: ill[0].description,
@@ -44,7 +40,7 @@ class FormIllness extends React.Component {
     });
   }
 
-  handleSubmit= (name, description) => {
+  handleSubmit = (name, description) => {
     const { addIllness } = this.props;
     addIllness(name, description);
   }
@@ -88,27 +84,31 @@ class FormIllness extends React.Component {
 }
         >
           <div className="one-parameter">
-            <label htmlFor="name">Name:</label>
-            <input
-              required
-              id="name"
-              placeholder="Name"
-              type="text"
-              name="name"
-              defaultValue={buttonId === '0' ? name : ill[0].name}
-              onChange={this.handleChangeName}
-            />
+            <label htmlFor="name">
+              Name:
+              <input
+                required
+                id="name"
+                placeholder="Name"
+                type="text"
+                name="name"
+                defaultValue={buttonId === '0' ? name : ill[0].name}
+                onChange={this.handleChangeName}
+              />
+            </label>
           </div>
           <div className="one-parameter">
-            <label htmlFor="description">Description:</label>
-            <textarea
-              id="description"
-              placeholder="Description"
-            // type="textarea"
-              name="description"
-              defaultValue={buttonId === '0' ? description : ill[0].description}
-              onChange={this.handleChangeDescription}
-            />
+            <label htmlFor="description">
+              Description:
+              <textarea
+                id="description"
+                placeholder="Description"
+                name="description"
+                defaultValue={buttonId === '0' ? description : ill[0].description}
+                onChange={this.handleChangeDescription}
+              />
+            </label>
+
           </div>
           <div className="buttons-form">
             {actionToPerform === 'Add' && <button type="submit">{actionToPerform}</button>}
@@ -125,7 +125,8 @@ class FormIllness extends React.Component {
 FormIllness.propTypes = {
   addIllness: PropTypes.func,
   actionToPerform: PropTypes.string,
-  illness: PropTypes.array,
+  changeAddForm: PropTypes.func,
+  illness: PropTypes.instanceOf(Array),
   buttonId: PropTypes.string,
   updateIll: PropTypes.func,
   changeEditForm: PropTypes.func,
@@ -138,6 +139,7 @@ FormIllness.propTypes = {
 };
 
 FormIllness.defaultProps = {
+  changeAddForm: () => {},
   addIllness: () => {},
   actionToPerform: '',
   illness: [],
@@ -147,12 +149,10 @@ FormIllness.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state =>
-  // console.log('State en formday', state);
-  ({
-    user: state.user,
-    illness: state.illness,
-  });
+const mapStateToProps = state => ({
+  user: state.user,
+  illness: state.illness,
+});
 const mapDispatchToProps = dispatch => ({
   updateIll: data => dispatch(updateIll(data)),
 });

@@ -19,7 +19,6 @@ import './App.css';
 class App extends React.Component {
   componentDidMount() {
     const { loginStatus } = this.props;
-
     loginStatus();
   }
 
@@ -69,9 +68,8 @@ class App extends React.Component {
             />
             <Route
               path="/illness/:id"
-              render={props => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-                isLogin ? <Trackings {...props}/> : (
+              render={({ match }) => (
+                isLogin ? <Trackings match={match} /> : (
                   <div className="login-access">
                     <p>You need to login to access here</p>
                     <img src={gandalf} alt="gandalf" />
@@ -102,14 +100,11 @@ App.defaultProps = {
   user: {},
 };
 
-const mapStateToProps = state => {
-  console.log('State de app:', state);
-  return ({
-    isLogin: state.user.isLogin,
-    user: state.user,
-    illness: state.illness,
-  });
-};
+const mapStateToProps = state => ({
+  isLogin: state.user.isLogin,
+  user: state.user,
+  illness: state.illness,
+});
 const mapDispatchToProps = dispatch => ({
   loginStatus: () => dispatch(loginStatus()),
 });

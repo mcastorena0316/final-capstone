@@ -1,6 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -28,10 +26,8 @@ class FormDay extends React.Component {
 
   componentDidMount = () => {
     const { actionToPerform, buttonId, trackings } = this.props;
-    // console.log(actionToPerform);
     if (actionToPerform === 'Save Changes') {
       const track = trackings.filter(x => x.id.toString() === buttonId);
-      // console.log(track);
       this.setState({
         date: track[0].date,
         temperature: track[0].temperature,
@@ -90,7 +86,6 @@ class FormDay extends React.Component {
       symptons,
     };
 
-    // console.log(data);
     await updateDay(data);
     changeEditForm();
   }
@@ -123,29 +118,35 @@ class FormDay extends React.Component {
           <div className="form-div">
             <div className="date-temp">
               <div className="date-div">
-                <label htmlFor="date">Date: </label>
-                <input
-                  id="date"
-                  type="date"
-                  name="date"
-                  defaultValue={buttonId === '0' ? date : track[0].date.slice(0, 10)}
-                  onChange={this.handleChangeDate}
-                />
+                <label htmlFor="date">
+                  Date:
+                  <input
+                    id="date"
+                    type="date"
+                    name="date"
+                    defaultValue={buttonId === '0' ? date : track[0].date.slice(0, 10)}
+                    onChange={this.handleChangeDate}
+                  />
+                </label>
+
               </div>
               <div className="temp-div">
-                <label htmlFor="temp">Temperature:  </label>
-                <input
-                  id="temp"
-                  type="number"
-                  name="temp"
-                  defaultValue={buttonId === '0' ? temperature : track[0].temperature}
-                  onChange={this.handleChangeTemperature}
-                />
+                <label htmlFor="temp">
+                  Temperature:
+                  <input
+                    id="temp"
+                    type="number"
+                    name="temp"
+                    defaultValue={buttonId === '0' ? temperature : track[0].temperature}
+                    onChange={this.handleChangeTemperature}
+                  />
+                </label>
+
                 <span>°C</span>
               </div>
             </div>
             <div className="mood-div">
-              <label>Mood: </label>
+              <span>Mood: </span>
               <input type="radio" id="option1" name="mood" value="🙂" checked={selectedOption === '🙂'} onChange={this.handleOptionChange} />
               <span role="img" aria-label="happy">🙂</span>
               <input type="radio" id="option2" name="mood" value="😐" checked={selectedOption === '😐'} onChange={this.handleOptionChange} />
@@ -228,10 +229,11 @@ class FormDay extends React.Component {
 FormDay.propTypes = {
   addTracking: PropTypes.func,
   changeEditForm: PropTypes.func,
+  changeAddForm: PropTypes.func,
   updateDay: PropTypes.func,
   buttonId: PropTypes.string,
   actionToPerform: PropTypes.string,
-  trackings: PropTypes.array,
+  trackings: PropTypes.instanceOf(Array),
   user: PropTypes.shape({
     user: PropTypes.shape({
       id: PropTypes.number,
@@ -240,6 +242,7 @@ FormDay.propTypes = {
 };
 
 FormDay.defaultProps = {
+  changeAddForm: () => {},
   addTracking: () => {},
   updateDay: () => {},
   changeEditForm: () => {},
@@ -250,12 +253,10 @@ FormDay.defaultProps = {
 
 };
 
-const mapStateToProps = state =>
-  // console.log('State en formday', state);
-  ({
-    user: state.user,
-    trackings: state.tracking,
-  });
+const mapStateToProps = state => ({
+  user: state.user,
+  trackings: state.tracking,
+});
 const mapDispatchToProps = dispatch => ({
   updateDay: data => dispatch(updateDay(data)),
 });

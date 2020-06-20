@@ -78,6 +78,10 @@
     padding-left: 29px
 }
 
+.mood p:last-child {
+    font-size: 4.5vw
+}
+
 .mood p i {
     padding: 0 5px;
 }
@@ -93,6 +97,11 @@
 
 .temp p:first-child {
     padding-left: 28px;
+}
+
+.medicines, .symptons {
+    display: flex;
+    list-style: none;
 }
 
 .med-list {
