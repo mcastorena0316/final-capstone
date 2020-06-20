@@ -63,8 +63,6 @@ class FormIllness extends React.Component {
       description,
     };
 
-    // console.log(data);
-
     await updateIll(data);
     changeEditForm();
   }

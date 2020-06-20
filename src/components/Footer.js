@@ -6,7 +6,9 @@ import { withRouter } from 'react-router';
 import './Footer.css';
 import { logOutUser } from '../actions/user';
 
-const Footer = ({ isLogin, logOut, history }) => {
+const Footer = ({
+  isLogin, logOut, history, illness,
+}) => {
   const handleClick = async e => {
     e.preventDefault();
     const response = await logOut();
@@ -15,6 +17,7 @@ const Footer = ({ isLogin, logOut, history }) => {
     }
   };
 
+  console.log(illness);
   return (
     <div className="menu">
       <div className="icons">
@@ -25,12 +28,27 @@ const Footer = ({ isLogin, logOut, history }) => {
 
         </Link>
       </div>
-      <div className="icons">
-        <a href="#">
+      {/* <div className="icons">
+        {illness && (
+        <Link to={{
+          pathname: `illness/${illness.id}`,
+          state: {
+            nameill: illness.name,
+          },
+        }}
+        >
           <i className="fa fa-line-chart" />
           <p>Trackings</p>
-        </a>
-      </div>
+        </Link>
+        )} */}
+
+      {/* {!illness && (
+        <Link to="/main">
+          <i className="fa fa-line-chart" />
+          <p>Trackings</p>
+        </Link>
+        )} */}
+      {/* </div> */}
       { isLogin ? null
         : (
           <div className="icons">
@@ -79,11 +97,14 @@ Footer.defaultProps = {
 
 };
 
-const mapStateToProps = state => ({
-  isLogin: state.user.isLogin,
+const mapStateToProps = state =>
+// console.log('state en footer', state);
 
-});
+  ({
+    isLogin: state.user.isLogin,
+    illness: state.illness[0],
 
+  });
 const mapDispatchToProps = dispatch => ({
   logOut: () => dispatch(logOutUser()),
 });

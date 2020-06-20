@@ -89,7 +89,7 @@ class Illness extends React.Component {
    }
 
    render() {
-     const { illness } = this.props;
+     const { illness, addIll } = this.props;
      const {
        addForm, editForm, idIll,
      } = this.state;
@@ -113,7 +113,13 @@ class Illness extends React.Component {
                    </button>
                  </div>
                  <div className="ill-info">
-                   <Link to={`illness/${ill.id}`}>
+                   <Link to={{
+                     pathname: `illness/${ill.id}`,
+                     state: {
+                       nameill: ill.name,
+                     },
+                   }}
+                   >
                      {!editForm && (
                      <div>
                        <div className="ill-name">

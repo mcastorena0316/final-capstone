@@ -8,6 +8,7 @@ import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
 import FormDay from '../components/FormDay';
 import './Trackings.css';
+import { withRouter } from 'react-router';
 
 class Trackings extends React.Component {
   constructor(props) {
@@ -98,11 +99,23 @@ class Trackings extends React.Component {
     });
   }
 
+  displayTracking = e => {
+    const { state } = this.props.location;
+    if (state) {
+      const { nameill } = state;
+      return nameill;
+    }
+    const { history } = this.props;
+    history.push('/main');
+  }
+
   render() {
     const {
       addForm, addEdit, buttonId, addMore,
     } = this.state;
     const { trackings } = this.props;
+
+    const name = this.displayTracking(); 
 
     return (
       <div className="trackings">
@@ -114,13 +127,16 @@ class Trackings extends React.Component {
 
           </button>
         </Link>
-
+        {!addEdit && !addForm && (
+        <h3>
+          Tracking of Illness:
+          {name && <span>{name}</span>}
+        </h3>
+        )}
         {trackings.map(day => (
           <div key={day.id}>
             {!addEdit && !addForm && (
               <div>
-                <h3>Tracking of Illness: </h3>
-
                 <div className="day">
                   <div className="date">
 
@@ -230,6 +246,10 @@ Trackings.propTypes = {
     name: PropTypes.string,
   })),
 
+  location: PropTypes.shape({
+    state: PropTypes.shape({}),
+  }),
+
 };
 
 Trackings.defaultProps = {
@@ -238,5 +258,6 @@ Trackings.defaultProps = {
   createDay: () => {},
   user: {},
   trackings: [],
+  location: {},
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Trackings);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Trackings));
