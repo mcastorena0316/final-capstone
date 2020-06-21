@@ -56,7 +56,7 @@ You can always edit/delete/add new illnesses and trackings with the correspondin
 <!-- INSTALLATION -->
 ### Installation
 
-You can always use the [live version]((https://illnest.netlify.app/) or install it locally using these steps:
+You can always use the [live version](https://illnest.netlify.app/) or install it locally using these steps:
 
 #### Clone my repository
 

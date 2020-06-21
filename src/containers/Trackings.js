@@ -187,7 +187,7 @@ class Trackings extends React.Component {
                     <ul className="symptons">
                       {day.symptons && <p>Symptons:</p>}
                       <div className="symp-list">
-                        {day.symptons && day.symptons.map((x, i) => (
+                        {day.symptons && day.symptons.map(x => (
                           x !== '' ? <li key={x}>{x}</li> : null))}
                       </div>
                     </ul>

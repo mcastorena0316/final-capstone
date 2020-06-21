@@ -14,7 +14,6 @@ export const loginStatus = () => dispatch => {
     .then(response => (
       response.data))
     .then(data => {
-      console.log(data)
       dispatch({
         type: LOGGED_IN,
         payload: data,
@@ -24,7 +23,6 @@ export const loginStatus = () => dispatch => {
       dispatch({
         type: LOGGED_IN_ERROR,
         payload: error,
-
       });
     });
 };
