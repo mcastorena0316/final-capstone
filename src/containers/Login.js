@@ -125,8 +125,8 @@ Login.propTypes = {
   loginUser: PropTypes.func,
   user: PropTypes.shape({}),
   isLogin: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  error: PropTypes.array,
+  error: PropTypes.instanceOf(Array),
+
 };
 
 Login.defaultProps = {
