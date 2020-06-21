@@ -29,7 +29,7 @@ Project Link: [Final-capstone](https://github.com/mcastorena0316/final-capstone)
 
 On illnest, you can track a specific illness you have, whether is chronic or is a recent affliction, it can be measure here. 
 
-On the Login page, you write your username and password for login. If you are not registered, you can go to Signup and fill the form with your data. 
+On the Login page, you write your username and password. If you are not registered, you can go to Signup and fill the form with your data. 
 
 <div align="center"><img src="public/login1.png" alt="login"></div>
 <div align="center"><img src="public/signup.png" alt="signup"></div>
