@@ -1,14 +1,13 @@
 ## Final Capstone Project Project: Tracking app
 
 <div align="center">
-
   <h1 color= "rgb(243, 190, 44)" font-size= "40"> illnest </h1>
 </div>
 
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-* [The App](#the-app)
+* [Illnest](#illnest)
   * [Installation](#installation)
 * [Tecnologies used](#tecnologies-used)
 * [Author](#author)
@@ -18,23 +17,71 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Live version of the project: [Live version]()
+The objective of this project was to create a tracking App in which a user is presented with a list of things to be measured. For the Front End, I used React and Ruby on Rails for the Back-End API.
 
-Project Link: [Final-capstone]()
+Live version of the project: [Live version](https://illnest.netlify.app/)
+
+Project Link: [Final-capstone](https://github.com/mcastorena0316/final-capstone)
 
 
 <!-- THE APP -->
-## The App
+## illnest
+
+On illnest, you can track a specific illness you have, whether is chronic or is a recent affliction, it can be measure here. 
+
+On the Login page, you write your username and password for login. If you are not registered, you can go to Signup and fill the form with your data. 
+
+<div align="center"><img src="public/login1.png" alt="login"></div>
+<div align="center"><img src="public/signup.png" alt="signup"></div>
+
+Then on the main page, you have all the illnesses/afflictions you want to monitor. 
+
+<div align="center"><img src="public/main.png" alt="login"></div>
+
+If you click on a specific one, you are redirected to all the trackings you have registered previously. Some of the data included in this section are:
+Date of the Tracking
+- The mood of the date
+- Temperature
+- Medicines
+- Symptoms
+
+<div align="center"><img src="public/ill.png" alt="login"></div>
+
+You can always edit/delete/add new illnesses and trackings with the corresponding forms: 
+
+<div align="center"><img src="public/dayform.png" alt="login"></div>
+<div align="center"><img src="public/illform.png" alt="login"></div>
 
 
 <!-- INSTALLATION -->
 ### Installation
 
-You can always use the [live version]() or install it locally using these steps:
+You can always use the [live version]((https://illnest.netlify.app/) or install it locally using these steps:
+
+#### Clone my repository
+
+`$ git clone https://github.com/mcastorena0316/final-capstone`
+
+#### Go to my project's folder
+
+`$ cd final-capstone`
+
+#### Get the dependencies needed
+
+`$ npm install`
+
+#### Open the project
+`$ npm run start`
 
 
 <!-- TECNOLOGIES USED -->
 ## Tecnologies used
+
+* React
+* Redux
+* Javascript
+* Eslint
+* Netlify
 
 
 <!--AUTHOR -->

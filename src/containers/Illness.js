@@ -99,7 +99,7 @@ class Illness extends React.Component {
          <div className="illnesses">
            { !editForm && !addForm && <h3>Your Illnesses</h3>}
 
-           {illness.length === 0 && <div className="tracking">Start adding a illness you want to track here!</div>}
+           {illness.length === 0 && !addForm && <div className="tracking">Start adding a illness you want to track here!</div>}
            {illness.map(ill => (
              <div key={ill.id}>
                { !editForm && !addForm && (
