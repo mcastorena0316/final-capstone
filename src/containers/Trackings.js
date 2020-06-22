@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { fetchIllnessDays, createDay, deleteDay } from '../actions/trackings';
 import { loginStatus } from '../actions/user';
-import FormDay from '../components/FormDay';
+import FormDay from '../components/FormDay/FormDay';
 import './Trackings.css';
 
 class Trackings extends React.Component {
@@ -14,18 +14,10 @@ class Trackings extends React.Component {
     super(props);
     this.state = {
       ID: props.match.params.id,
-      addForm: false,
       addEdit: false,
       buttonId: '0',
       addMore: false,
     };
-    this.createDate = this.createDate.bind(this);
-    this.displayForm = this.displayForm.bind(this);
-    this.displayEdit = this.displayEdit.bind(this);
-    this.displayMore = this.displayMore.bind(this);
-    this.addTracking = this.addTracking.bind(this);
-    this.changeEditForm = this.changeEditForm.bind(this);
-    this.deleteTracking = this.deleteTracking.bind(this);
   }
 
   componentDidMount() {
@@ -45,27 +37,26 @@ class Trackings extends React.Component {
     return dateFormat.toUTCString(undefined, options);
   }
 
-  displayForm = () => {
-    const { addForm } = this.state;
-    this.setState({
-      addForm: !addForm,
-    });
+  displayInfo = () => {
+    const { displayForm } = this.props;
+    displayForm();
   }
 
-  addTracking = (mood, temperature, date, medicines, symptons) => {
+  addTracking = (mood, temperature, date, medicines, symptons, user_id) => {
     const { ID } = this.state;
     const { createDay } = this.props;
     const illness_id = ID;
     createDay({
-      illness_id, mood, temperature, date, medicines, symptons,
+      illness_id, mood, temperature, date, medicines, symptons, user_id,
     });
   }
 
   deleteTracking = id => {
     const { ID } = this.state;
-    const { deleteDay } = this.props;
+    const { deleteDay, user } = this.props;
+    const user_id = user.user.id;
     const illness_id = ID;
-    deleteDay({ illness_id, id });
+    deleteDay({ illness_id, id, user_id });
   }
 
   changeEditForm = () => {
@@ -76,10 +67,8 @@ class Trackings extends React.Component {
   }
 
   changeAddForm = () => {
-    const { addForm } = this.state;
-    this.setState({
-      addForm: !addForm,
-    });
+    const { displayForm } = this.props;
+    displayForm();
   }
 
   displayEdit = e => {
@@ -111,18 +100,16 @@ class Trackings extends React.Component {
   }
 
   render() {
-    const {
-      addForm, addEdit, buttonId, addMore,
-    } = this.state;
-    const { trackings } = this.props;
+    const { addEdit, buttonId, addMore } = this.state;
+    const { trackings, addForm } = this.props;
 
     const name = this.displayTracking();
 
     return (
       <div className="trackings">
-        <button type="button" className="add-day" onClick={this.displayForm}>+</button>
+        <button type="button" className="add-day" onClick={this.displayInfo}>+</button>
         <Link to="/main">
-          <button type="button" className="go-back" onClick={this.displayForm}>
+          <button type="button" className="go-back" onClick={this.displayInfo}>
             <i className="fa fa-arrow-left" aria-hidden="true" />
           </button>
         </Link>
@@ -224,6 +211,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Trackings.propTypes = {
+  addForm: PropTypes.bool,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.node,
@@ -247,13 +235,16 @@ Trackings.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
+  displayForm: PropTypes.func,
 
 };
 
 Trackings.defaultProps = {
+  addForm: false,
   fetchIllnessDays: () => {},
   deleteDay: () => {},
   createDay: () => {},
+  displayForm: () => {},
   user: {},
   trackings: [],
   location: {},

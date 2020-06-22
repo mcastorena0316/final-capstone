@@ -24,18 +24,21 @@
   right: 11px;
   font-size: 37px;
   top: 7px;
+  cursor:pointer;
 }
 
 .go-back {
   left: 11px;
   font-size: 25px;
   top: 12px;
+  cursor:pointer;
 }
 
 .more {
   border-radius: 0 0 12px 12px;
   border: none;
   height: 5vh;
+  cursor:pointer;
 }
 
 .date {
@@ -58,6 +61,7 @@
   background: none;
   font-size: 5.5vw;
   padding: 0 3px;
+  cursor:pointer;
 }
 
 .mood,

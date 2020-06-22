@@ -18,12 +18,6 @@ class Illness extends React.Component {
       editForm: false,
       idIll: '0',
     };
-    this.addIllness = this.addIllness.bind(this);
-    this.deleteIll = this.deleteIll.bind(this);
-    this.displayForm = this.displayForm.bind(this);
-    this.changeEditForm = this.changeEditForm.bind(this);
-    this.changeAddForm = this.changeAddForm.bind(this);
-    this.displayEdit = this.displayEdit.bind(this);
   }
 
   componentDidMount() {

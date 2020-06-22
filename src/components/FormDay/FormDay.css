@@ -108,4 +108,16 @@
   height: 8vh;
   font-size: 3.5vw;
   width: 23vw;
+  cursor:pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: block; 
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

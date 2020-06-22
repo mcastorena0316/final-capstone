@@ -43,7 +43,6 @@
 .login form button a {
   text-decoration: none;
   color: white;
-  font-size: 14px;
 }
 
 .btn-login {
@@ -55,16 +54,18 @@
   color: white;
   font-weight: bold;
   width: 110px;
+  cursor:pointer;
 }
 
 .btn-signup {
   width: 110px;
   height: 40px;
   padding: 3px 0;
-  color: black;
+  font-weight: bold;
   border-radius: 5px;
   background-color: #62b5e5;
   border: none;
+  cursor:pointer;
 }
 
 .errors-div {

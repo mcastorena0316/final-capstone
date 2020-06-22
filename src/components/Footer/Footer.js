@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import './Footer.css';
-import { logOutUser } from '../actions/user';
+import { logOutUser } from '../../actions/user';
 
 const Footer = ({
-  isLogin, logOut, history,
+  isLogin, logOut, history, displayForm, match,
 }) => {
   const handleClick = async e => {
     e.preventDefault();
@@ -17,41 +17,55 @@ const Footer = ({
     }
   };
 
+  const displayAddForm = () => {
+    displayForm();
+  };
+
   return (
     <div className="menu">
-      <div className="icons">
-        <Link to="/main">
+      <Link to="/main">
+        <div className="icons">
           <i className="fa fa-bar-chart" />
-          <p>Add Illnesses</p>
-        </Link>
-      </div>
+          <p>Illnesses</p>
+        </div>
+      </Link>
+
+      {isLogin && match.path === '/illness/:id' ? (
+        <div className="icons icon-btn">
+          <button type="button" onClick={displayAddForm}>
+            <i className="fa fa-line-chart" />
+            <p>Add Trackings</p>
+          </button>
+        </div>
+      ) : null}
+
       { isLogin ? null
         : (
-          <div className="icons">
-            <Link to="/login">
+          <Link to="/login">
+            <div className="icons">
               <i className="fa fa-sign-in" />
               <p>Log In</p>
-            </Link>
-          </div>
+            </div>
+          </Link>
         )}
       {isLogin ? null
         : (
-          <div className="icons">
-            <Link to="/signup">
+          <Link to="/signup">
+            <div className="icons">
+
               <i className="fa fa-user-circle" />
               <p>Sign Up</p>
-            </Link>
-          </div>
+            </div>
+          </Link>
         )}
       { isLogin ? (
-        <div className="icons">
-          <Link to="/logout" onClick={handleClick}>
-
+        <Link to="/logout" onClick={handleClick}>
+          <div className="icons">
             <i className="fa fa-sign-in" />
             <p>Log Out</p>
+          </div>
+        </Link>
 
-          </Link>
-        </div>
       )
         : null}
     </div>
@@ -64,18 +78,25 @@ Footer.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
+
+  match: PropTypes.shape({
+    path: PropTypes.string,
+  }),
+  displayForm: PropTypes.func,
 };
 
 Footer.defaultProps = {
   isLogin: false,
   logOut: () => {},
   history: {},
+  match: {},
+  displayForm: () => {},
 
 };
 
 const mapStateToProps = state => ({
   isLogin: state.user.isLogin,
-  illness: state.illness[0],
+  tracking: state.tracking,
 
 });
 const mapDispatchToProps = dispatch => ({

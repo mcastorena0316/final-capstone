@@ -36,5 +36,7 @@
   color: white;
   font-weight: bold;
   width: 110px;
+  cursor:pointer;
   margin: 20px 0;
 }
+

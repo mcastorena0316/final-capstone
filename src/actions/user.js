@@ -9,7 +9,7 @@ export const LOGGED_IN = 'LOGGED IN';
 export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
 
 export const loginStatus = () => dispatch => {
-  axios.get('https://illnest-api.herokuapp.com/logged_in',
+  axios.get('http://localhost:3001/logged_in',
     { withCredentials: true })
     .then(response => (
       response.data))
@@ -32,7 +32,7 @@ export const createUser = newUser => async dispatch => {
   try {
     response = await axios({
       method: 'POST',
-      url: 'https://illnest-api.herokuapp.com/users',
+      url: 'http://localhost:3001/users',
       data: { user: newUser },
       crossdomain: true,
       withCredentials: true,
@@ -54,7 +54,7 @@ export const createUser = newUser => async dispatch => {
 export const loginUser = user => async dispatch => {
   let response = {};
   try {
-    response = await axios.post('https://illnest-api.herokuapp.com/login', { user }, { withCredentials: true });
+    response = await axios.post('http://localhost:3001/login', { user }, { withCredentials: true });
     dispatch({
       type: LOGIN_USER,
       payload: response.data,
@@ -74,7 +74,7 @@ export const logOutUser = () => async dispatch => {
     dispatch({ type: LOGOUT_USER, payload: {} });
     const response = await axios({
       method: 'DELETE',
-      url: 'https://illnest-api.herokuapp.com/logout',
+      url: 'http://localhost:3001/logout',
       data: { user: {} },
       crossdomain: true,
       withCredentials: true,

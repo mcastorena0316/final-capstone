@@ -27,32 +27,46 @@ body {
 .menu a {
   color: white;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height:100%
 }
+
 
 .icons {
-  width: 25%;
-  align-items: center;
-  height: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+  cursor: pointer;
+
 }
 
-.icons:hover {
+.menu a:hover , .icon-btn:hover{
   background-color: #62b5e5;
 }
 
-.icons a {
+ .icons button {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.icons a i {
+.icons button {
+  background: none;
+  border: none;
+  cursor:pointer;
+}
+
+.icons i, .icons button i {
   color: #f7f8f9;
   font-size: 25px;
 }
 
-.icons a p {
+.icons p, .icons button p{
   margin: 0;
   color: #f7f8f9;
   text-decoration-line: none;
@@ -60,4 +74,8 @@ body {
   width: 55px;
   width: 40px;
   text-align: center;
+}
+
+.icon-btn {
+  width:25%
 }

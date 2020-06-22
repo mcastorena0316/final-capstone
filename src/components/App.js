@@ -12,37 +12,63 @@ import Login from '../containers/Login';
 import Signup from '../containers/Signup';
 import Illness from '../containers/Illness';
 import Trackings from '../containers/Trackings';
-import Footer from './Footer';
+import Footer from './Footer/Footer';
 import { loginStatus } from '../actions/user';
 import './App.css';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      addForm: false,
+    };
+  }
+
   componentDidMount() {
     const { loginStatus } = this.props;
     loginStatus();
   }
 
+  displayForm = () => {
+    const { addForm } = this.state;
+    this.setState({
+      addForm: !addForm,
+    });
+  }
+
   render() {
     const { isLogin } = this.props;
+    const { addForm } = this.state;
 
     return (
       <Router>
         <div className="App">
           <Header />
-          <Footer />
+          <Footer displayForm={this.displayForm} addForm={addForm} />
           <Switch>
             <Route
               exact
               path="/"
               render={() => (
-                isLogin ? <Illness /> : <Login />
+                isLogin ? (
+                  <div>
+                    <Illness />
+                  </div>
+                ) : (
+                  <div>
+                    <Login />
+                  </div>
+                )
               )}
             />
             <Route
               exact
               path="/login"
               render={() => (
-                <Login />
+                <div>
+                  <Login />
+                </div>
+
               )}
             />
             <Route
@@ -56,7 +82,11 @@ class App extends React.Component {
               exact
               path="/main"
               render={() => (
-                isLogin ? <Illness />
+                isLogin ? (
+                  <div>
+                    <Illness />
+                  </div>
+                )
                   : (
                     <div className="login-access">
                       <p>You need to login to access here</p>
@@ -69,15 +99,21 @@ class App extends React.Component {
             <Route
               path="/illness/:id"
               render={({ match }) => (
-                isLogin ? <Trackings match={match} /> : (
-                  <div className="login-access">
-                    <p>You need to login to access here</p>
-                    <img src={gandalf} alt="gandalf" />
+                isLogin ? (
+                  <div>
+                    <Trackings match={match} displayForm={this.displayForm} addForm={addForm} />
+                    <Footer displayForm={this.displayForm} addForm={addForm} match={match} />
                   </div>
                 )
+
+                  : (
+                    <div className="login-access">
+                      <p>You need to login to access here</p>
+                      <img src={gandalf} alt="gandalf" />
+                    </div>
+                  )
               )}
             />
-
           </Switch>
         </div>
       </Router>

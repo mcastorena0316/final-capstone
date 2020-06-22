@@ -69,6 +69,7 @@
   font-size: 3vw;
   width: 20vw;
   padding: 2px;
+  cursor:pointer;
 }
 
 .buttons-form button:first-child {
