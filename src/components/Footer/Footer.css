@@ -16,7 +16,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 10vh;
   display: flex;
   justify-content: space-around;
   background-color: #35434c;
@@ -31,9 +31,8 @@ body {
   flex-direction: column;
   align-items: center;
   width: 25%;
-  height:100%
+  height: 100%;
 }
-
 
 .icons {
   display: flex;
@@ -42,32 +41,34 @@ body {
   justify-content: center;
   height: 100%;
   cursor: pointer;
-
 }
 
-.menu a:hover , .icon-btn:hover{
+.menu a:hover,
+.icon-btn:hover {
   background-color: #62b5e5;
 }
 
- .icons button {
+.icons button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:100%;
+  width: 100%;
 }
 
 .icons button {
   background: none;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.icons i, .icons button i {
+.icons i,
+.icons button i {
   color: #f7f8f9;
-  font-size: 31px;
+  font-size: 4.5vh;
 }
 
-.icons p, .icons button p{
+.icons p,
+.icons button p {
   margin: 0;
   color: #f7f8f9;
   text-decoration-line: none;
@@ -78,5 +79,9 @@ body {
 }
 
 .icon-btn {
-  width:25%
+  width: 25%;
+}
+
+.add-trackings {
+  width:100% !important;
 }

@@ -37,16 +37,16 @@
   margin-right: 10px;
   font-family: 'Roboto', sans-serif;
   font-size: 4vw;
-  padding:4px;
-  margin-left:3px;
+  padding: 4px;
+  margin-left: 3px;
 }
 
 .one-parameter input {
-  height: 7vh;
+  height: 4.5vh;
 }
 
 .one-parameter textarea {
-  height: 14vh;
+  height: 10vh;
 }
 
 .one-parameter input:focus,
@@ -57,8 +57,8 @@
 .buttons-form {
   display: flex;
   align-items: center;
-  margin-top: 14px;
-  margin-bottom: 8px
+  margin-top: 9px;
+  margin-bottom: 8px;
 }
 
 .buttons-form button {
@@ -71,8 +71,8 @@
   font-size: 3vw;
   width: 20vw;
   padding: 2px;
-  cursor:pointer;
-  padding: 14px 2px;
+  cursor: pointer;
+  padding: 10px 2px;
 }
 
 .buttons-form button:first-child {

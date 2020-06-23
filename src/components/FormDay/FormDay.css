@@ -34,22 +34,22 @@
   margin-right: 8px;
 }
 
-.date-div input {
+.date-div input , .temp-div input {
   width: 32vw;
-  height: 28px;
   font-size: 3.2vw;
   font-family: 'Roboto', sans-serif;
+  padding: 6px;
 }
 
 .temp-div input {
   width: 9vw;
-  height: 26px;
 }
 
 .mood-div {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  align-items: center;
 }
 
 .mood-div span {
@@ -58,10 +58,6 @@
 
 .mood-div span:first-child {
   font-size: 4vw;
-}
-
-.mood-div span:not(:first-child) {
-  margin-top: -6px;
 }
 
 .medicines2,
@@ -73,9 +69,10 @@
   list-style: none;
 }
 
-.medicine2 p,
+.medicines2 p,
 .symptons2 p {
-  margin-top: 6px;
+  width:22vw;
+  text-align: center;
 }
 
 .medicine2 div,
@@ -90,9 +87,9 @@
 
 .med-div input,
 .symp-div input {
-  margin: 2px 1px;
-  height: 20px;
+  margin: .3vh 0;
   width: 40vw;
+  padding: 6px;
 }
 
 .med-div input::placeholder,
@@ -105,14 +102,13 @@
 }
 
 .day-buttons button {
-  height: 8vh;
   font-size: 3.5vw;
   width: 23vw;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  display: block; 
+  display: block;
   cursor: pointer;
 }
 

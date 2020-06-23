@@ -179,8 +179,8 @@ class FormDay extends React.Component {
               </div>
             </div>
             <div className="symptons2">
-              <p>Symptons</p>
-              <div className="symp-div">
+              <p>Symptons:</p>
+              <div className="med-div">
                 <input
                   id="symp1"
                   type="text"
@@ -209,7 +209,7 @@ class FormDay extends React.Component {
             </div>
             <div className="buttons-form day-buttons">
               {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date, medicine, symptons)}>{actionToPerform}</button>}
-              {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
+              {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>Save</button>}
               {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
               {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
             </div>

@@ -6,7 +6,7 @@ export const DELETE_ILLNESS = 'DELETE ILLNESS';
 export const CREATE_ILLNESS_ERROR = 'CREATE ILLNESS ERROR';
 export const UPDATE_ILLNESS = 'UPDATE ILLNESS';
 
-export const fetchUserIllness = id => dispatch => axios.get(`http://localhost:3001/users/${id}/illnesses`)
+export const fetchUserIllness = id => dispatch => axios.get(`https://illnest-api.herokuapp.com/users/${id}/illnesses`)
   .then(response => response.data)
   .then(data => {
     dispatch({
@@ -22,7 +22,7 @@ export const createIll = data => async dispatch => {
   try {
     const response = await axios({
       method: 'POST',
-      url: `http://localhost:3001/users/${data.user_id}/illnesses`,
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses`,
       data,
       crossdomain: true,
       withCredentials: true,
@@ -45,7 +45,7 @@ export const deleteIll = data => async dispatch => {
     dispatch({ type: DELETE_ILLNESS, payload: data });
     const response = await axios({
       method: 'DELETE',
-      url: `http://localhost:3001/users/${data.user_id}/illnesses/${data.id}`,
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses/${data.id}`,
       data,
       crossdomain: true,
       withCredentials: true,
@@ -61,7 +61,7 @@ export const updateIll = data => async dispatch => {
     dispatch({ type: UPDATE_ILLNESS, payload: data });
     const response = await axios({
       method: 'PATCH',
-      url: `http://localhost:3001/users/${data.user_id}/illnesses/${data.id}`,
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses/${data.id}`,
       data,
       crossdomain: true,
       withCredentials: true,

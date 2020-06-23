@@ -14,9 +14,6 @@ class Login extends React.Component {
       password: '',
       errors: [],
     };
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {

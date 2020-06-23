@@ -54,7 +54,7 @@
   color: white;
   font-weight: bold;
   width: 110px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .btn-signup {
@@ -65,7 +65,7 @@
   border-radius: 5px;
   background-color: #62b5e5;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .errors-div {

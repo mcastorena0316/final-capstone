@@ -11,10 +11,6 @@ class FormIllness extends React.Component {
       name: '',
       description: '',
     };
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentDidMount = () => {
@@ -110,7 +106,7 @@ class FormIllness extends React.Component {
           </div>
           <div className="buttons-form">
             {actionToPerform === 'Add' && <button type="submit">{actionToPerform}</button>}
-            {actionToPerform === 'Save Changes' && <button type="submit">{actionToPerform}</button>}
+            {actionToPerform === 'Save Changes' && <button type="submit">Save</button>}
             {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
             {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
           </div>

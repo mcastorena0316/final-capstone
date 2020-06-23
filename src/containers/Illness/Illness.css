@@ -13,14 +13,14 @@
 }
 
 .add-ill {
-  font-size: 8.5vw;
+  font-size: 11vw;
   color: white;
   position: absolute;
   right: 11px;
-  top: 7px;
+  top: 0px;
   background: none;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .illnesses {
@@ -48,7 +48,7 @@
   background: none;
   font-size: 5vw;
   padding: 0 6px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .fa-trash-o {

@@ -107,12 +107,14 @@ class Trackings extends React.Component {
 
     return (
       <div className="trackings">
-        <button type="button" className="add-day" onClick={this.displayInfo}>+</button>
-        <Link to="/main">
+        <div className="trackings-buttons">
           <button type="button" className="go-back" onClick={this.displayInfo}>
-            <i className="fa fa-arrow-left" aria-hidden="true" />
+            <Link to="/main">
+              <i className="fa fa-arrow-left" aria-hidden="true" />
+            </Link>
           </button>
-        </Link>
+          <button type="button" className="add-day" onClick={this.displayInfo}>+</button>
+        </div>
         {!addEdit && !addForm && (
         <h3>
           Tracking of Illness:

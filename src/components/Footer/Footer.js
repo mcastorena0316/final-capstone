@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import './Footer.css';
+import PathComponent from '../PathComponent/PathComponent';
 import { logOutUser } from '../../actions/user';
 
 const Footer = ({
@@ -23,18 +23,13 @@ const Footer = ({
 
   return (
     <nav className="menu">
-      <Link to="/main">
-        <div className="icons">
-          <i className="fa fa-bar-chart" />
-          <p>Illnesses</p>
-        </div>
-      </Link>
+      <PathComponent path="main" icon="fa-bar-chart" linkText="Illnesses" />
 
       {isLogin && match.path === '/illness/:id' ? (
         <div className="icons icon-btn">
           <button type="button" onClick={displayAddForm}>
             <i className="fa fa-line-chart" />
-            <p>Add Trackings</p>
+            <p className="add-trackings">Add Trackings</p>
           </button>
         </div>
       ) : null}
@@ -42,29 +37,12 @@ const Footer = ({
       { !isLogin
         && (
         <>
-          <Link to="/login">
-            <div className="icons">
-              <i className="fa fa-sign-in" />
-              <p>Log In</p>
-            </div>
-          </Link>
-          <Link to="/signup">
-            <div className="icons">
-
-              <i className="fa fa-user-circle" />
-              <p>Sign Up</p>
-            </div>
-          </Link>
+          <PathComponent path="login" icon="fa-sign-in" linkText="Log In" />
+          <PathComponent path="signup" icon="fa-user-circle" linkText="Sign Up" />
         </>
         )}
       { isLogin && (
-        <Link to="/logout" onClick={handleClick}>
-          <div className="icons">
-            <i className="fa fa-sign-in" />
-            <p>Log Out</p>
-          </div>
-        </Link>
-
+      <PathComponent path="logout" icon="fa-sign-in" linkText="Log Out" handleClick={e => handleClick(e)} />
       )}
     </nav>
 
