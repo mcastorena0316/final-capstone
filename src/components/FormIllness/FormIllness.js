@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './FormIllness.css';
 import { connect } from 'react-redux';
-import { updateIll } from '../actions/illness';
+import { updateIll } from '../../actions/illness';
 
 class FormIllness extends React.Component {
   constructor(props) {

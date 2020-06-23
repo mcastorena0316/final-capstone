@@ -22,7 +22,7 @@ const Footer = ({
   };
 
   return (
-    <div className="menu">
+    <nav className="menu">
       <Link to="/main">
         <div className="icons">
           <i className="fa fa-bar-chart" />
@@ -39,17 +39,15 @@ const Footer = ({
         </div>
       ) : null}
 
-      { isLogin ? null
-        : (
+      { !isLogin
+        && (
+        <>
           <Link to="/login">
             <div className="icons">
               <i className="fa fa-sign-in" />
               <p>Log In</p>
             </div>
           </Link>
-        )}
-      {isLogin ? null
-        : (
           <Link to="/signup">
             <div className="icons">
 
@@ -57,8 +55,9 @@ const Footer = ({
               <p>Sign Up</p>
             </div>
           </Link>
+        </>
         )}
-      { isLogin ? (
+      { isLogin && (
         <Link to="/logout" onClick={handleClick}>
           <div className="icons">
             <i className="fa fa-sign-in" />
@@ -66,9 +65,8 @@ const Footer = ({
           </div>
         </Link>
 
-      )
-        : null}
-    </div>
+      )}
+    </nav>
 
   );
 };

@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import gandalf from './img/gandalf.png';
-import Header from './Header';
-import Login from '../containers/Login';
-import Signup from '../containers/Signup';
-import Illness from '../containers/Illness';
-import Trackings from '../containers/Trackings';
-import Footer from './Footer/Footer';
-import { loginStatus } from '../actions/user';
+import Header from '../Header/Header';
+import Login from '../../containers/Login/Login';
+import Signup from '../../containers/Signup/Signup';
+import Illness from '../../containers/Illness/Illness';
+import Trackings from '../../containers/Trackings/Trackings';
+import Footer from '../Footer/Footer';
+import { loginStatus } from '../../actions/user';
 import './App.css';
 
 class App extends React.Component {
@@ -51,13 +51,9 @@ class App extends React.Component {
               path="/"
               render={() => (
                 isLogin ? (
-                  <div>
-                    <Illness />
-                  </div>
+                  <Illness />
                 ) : (
-                  <div>
-                    <Login />
-                  </div>
+                  <Login />
                 )
               )}
             />
@@ -65,9 +61,7 @@ class App extends React.Component {
               exact
               path="/login"
               render={() => (
-                <div>
-                  <Login />
-                </div>
+                <Login />
 
               )}
             />
@@ -83,9 +77,7 @@ class App extends React.Component {
               path="/main"
               render={() => (
                 isLogin ? (
-                  <div>
-                    <Illness />
-                  </div>
+                  <Illness />
                 )
                   : (
                     <div className="login-access">
