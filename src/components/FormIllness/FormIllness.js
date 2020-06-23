@@ -89,7 +89,6 @@ class FormIllness extends React.Component {
               <input
                 required
                 id="name"
-                placeholder="Name"
                 type="text"
                 name="name"
                 defaultValue={buttonId === '0' ? name : ill[0].name}
@@ -102,7 +101,6 @@ class FormIllness extends React.Component {
               Description:
               <textarea
                 id="description"
-                placeholder="Description"
                 name="description"
                 defaultValue={buttonId === '0' ? description : ill[0].description}
                 onChange={this.handleChangeDescription}

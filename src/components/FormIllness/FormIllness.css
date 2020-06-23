@@ -3,7 +3,7 @@
 
 .one-form {
   font-family: 'Roboto', sans-serif;
-  font-size: 5vw;
+  font-size: 4.4vw;
   border: 0.5px solid rgb(218, 213, 213);
   background-color: white;
   margin: 0 15px 12px 15px;
@@ -12,8 +12,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  height: 40vh;
-  margin-top: 50px;
+  height: 100%;
 }
 
 .one-parameter {
@@ -38,14 +37,16 @@
   margin-right: 10px;
   font-family: 'Roboto', sans-serif;
   font-size: 4vw;
+  padding:4px;
+  margin-left:3px;
 }
 
 .one-parameter input {
-  height: 25px;
+  height: 7vh;
 }
 
 .one-parameter textarea {
-  height: 33px;
+  height: 14vh;
 }
 
 .one-parameter input:focus,
@@ -57,6 +58,7 @@
   display: flex;
   align-items: center;
   margin-top: 14px;
+  margin-bottom: 8px
 }
 
 .buttons-form button {
@@ -65,11 +67,12 @@
   color: white;
   font-weight: bold;
   margin: 5px;
-  height: 44px;
+  height: 100%;
   font-size: 3vw;
   width: 20vw;
   padding: 2px;
   cursor:pointer;
+  padding: 14px 2px;
 }
 
 .buttons-form button:first-child {
