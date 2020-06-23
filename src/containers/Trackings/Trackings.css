@@ -10,32 +10,47 @@
   font-family: 'Raleway', sans-serif;
   text-align: center;
   font-size: 5.5vw;
+  margin:10px;
+}
+
+.trackings-buttons {
+  display: flex;
+  align-items: center;
+  top: 3px;
+  position: absolute;
+  width: 100%;
+  justify-content: space-between;
+  height: 50px;
 }
 
 .add-day,
 .go-back {
   color: white;
-  position: absolute;
   background: none;
   border: none;
 }
 
 .add-day {
-  right: 11px;
-  font-size: 37px;
-  top: 7px;
+  font-size: 12vw;
+  cursor:pointer;
+  padding-right: 10px;
 }
 
 .go-back {
-  left: 11px;
-  font-size: 25px;
-  top: 12px;
+  font-size: 6.8vw;
+  cursor:pointer;
+  padding-left: 10px;
+}
+
+.go-back a {
+  color:white;
 }
 
 .more {
   border-radius: 0 0 12px 12px;
   border: none;
-  height: 5vh;
+  padding: 5px;
+  cursor:pointer;
 }
 
 .date {
@@ -58,6 +73,7 @@
   background: none;
   font-size: 5.5vw;
   padding: 0 3px;
+  cursor:pointer;
 }
 
 .mood,

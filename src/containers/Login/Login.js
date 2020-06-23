@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './Login.css';
-import { loginUser } from '../actions/user';
+import { loginUser } from '../../actions/user';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,9 +14,6 @@ class Login extends React.Component {
       password: '',
       errors: [],
     };
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -71,7 +68,7 @@ class Login extends React.Component {
   render() {
     const { username, password, errors } = this.state;
     return (
-      <div className="login">
+      <section className="login">
         <div>
           <ul id="errors-div" className="errors-div">
             {errors ? this.handleErrors() : null}
@@ -103,7 +100,7 @@ class Login extends React.Component {
 
         </form>
 
-      </div>
+      </section>
     );
   }
 }

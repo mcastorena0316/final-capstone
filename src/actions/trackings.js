@@ -22,7 +22,7 @@ export const createDay = data => async dispatch => {
   try {
     const response = await axios({
       method: 'POST',
-      url: 'https://illnest-api.herokuapp.com/createday',
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses/${data.illness_id}/trackings `,
       data,
       crossdomain: true,
       withCredentials: true,
@@ -45,7 +45,7 @@ export const deleteDay = data => async dispatch => {
     dispatch({ type: DELETE_DAY, payload: data });
     const response = await axios({
       method: 'DELETE',
-      url: 'https://illnest-api.herokuapp.com/deleteday',
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses/${data.illness_id}/trackings/${data.id}`,
       data,
       crossdomain: true,
       withCredentials: true,
@@ -61,7 +61,7 @@ export const updateDay = data => async dispatch => {
     dispatch({ type: UPDATE_DAY, payload: data });
     const response = await axios({
       method: 'PATCH',
-      url: 'https://illnest-api.herokuapp.com/updateday',
+      url: `https://illnest-api.herokuapp.com/users/${data.user_id}/illnesses/${data.illness_id}/trackings/${data.id}`,
       data,
       crossdomain: true,
       withCredentials: true,

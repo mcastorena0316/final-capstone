@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './FormIllness.css';
 import { connect } from 'react-redux';
-import { updateIll } from '../actions/illness';
+import { updateIll } from '../../actions/illness';
 
 class FormIllness extends React.Component {
   constructor(props) {
@@ -11,10 +11,6 @@ class FormIllness extends React.Component {
       name: '',
       description: '',
     };
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentDidMount = () => {
@@ -89,7 +85,6 @@ class FormIllness extends React.Component {
               <input
                 required
                 id="name"
-                placeholder="Name"
                 type="text"
                 name="name"
                 defaultValue={buttonId === '0' ? name : ill[0].name}
@@ -102,7 +97,6 @@ class FormIllness extends React.Component {
               Description:
               <textarea
                 id="description"
-                placeholder="Description"
                 name="description"
                 defaultValue={buttonId === '0' ? description : ill[0].description}
                 onChange={this.handleChangeDescription}
@@ -112,7 +106,7 @@ class FormIllness extends React.Component {
           </div>
           <div className="buttons-form">
             {actionToPerform === 'Add' && <button type="submit">{actionToPerform}</button>}
-            {actionToPerform === 'Save Changes' && <button type="submit">{actionToPerform}</button>}
+            {actionToPerform === 'Save Changes' && <button type="submit">Save</button>}
             {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
             {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
           </div>

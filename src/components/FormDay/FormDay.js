@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './FormDay.css';
-import { updateDay } from '../actions/trackings';
+import { updateDay } from '../../actions/trackings';
 
 class FormDay extends React.Component {
   constructor(props) {
@@ -15,13 +15,6 @@ class FormDay extends React.Component {
       medicine: ['', '', ''],
       symptons: [],
     };
-    this.handleChangeDate = this.handleChangeDate.bind(this);
-    this.handleChangeTemperature = this.handleChangeTemperature.bind(this);
-    this.handleChangeMedicine = this.handleChangeMedicine.bind(this);
-    this.handleChangeSymptons = this.handleChangeSymptons.bind(this);
-    this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount = () => {
@@ -91,9 +84,10 @@ class FormDay extends React.Component {
   }
 
   handleSubmit(mood, temperature, date, medicine, symptons) {
-    const { addTracking, changeAddForm } = this.props;
+    const { addTracking, changeAddForm, user } = this.props;
+    const user_id = user.user.id;
     const medicines = medicine;
-    addTracking(mood, temperature, date, medicines, symptons);
+    addTracking(mood, temperature, date, medicines, symptons, user_id);
     changeAddForm();
   }
 
@@ -165,7 +159,7 @@ class FormDay extends React.Component {
                   type="text"
                   name="med1"
                   defaultValue={buttonId === '0' ? '' : track[0].medicines[0]}
-                  placeholder="Add medicine name"
+                  placeholder="Add medicine"
                   onChange={e => this.handleChangeMedicine(e, 0, 0)}
                 />
                 <input
@@ -185,8 +179,8 @@ class FormDay extends React.Component {
               </div>
             </div>
             <div className="symptons2">
-              <p>Symptons</p>
-              <div className="symp-div">
+              <p>Symptons:</p>
+              <div className="med-div">
                 <input
                   id="symp1"
                   type="text"
@@ -215,7 +209,7 @@ class FormDay extends React.Component {
             </div>
             <div className="buttons-form day-buttons">
               {actionToPerform === 'Add' && <button type="button" onClick={() => this.handleSubmit(selectedOption, temperature, date, medicine, symptons)}>{actionToPerform}</button>}
-              {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>{actionToPerform}</button>}
+              {actionToPerform === 'Save Changes' && <button type="button" onClick={() => this.handleEdit(track[0].id, track[0].illness_id)}>Save</button>}
               {actionToPerform === 'Add' && <button type="button" onClick={changeAddForm}>Cancel</button>}
               {actionToPerform === 'Save Changes' && <button type="button" onClick={changeEditForm}>Cancel</button>}
             </div>

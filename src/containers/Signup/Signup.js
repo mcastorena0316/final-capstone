@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import './Signup.css';
-import { createUser } from '../actions/user';
+import { createUser } from '../../actions/user';
 
 class Signup extends Component {
   constructor(props) {
@@ -15,10 +15,6 @@ class Signup extends Component {
       password_confirmation: '',
       errors: '',
     };
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeName = e => {
@@ -73,7 +69,7 @@ class Signup extends Component {
        username, errors, password, password_confirmation,
      } = this.state;
      return (
-       <div className="signup">
+       <section className="signup">
          <div className="errors-div">
            {errors ? this.handleErrors() : null}
          </div>
@@ -107,7 +103,7 @@ class Signup extends Component {
              Sign In
            </button>
          </form>
-       </div>
+       </section>
      );
    }
 }

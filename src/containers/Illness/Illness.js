@@ -3,11 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import FormIllness from '../components/FormIllness';
+import FormIllness from '../../components/FormIllness/FormIllness';
 import {
   fetchUserIllness, createIll, deleteIll,
-} from '../actions/illness';
-import { loginStatus } from '../actions/user';
+} from '../../actions/illness';
+import { loginStatus } from '../../actions/user';
 import './Illness.css';
 
 class Illness extends React.Component {
@@ -18,12 +18,6 @@ class Illness extends React.Component {
       editForm: false,
       idIll: '0',
     };
-    this.addIllness = this.addIllness.bind(this);
-    this.deleteIll = this.deleteIll.bind(this);
-    this.displayForm = this.displayForm.bind(this);
-    this.changeEditForm = this.changeEditForm.bind(this);
-    this.changeAddForm = this.changeAddForm.bind(this);
-    this.displayEdit = this.displayEdit.bind(this);
   }
 
   componentDidMount() {
@@ -94,7 +88,7 @@ class Illness extends React.Component {
        addForm, editForm, idIll,
      } = this.state;
      return (
-       <div className="main">
+       <main className="main">
          <button type="button" className="add-ill" onClick={this.displayForm}>+</button>
          <div className="illnesses">
            { !editForm && !addForm && <h3>Your Illnesses</h3>}
@@ -143,7 +137,7 @@ class Illness extends React.Component {
          <div className="newill">
            {addForm && <FormIllness addIllness={this.addIllness} actionToPerform="Add" changeAddForm={this.changeAddForm} />}
          </div>
-       </div>
+       </main>
      );
    }
 }
