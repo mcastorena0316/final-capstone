@@ -10,7 +10,7 @@
   font-family: 'Raleway', sans-serif;
   text-align: center;
   font-size: 5.5vw;
-  margin:10px;
+  margin: 10px;
 }
 
 .trackings-buttons {
@@ -32,25 +32,25 @@
 
 .add-day {
   font-size: 12vw;
-  cursor:pointer;
+  cursor: pointer;
   padding-right: 10px;
 }
 
 .go-back {
   font-size: 6.8vw;
-  cursor:pointer;
+  cursor: pointer;
   padding-left: 10px;
 }
 
 .go-back a {
-  color:white;
+  color: white;
 }
 
 .more {
   border-radius: 0 0 12px 12px;
   border: none;
   padding: 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .date {
@@ -73,7 +73,7 @@
   background: none;
   font-size: 5.5vw;
   padding: 0 3px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .mood,

@@ -10,6 +10,6 @@
       "dist/**",
       "**/reset*.css",
       "**/bootstrap*.css",
-      "src/components/img/**"
+      "src/components/App/img/**"
     ]
 }
