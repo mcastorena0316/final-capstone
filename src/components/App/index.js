@@ -7,12 +7,12 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import gandalf from './img/gandalf.png';
-import Header from '../Header/Header';
-import Login from '../../containers/Login/Login';
-import Signup from '../../containers/Signup/Signup';
-import Illness from '../../containers/Illness/Illness';
-import Trackings from '../../containers/Trackings/Trackings';
-import Footer from '../Footer/Footer';
+import Header from '../Header';
+import Login from '../../containers/Login';
+import Signup from '../../containers/Signup';
+import Illness from '../../containers/Illness';
+import Trackings from '../../containers/Trackings';
+import Footer from '../Footer';
 import { loginStatus } from '../../actions/user';
 import './App.css';
 
@@ -92,7 +92,7 @@ class App extends React.Component {
               path="/illness/:id"
               render={({ match }) => (
                 isLogin ? (
-                  <div>
+                  <div className="route-trackings">
                     <Trackings match={match} displayForm={this.displayForm} addForm={addForm} />
                     <Footer displayForm={this.displayForm} addForm={addForm} match={match} />
                   </div>

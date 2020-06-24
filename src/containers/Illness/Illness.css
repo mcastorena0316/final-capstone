@@ -4,6 +4,7 @@
 .main {
   padding-bottom: 50px;
   font-family: 'Roboto', sans-serif;
+  overflow-y: scroll;
 }
 
 .main h3 {
