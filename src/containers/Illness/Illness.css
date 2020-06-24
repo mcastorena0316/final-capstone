@@ -89,9 +89,17 @@
   font-weight: bold;
 }
 
+.ill-name p:first-child {
+  width: 76.281px;
+}
+
 .one-ill .ill-info .ill-name,
 .one-ill .ill-info .ill-description {
   display: flex;
+}
+
+.one-ill .ill-info .ill-name {
+  padding-right: 10px;
 }
 
 .tracking {
