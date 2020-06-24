@@ -29,6 +29,5 @@
 
 .route-trackings {
   overflow-y: scroll;
-  padding-bottom: 65px;
+  padding-bottom: 10vh;
 }
-

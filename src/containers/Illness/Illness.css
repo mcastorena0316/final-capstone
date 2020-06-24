@@ -2,7 +2,7 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
 
 .main {
-  padding-bottom: 50px;
+  padding-bottom: 10vh;
   font-family: 'Roboto', sans-serif;
   overflow-y: scroll;
 }
