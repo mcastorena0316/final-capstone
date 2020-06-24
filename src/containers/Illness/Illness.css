@@ -84,8 +84,9 @@
 
 .ill-name p:first-child,
 .ill-description p:first-child {
-  margin-right: 10px;
-  margin-left: 40px;
+  width: 70px;
+  margin-right: 25px;
+  margin-left: 30px;
   font-weight: bold;
 }
 
