@@ -118,7 +118,7 @@ class Illness extends React.Component {
                      <div>
                        <div className="ill-name">
                          <p>Name:</p>
-                         <p>Description</p>
+                         <p>Description:</p>
                        </div>
                        <div className="ill-description">
                          <p>{ill.name}</p>
