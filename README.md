@@ -9,10 +9,10 @@
 * [About the Project](#about-the-project)
 * [Illnest](#illnest)
   * [Installation](#installation)
-* [Tecnologies used](#tecnologies-used)
+* [Technologies used](#technologies-used)
 * [Author](#author)
 * [Show your Support](#show-your-support)
-* [Acknowledgements](#acknowledgements)
+* [Acknowledgments](#acknowledgments)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -21,7 +21,11 @@ The objective of this project was to create a tracking App in which a user is pr
 
 Live version of the project: [Live version](https://illnest.netlify.app/)
 
+Live version of the API: [illnest-API](https://illnest-api.herokuapp.com/)
+
 Project Link: [Final-capstone](https://github.com/mcastorena0316/final-capstone)
+
+Project Link API: [Final-capstone-API](https://github.com/mcastorena0316/finalproject-api)
 
 
 <!-- THE APP -->
@@ -39,7 +43,7 @@ Then on the main page, you have all the illnesses/afflictions you want to monito
 <div align="center"><img src="public/main.png" alt="login"></div>
 
 If you click on a specific one, you are redirected to all the trackings you have registered previously. Some of the data included in this section are:
-Date of the Tracking
+- Date of the Tracking
 - The mood of the date
 - Temperature
 - Medicines
@@ -74,8 +78,8 @@ You can always use the [live version](https://illnest.netlify.app/) or install i
 `$ npm run start`
 
 
-<!-- TECNOLOGIES USED -->
-## Tecnologies used
+<!-- TECHNOLOGIES USED -->
+## Technologies used
 
 * React
 * Redux
@@ -128,6 +132,6 @@ You can always use the [live version](https://illnest.netlify.app/) or install i
 Give a star if you like this project!
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+## Acknowledgments
 
 * [Microverse](https://www.microverse.org/)
