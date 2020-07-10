@@ -11,6 +11,7 @@
   * [Installation](#installation)
 * [Technologies used](#technologies-used)
 * [Author](#author)
+* [Potential future features](#potential-features)
 * [Show your Support](#show-your-support)
 * [Acknowledgments](#acknowledgments)
 
@@ -125,6 +126,13 @@ You can always use the [live version](https://illnest.netlify.app/) or install i
     </td>
   </tr>
 </table>
+
+<!-- POTENTIAL FEATURES -->
+## Potential features
+
+* Create a tablet and mobile view.
+* Create data charts for measuring progress.
+* Use React Hooks.
 
 <!-- SHOW YOUR SUPPORT -->
 ## Show your Support
